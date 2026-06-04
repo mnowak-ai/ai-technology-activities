@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentinel — Module 2 Phase B Data Pack</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple:#7B2FBE; --purple-deep:#5B1F92; --purple-soft:#F3EBFB; --purple-line:#E3D2F5;
+    --ink:#1F1A26; --slate:#4A4658; --muted:#6E6A7A;
+    --paper:#FBF9FC; --card:#FFFFFF; --line:#EAE6F0;
+    --calm:#3A6B8A; --calm-soft:#E7F0F5;
+    --green:#2E7D57; --green-soft:#E8F4EE;
+    --amber:#B26A00; --amber-soft:#FBF0DD;
+    --red:#B52B27; --red-soft:#FAEAEA;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'DM Sans',sans-serif;
+    background:
+      radial-gradient(1100px 520px at 85% -10%, rgba(123,47,190,0.07), transparent 60%),
+      radial-gradient(900px 440px at -8% 2%, rgba(58,107,138,0.05), transparent 55%),
+      var(--paper);
+    color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased;
+    padding:0 20px 90px;
+  }
+  .wrap{max-width:880px;margin:0 auto}
+
+  .opsbar{max-width:880px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:16px 4px;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:.95rem}
+  .shield{width:30px;height:30px;display:grid;place-items:center;border-radius:8px;background:linear-gradient(150deg,var(--purple),var(--purple-deep));color:#fff;box-shadow:0 4px 12px rgba(91,31,146,.28)}
+  .shield svg{width:16px;height:16px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-left:auto}
+  .chip{font-size:.72rem;font-weight:600;padding:5px 11px;border-radius:999px;border:1px solid var(--line);color:var(--slate);background:#fff;display:inline-flex;align-items:center;gap:7px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--purple);box-shadow:0 0 0 3px rgba(123,47,190,.16);animation:pulse 2.2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+
+  .hero{padding:54px 0 12px}
+  .kicker{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--purple-deep);background:var(--purple-soft);border:1px solid var(--purple-line);padding:6px 13px;border-radius:999px;margin-bottom:22px}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.1rem,5vw,3.1rem);line-height:1.07;letter-spacing:-.5px;margin-bottom:16px}
+  .lede{font-size:1.14rem;color:var(--slate);max-width:58ch}
+
+  section{padding:44px 0;border-top:1px solid var(--line)}
+  section:first-of-type{border-top:none}
+  .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .eyebrow .num{font-family:'Fraunces',serif;font-weight:600;font-size:1rem;color:#fff;background:var(--purple);min-width:34px;height:34px;padding:0 9px;border-radius:9px;display:grid;place-items:center;flex:0 0 auto}
+  .eyebrow .lab{font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple-deep)}
+  h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.55rem,3.2vw,2rem);line-height:1.15;letter-spacing:-.3px}
+  p{font-size:1.04rem;color:var(--slate);margin-bottom:14px}
+  p:last-child{margin-bottom:0}
+  p strong{color:var(--ink);font-weight:600}
+  .lead-line{font-size:1.08rem;color:var(--ink);font-weight:500;margin-bottom:16px}
+
+  /* Steps */
+  .steps{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+  .st{flex:1 1 180px;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:16px;display:flex;gap:11px;align-items:flex-start}
+  .st .sn{flex:0 0 auto;font-family:'Fraunces',serif;font-weight:600;font-size:1.1rem;color:#fff;background:var(--purple);width:30px;height:30px;border-radius:8px;display:grid;place-items:center}
+  .st .sb b{display:block;font-weight:700;color:var(--ink);font-size:.96rem;margin-bottom:2px}
+  .st .sb{font-size:.91rem;color:var(--slate)}
+
+  .aside{display:flex;gap:16px;background:var(--purple-soft);border:1px solid var(--purple-line);border-radius:16px;padding:20px 22px;margin:22px 0 0}
+  .aside .ail{flex:0 0 auto;width:40px;height:40px;border-radius:11px;background:#fff;border:1px solid var(--purple-line);display:grid;place-items:center;color:var(--purple-deep)}
+  .aside .ail svg{width:21px;height:21px}
+  .aside .tag{font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple-deep);margin-bottom:6px}
+  .aside p{margin:0;font-size:.98rem;color:var(--slate)}
+
+  /* File cards */
+  .file{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-bottom:16px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .file .fh{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 20px;flex-wrap:wrap;gap:8px}
+  .f1 .fh{background:#152230;border-bottom:1px solid rgba(58,107,138,.3)}
+  .f2 .fh{background:#251A0A;border-bottom:1px solid rgba(178,106,0,.3)}
+  .f3 .fh{background:#1C1530;border-bottom:1px solid rgba(123,47,190,.3)}
+  .f4 .fh{background:#1A1F26;border-bottom:1px solid rgba(100,120,140,.2)}
+  .fn{display:flex;align-items:center;gap:9px;font-weight:700;font-size:.92rem;color:#fff}
+  .fn svg{width:16px;height:16px}
+  .f1 .fn svg{color:#7BC4E0} .f2 .fn svg{color:#F5C776} .f3 .fn svg{color:#C9A8EC} .f4 .fn svg{color:#9DB8C8}
+  .fh-right{display:flex;gap:8px;flex-wrap:wrap}
+  .cbtn{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;border-radius:8px;padding:7px 12px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.78rem;cursor:pointer;transition:background .16s;white-space:nowrap}
+  .cbtn:hover{background:rgba(255,255,255,.20)}
+  .cbtn svg{width:13px;height:13px}
+  .cbtn.dl{background:rgba(123,47,190,.45);border-color:rgba(155,100,220,.4)}
+  .cbtn.dl:hover{background:rgba(123,47,190,.7)}
+  .f2 .cbtn.dl{background:rgba(178,106,0,.4);border-color:rgba(245,199,118,.3)}
+  .f2 .cbtn.dl:hover{background:rgba(178,106,0,.65)}
+  .file pre{margin:0;padding:16px 20px;font-family:'DM Mono',monospace;font-size:.82rem;line-height:1.75;color:var(--ink);background:#FCFBFE;overflow-x:auto;white-space:pre}
+  .file .fnote{padding:9px 20px;font-size:.83rem;color:var(--muted);background:#FAF8FC;border-top:1px solid var(--line);font-style:italic}
+
+  /* Table for File 3 */
+  .tbl-wrap{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:.93rem}
+  thead tr{background:#1C1530;color:#fff}
+  thead th{padding:12px 16px;text-align:left;font-weight:700;white-space:nowrap;font-size:.85rem;letter-spacing:.2px}
+  tbody tr{border-top:1px solid var(--line)}
+  tbody tr:hover{background:#FAF8FC}
+  tbody td{padding:12px 16px;color:var(--slate);vertical-align:top;line-height:1.5}
+  tbody td:first-child{font-weight:600;color:var(--ink);white-space:nowrap}
+  .badge-sev{display:inline-flex;align-items:center;font-size:.78rem;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap}
+  .badge-sev.low{background:var(--green-soft);color:var(--green)}
+  .badge-sev.med{background:var(--amber-soft);color:var(--amber)}
+  .badge-sev.high{background:var(--red-soft);color:var(--red)}
+  .itype{font-size:.75rem;font-weight:700;letter-spacing:.3px;text-transform:uppercase;padding:2px 7px;border-radius:5px;white-space:nowrap}
+  .itype.perf{background:var(--calm-soft);color:var(--calm)}
+  .itype.login{background:var(--amber-soft);color:var(--amber)}
+  .itype.behavior{background:var(--purple-soft);color:var(--purple-deep)}
+
+  /* Narrative card */
+  .narrative{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .narrative .nh{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 20px;background:#1A1F26;border-bottom:1px solid rgba(100,120,140,.2);flex-wrap:wrap;gap:8px}
+  .narrative .nb{padding:24px}
+  .narrative .tag{font-size:.68rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--purple-deep);margin-bottom:12px}
+  .narrative .nb p{font-size:1.01rem;color:var(--slate);margin-bottom:14px;line-height:1.7}
+  .narrative .nb p:last-child{margin-bottom:0}
+  .narrative .nb p strong{color:var(--ink)}
+
+  .copyall{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;border:1.5px solid var(--purple);background:var(--purple);color:#fff;border-radius:13px;padding:15px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;transition:transform .16s,box-shadow .16s;margin-top:4px}
+  .copyall:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(123,47,190,.3)}
+  .copyall svg{width:17px;height:17px}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.dot{animation:none}}
+  @media(max-width:600px){body{padding:0 16px 70px}.chips{width:100%;margin-left:0}}
+  @media print{.opsbar,.cbtn,.copyall{display:none!important}body{background:#fff}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="opsbar">
+  <div class="brand">
+    <span class="shield"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+    Sentinel Technical Support &amp; Operations
+  </div>
+  <div class="chips">
+    <span class="chip"><span class="dot"></span>End-of-Shift Export</span>
+    <span class="chip">Module 2 · Phase B · Data Pack</span>
+    <span class="chip">4 Files Ready</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero reveal">
+    <span class="kicker">Module 2 · Phase B · Data Files</span>
+    <h1>Sentinel support system export — today's shift.</h1>
+    <p class="lede">Four files pulled from the Technical Support & Operations Center at the end of today's shift. Use these for AI analysis in Phase B.</p>
+  </header>
+
+  <!-- How to use -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">↑</span><span class="lab">Before you start</span></div>
+    <h2>How to use these files</h2>
+    <p class="lead-line">Each file shows a different view of the same operational day. Together, they give a full picture of what the support system experienced.</p>
+    <div class="steps">
+      <div class="st"><span class="sn">1</span><div class="sb"><b>Read each file</b>Understand what kind of data it contains before pasting.</div></div>
+      <div class="st"><span class="sn">2</span><div class="sb"><b>Copy or download</b>Use the buttons on each file card.</div></div>
+      <div class="st"><span class="sn">3</span><div class="sb"><b>Paste into AI tool</b>ChatGPT, Claude, or Microsoft Copilot.</div></div>
+      <div class="st"><span class="sn">4</span><div class="sb"><b>Compare to Phase A</b>Check where AI agrees — and where it doesn't.</div></div>
+    </div>
+    <div class="aside">
+      <span class="ail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg></span>
+      <div>
+        <div class="tag">Notice</div>
+        <p>These files have small imperfections on purpose — a blank note field, slightly vague descriptions, condensed entries. Real exports are never perfectly clean. Part of the job is working with what you get.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- File 1 — Performance Log -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">1</span><span class="lab">Performance Log</span></div>
+    <h2>File 1 — system performance log</h2>
+    <p class="lead-line">How the systems held up throughout the day — recorded in real time as conditions changed.</p>
+    <div class="file f1">
+      <div class="fh">
+        <span class="fn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 16l4-7 4 4 4-6"/></svg> system-performance-log.csv</span>
+        <div class="fh-right">
+          <button class="cbtn" data-copy="f1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy</button>
+          <button class="cbtn dl" data-dl="f1" data-name="sentinel-system-performance-log.csv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Download .csv</button>
+        </div>
+      </div>
+      <pre id="f1">Time,System Area,Status,Notes
+07:30 AM,Government Services Portal,Normal,Morning startup check complete — all services online
+08:15 AM,Hospital Records System,Normal,Standard traffic — 38 active users — no issues
+09:00 AM,School District File System,Normal,Routine document access — within expected range
+09:45 AM,Government Services Portal,Busy,User count climbing ahead of end-of-month deadline
+10:30 AM,Government Services Portal,Busy,62 active users logged in — typical peak is around 40
+11:00 AM,Hospital Records System,Normal,Stable — no issues detected
+11:45 AM,Government Services Portal,Slow,Response times higher than normal — cause under review — intermittent delay detected
+12:10 PM,Government Services Portal,Normal,Performance returned to expected levels — no action taken
+01:15 PM,School District File System,Normal,Post-lunch activity normal — no issues flagged
+02:14 PM,Hospital Records System,Slow,Brief performance dip — unclear cause — resolved within approximately 6 minutes
+03:30 PM,School District File System,Note,File save errors reported by subset of users — behavior inconsistent
+05:00 PM,Overall Systems,Normal,End of peak period — all services reporting stable</pre>
+      <div class="fnote">12 entries · Performance dip at 2:14 PM unresolved · File errors at 3:30 PM flagged open</div>
+    </div>
+  </section>
+
+  <!-- File 2 — Login Activity -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">2</span><span class="lab">Login Activity</span></div>
+    <h2>File 2 — login & access activity log</h2>
+    <p class="lead-line">A record of every sign-in attempt across all systems today — who, when, from where, and whether it worked.</p>
+    <div class="file f2">
+      <div class="fh">
+        <span class="fn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5"/></svg> login-access-activity-log.csv</span>
+        <div class="fh-right">
+          <button class="cbtn" data-copy="f2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy</button>
+          <button class="cbtn dl" data-dl="f2" data-name="sentinel-login-access-log.csv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Download .csv</button>
+        </div>
+      </div>
+      <pre id="f2">User ID,Time,Status,Location,Notes
+U-102,08:05 AM,Success,Chicago IL,Normal morning login
+U-215,08:22 AM,Success,Chicago IL,Normal morning login
+U-089,08:41 AM,Success,Chicago IL,Normal morning login
+U-331,09:14 AM,Success,Denver CO,New location — not previously seen on this account
+U-174,10:30 AM,Success,Chicago IL,
+U-443,11:02 AM,Failed,Chicago IL,Incorrect credentials — user contacted support desk
+U-443,11:04 AM,Success,Chicago IL,Login successful on second attempt — possible password confusion
+U-118,03:37 PM,Failed,Chicago IL,Incorrect password — attempt 1 of multiple
+U-118,03:38 PM–03:41 PM,Failed (x4),Chicago IL,System export condensed — 4 additional failed attempts recorded in this window
+U-118,03:42 PM,Partial Success,Chicago IL,Access granted after 5 total failed attempts — flagged for shift review
+U-450,06:12 PM,Success,Remote,After-hours login from remote location — outside standard working window</pre>
+      <div class="fnote">11 rows · U-174 note intentionally blank (common in live exports) · U-118 attempts condensed by system · "Partial Success" = flagged access event</div>
+    </div>
+  </section>
+
+  <!-- File 3 — Events & Errors (rendered table) -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">3</span><span class="lab">Events & Errors</span></div>
+    <h2>File 3 — system events & error summary</h2>
+    <p class="lead-line">A condensed summary of every issue flagged during the shift, with severity levels assigned by the monitoring system.</p>
+    <div class="file f3">
+      <div class="fh">
+        <span class="fn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg> system-events-error-summary.txt</span>
+        <div class="fh-right">
+          <button class="cbtn" data-copy="f3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy</button>
+          <button class="cbtn dl" data-dl="f3" data-name="sentinel-events-error-summary.txt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Download .txt</button>
+        </div>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Time</th><th>Issue Type</th><th>Description</th><th>Severity</th></tr></thead>
+          <tbody>
+            <tr><td>09:14 AM</td><td><span class="itype login">Login/Access</span></td><td>Account U-331 logged in successfully from Denver CO — location not seen before on this account</td><td><span class="badge-sev low">Low</span></td></tr>
+            <tr><td>10:30 AM</td><td><span class="itype perf">Performance</span></td><td>Government Services Portal user count reached 62 — above typical peak — response times beginning to increase</td><td><span class="badge-sev low">Low</span></td></tr>
+            <tr><td>11:02 AM</td><td><span class="itype login">Login/Access</span></td><td>Account U-443 — one failed attempt before successful login — user may be adjusting to new password requirements</td><td><span class="badge-sev low">Low</span></td></tr>
+            <tr><td>11:45 AM</td><td><span class="itype perf">Performance</span></td><td>Portal slowdown detected during peak reporting period — above-normal load — resolved without escalation</td><td><span class="badge-sev med">Medium</span></td></tr>
+            <tr><td>02:14 PM</td><td><span class="itype perf">Performance</span></td><td>Hospital Records System — brief performance dip of approximately 6 minutes — cause not identified — self-resolved</td><td><span class="badge-sev med">Medium</span></td></tr>
+            <tr><td>03:30 PM</td><td><span class="itype behavior">System Behavior</span></td><td>School District file platform — intermittent "Action could not be completed" error on file saves — affects some accounts, not others</td><td><span class="badge-sev med">Medium</span></td></tr>
+            <tr><td>03:37 PM</td><td><span class="itype login">Login/Access</span></td><td>Account U-118 — 5 failed sign-in attempts followed by access — pattern consistent with password rule confusion — flagged for awareness</td><td><span class="badge-sev med">Medium</span></td></tr>
+            <tr><td>06:12 PM</td><td><span class="itype login">Login/Access</span></td><td>After-hours login — account U-450 from remote location — access permitted — outside standard working hours</td><td><span class="badge-sev low">Low</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="fnote">8 events · 3 medium severity · 5 low severity · Nothing resolved as high risk · Three items still open</div>
+    </div>
+  </section>
+
+  <!-- File 4 — Narrative -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">4</span><span class="lab">Shift Summary</span></div>
+    <h2>File 4 — daily support shift summary</h2>
+    <p class="lead-line">A plain-language handoff note written by the outgoing analyst at end of shift. Not a formal report — just a real account of the day.</p>
+    <div class="narrative">
+      <div class="nh">
+        <span class="fn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/></svg> daily-support-shift-summary.txt</span>
+        <div class="fh-right">
+          <button class="cbtn" data-copy="f4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy</button>
+          <button class="cbtn dl" data-dl="f4" data-name="sentinel-shift-summary.txt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Download .txt</button>
+        </div>
+      </div>
+      <div class="nb" id="f4-display">
+        <div class="tag">End-of-shift handoff note · Sentinel Technical Support &amp; Operations · Today's Date</div>
+        <p>Today's support shift covered the Government Services Portal, Hospital Records System, and School District file platform. The most notable activity came from the Government Services Portal, which saw user numbers climb to around 62 simultaneous connections during the morning — roughly 50 percent above its typical daily peak of 40. This coincided with the end-of-month reporting deadline, which brought in a larger-than-usual group of users logging in around the same time. Response times slowed noticeably between 11:30 and 12:00 PM, but the system recovered on its own and no tickets were raised by users during that window.</p>
+        <p>Three items are being carried forward as open for the incoming shift. <strong>First</strong>, the Hospital Records System experienced a brief performance dip at 2:14 PM lasting approximately six minutes. No cause has been confirmed, and no similar event has occurred in recent shifts. Given that the hospital system supports active patient record access, a repeat event would warrant closer attention. <strong>Second</strong>, starting around 3:30 PM, a portion of school district users began encountering a file save error — "Action could not be completed" — that appears and disappears inconsistently. The pattern may be related to a folder restructuring completed two days ago, which left some user accounts without updated access permissions, but this has not been confirmed. <strong>Third</strong>, account U-118 recorded five failed sign-in attempts before a successful login at 3:42 PM. This is consistent with what we've been seeing since last week's password rule update — not everyone received the change notice, and some users are still getting locked out while trying their old credentials. The pattern may resolve as users update passwords, but the account should be monitored if the behavior repeats. No items were escalated today.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Copy all -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">★</span><span class="lab">Quick action</span></div>
+    <h2>Copy everything for your AI tool</h2>
+    <p class="lead-line">Paste all four files at once into ChatGPT, Claude, or Copilot — then use your Phase B analysis prompt to get started.</p>
+    <button class="copyall" id="copyAll"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> <span id="copyAllLabel">Copy all four files</span></button>
+  </section>
+
+</div>
+
+<script>
+  const f1=document.getElementById('f1').textContent;
+  const f2=document.getElementById('f2').textContent;
+  const f3=`Time | Issue Type | Description | Severity
+09:14 AM | Login/Access | Account U-331 logged in from Denver CO -- location not seen before on this account | Low
+10:30 AM | Performance | Government Services Portal at 62 users -- above typical peak -- response times increasing | Low
+11:02 AM | Login/Access | Account U-443 -- one failed attempt before successful login -- possible password confusion | Low
+11:45 AM | Performance | Portal slowdown during peak reporting period -- resolved without escalation | Medium
+02:14 PM | Performance | Hospital Records System -- brief 6-minute performance dip -- cause not identified -- self-resolved | Medium
+03:30 PM | System Behavior | School District file platform -- intermittent file save error -- affects some accounts not others | Medium
+03:37 PM | Login/Access | Account U-118 -- 5 failed sign-in attempts then access -- pattern consistent with password rule confusion | Medium
+06:12 PM | Login/Access | After-hours login -- account U-450 -- remote location -- access permitted | Low`;
+  const f4=document.getElementById('f4-display').innerText;
+
+  const files={f1,f2,f3,f4};
+  const names={
+    f1:'sentinel-system-performance-log.csv',
+    f2:'sentinel-login-access-log.csv',
+    f3:'sentinel-events-error-summary.txt',
+    f4:'sentinel-shift-summary.txt'
+  };
+
+  function copyText(txt,btn,label){
+    const done=()=>flash(btn,label);
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done).catch(()=>fallback(txt,btn,label)); }
+    else { fallback(txt,btn,label); }
+  }
+  function fallback(txt,btn,label){ const t=document.createElement('textarea');t.value=txt;t.style.cssText='position:fixed;opacity:0;top:0;left:0';document.body.appendChild(t);t.select();try{document.execCommand('copy');}catch(e){}t.remove();flash(btn,label); }
+  function flash(btn,label){ const h=btn.innerHTML; btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M20 6 9 17l-5-5"/></svg> '+label; setTimeout(()=>{btn.innerHTML=h;},1800); }
+
+  document.querySelectorAll('.cbtn[data-copy]').forEach(b=>{
+    b.addEventListener('click',()=>copyText(files[b.dataset.copy],b,'Copied'));
+  });
+  document.querySelectorAll('.cbtn[data-dl]').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const id=b.dataset.dl;
+      const blob=new Blob([files[id]],{type:'text/plain'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');a.href=url;a.download=names[id];
+      document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+      flash(b,'Downloaded');
+    });
+  });
+  document.getElementById('copyAll').addEventListener('click',(e)=>{
+    const all=
+      '=== FILE 1: SYSTEM PERFORMANCE LOG ===\n'+f1+
+      '\n\n=== FILE 2: LOGIN & ACCESS ACTIVITY LOG ===\n'+f2+
+      '\n\n=== FILE 3: SYSTEM EVENTS & ERROR SUMMARY ===\n'+f3+
+      '\n\n=== FILE 4: DAILY SUPPORT SHIFT SUMMARY ===\n'+f4;
+    copyText(all,e.currentTarget,'All four files copied');
+  });
+
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
