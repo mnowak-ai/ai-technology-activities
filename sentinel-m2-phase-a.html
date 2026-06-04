@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentinel — Module 2 Phase A: Human Investigation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple:#7B2FBE; --purple-deep:#5B1F92; --purple-soft:#F3EBFB; --purple-line:#E3D2F5;
+    --ink:#1F1A26; --slate:#4A4658; --muted:#6E6A7A;
+    --paper:#FBF9FC; --card:#FFFFFF; --line:#EAE6F0;
+    --calm:#3A6B8A; --calm-soft:#E7F0F5;
+    --green:#2E7D57; --green-soft:#E8F4EE;
+    --amber:#B26A00; --amber-soft:#FBF0DD;
+    --red:#B52B27; --red-soft:#FAEAEA;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'DM Sans',sans-serif;
+    background:
+      radial-gradient(1100px 520px at 85% -10%, rgba(123,47,190,0.07), transparent 60%),
+      radial-gradient(900px 440px at -8% 2%, rgba(58,107,138,0.05), transparent 55%),
+      var(--paper);
+    color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased;
+    padding:0 20px 90px;
+  }
+  .wrap{max-width:880px;margin:0 auto}
+
+  /* ── Ops bar ── */
+  .opsbar{max-width:880px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:16px 4px;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:.95rem}
+  .shield{width:30px;height:30px;display:grid;place-items:center;border-radius:8px;background:linear-gradient(150deg,var(--purple),var(--purple-deep));color:#fff;box-shadow:0 4px 12px rgba(91,31,146,.28)}
+  .shield svg{width:16px;height:16px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-left:auto}
+  .chip{font-size:.72rem;font-weight:600;padding:5px 11px;border-radius:999px;border:1px solid var(--line);color:var(--slate);background:#fff;display:inline-flex;align-items:center;gap:7px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--purple);box-shadow:0 0 0 3px rgba(123,47,190,.16);animation:pulse 2.2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+
+  /* ── Hero ── */
+  .hero{padding:54px 0 12px}
+  .kicker{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--purple-deep);background:var(--purple-soft);border:1px solid var(--purple-line);padding:6px 13px;border-radius:999px;margin-bottom:22px}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.1rem,5.2vw,3.2rem);line-height:1.06;letter-spacing:-.5px;margin-bottom:16px}
+  .lede{font-size:1.15rem;color:var(--slate);max-width:58ch}
+
+  /* ── Sections ── */
+  section{padding:46px 0;border-top:1px solid var(--line)}
+  section:first-of-type{border-top:none}
+  .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .eyebrow .num{font-family:'Fraunces',serif;font-weight:600;font-size:1rem;color:#fff;background:var(--purple);min-width:34px;height:34px;padding:0 9px;border-radius:9px;display:grid;place-items:center;flex:0 0 auto}
+  .eyebrow .lab{font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple-deep)}
+  h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.6rem,3.4vw,2.05rem);line-height:1.14;letter-spacing:-.3px}
+  p{font-size:1.04rem;color:var(--slate);margin-bottom:14px}
+  p:last-child{margin-bottom:0}
+  p strong{color:var(--ink);font-weight:600}
+  .lead-line{font-size:1.08rem;color:var(--ink);font-weight:500;margin-bottom:16px}
+
+  /* ── Aside ── */
+  .aside{display:flex;gap:16px;background:var(--purple-soft);border:1px solid var(--purple-line);border-radius:16px;padding:20px 22px;margin:22px 0 0}
+  .aside .ail{flex:0 0 auto;width:40px;height:40px;border-radius:11px;background:#fff;border:1px solid var(--purple-line);display:grid;place-items:center;color:var(--purple-deep)}
+  .aside .ail svg{width:21px;height:21px}
+  .aside .tag{font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple-deep);margin-bottom:6px}
+  .aside p{margin:0;font-size:.98rem;color:var(--slate)}
+
+  /* ── Principle banner ── */
+  .principle{margin:26px 0 0;padding:28px 30px;border-radius:18px;background:linear-gradient(135deg,#2A1840,#4A1E78);color:#fff;position:relative;overflow:hidden}
+  .principle::after{content:"";position:absolute;right:-50px;top:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%)}
+  .principle .qm{font-family:'Fraunces',serif;font-size:2.4rem;line-height:.5;color:#C9A8EC;display:block;margin-bottom:6px}
+  .principle p{font-family:'Fraunces',serif;font-weight:500;font-size:1.26rem;line-height:1.35;color:#fff;margin:0;position:relative}
+
+  /* ── Role panels ── */
+  .duo{display:flex;flex-wrap:wrap;gap:16px;margin-top:8px}
+  .panel{flex:1 1 320px;border-radius:16px;padding:22px;background:var(--card);border:1px solid var(--line);box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .panel .ph{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .panel .ph .ic{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;flex:0 0 auto}
+  .panel .ph .ic svg{width:16px;height:16px}
+  .panel.yes .ic{background:var(--green-soft);color:var(--green)}
+  .panel.no .ic{background:#F4EFF7;color:var(--muted)}
+  .panel h3{font-size:1rem;font-weight:700;color:var(--ink)}
+  .panel .item{display:flex;gap:10px;padding:9px 0;font-size:.97rem;color:var(--slate);border-top:1px solid var(--line)}
+  .panel .item:first-of-type{border-top:none;padding-top:2px}
+  .panel .item .mk{flex:0 0 auto;margin-top:1px;font-weight:700;color:var(--green)}
+  .panel.no .item .mk{color:var(--muted)}
+
+  /* ── Incident ticket card ── */
+  .icase{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-top:6px;box-shadow:0 2px 6px rgba(31,26,38,.06)}
+  .icase + .icase{margin-top:20px}
+
+  /* ticket header */
+  .tic-head{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:16px 22px;background:#1F1830;border-bottom:1px solid rgba(255,255,255,.06)}
+  .tic-icon{flex:0 0 auto;width:38px;height:38px;border-radius:10px;display:grid;place-items:center}
+  .tic-icon svg{width:20px;height:20px}
+  .case1 .tic-icon{background:rgba(58,107,138,.35);color:#7BC4E0}
+  .case2 .tic-icon{background:rgba(178,106,0,.35);color:#F5C776}
+  .case3 .tic-icon{background:rgba(123,47,190,.35);color:#C9A8EC}
+  .tic-meta{flex:1 1 auto}
+  .tic-meta .tic-id{font-size:.7rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:2px}
+  .tic-meta .tic-title{font-family:'Fraunces',serif;font-weight:600;font-size:1.08rem;color:#fff}
+  .tic-tags{display:flex;flex-wrap:wrap;gap:7px;margin-left:auto}
+  .ttag{font-size:.7rem;font-weight:700;padding:4px 10px;border-radius:999px;letter-spacing:.2px}
+  .ttag.open{background:rgba(46,125,87,.35);color:#7BE3A6;border:1px solid rgba(46,125,87,.3)}
+  .ttag.time{background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.12)}
+
+  /* reported section */
+  .tic-report{padding:18px 22px;border-bottom:1px solid var(--line);background:#FAF8FC}
+  .tic-report .rtag{font-size:.68rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:7px}
+  .tic-report .rtag::after{content:"";flex:1;height:1px;background:var(--line)}
+  .report-items{display:flex;flex-direction:column;gap:8px}
+  .ri{display:flex;gap:11px;align-items:flex-start;font-size:.97rem;color:var(--slate);line-height:1.5}
+  .ri .ric{flex:0 0 auto;margin-top:4px;width:6px;height:6px;border-radius:50%;background:var(--purple);opacity:.6}
+
+  /* context strip */
+  .tic-ctx{padding:12px 22px;background:var(--purple-soft);border-bottom:1px solid var(--purple-line);display:flex;align-items:flex-start;gap:10px;font-size:.93rem;color:var(--slate)}
+  .tic-ctx svg{width:15px;height:15px;color:var(--purple-deep);flex:0 0 auto;margin-top:2px}
+
+  /* investigation area */
+  .tic-invest{padding:20px 22px}
+  .invest-label{font-size:.72rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:7px}
+  .invest-label::after{content:"";flex:1;height:1px;background:var(--line)}
+  label.fl{display:block;font-weight:600;color:var(--ink);font-size:.95rem;margin-bottom:7px}
+  .field-group{margin-bottom:16px}
+  .field-group:last-of-type{margin-bottom:0}
+  textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:13px;font-family:'DM Sans',sans-serif;font-size:1rem;color:var(--ink);line-height:1.55;resize:vertical;min-height:80px;background:#FDFCFE;transition:border-color .18s,box-shadow .18s}
+  textarea:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 3px rgba(123,47,190,.12)}
+  textarea::placeholder{color:#B5AFC0}
+  .sev-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+  .sevbtn{flex:1 1 90px;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:10px 8px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.9rem;color:var(--slate);cursor:pointer;transition:all .16s;text-align:center}
+  .sevbtn:hover{border-color:var(--purple-line)}
+  .sevbtn[data-s="low"].on{background:var(--green-soft);border-color:var(--green);color:var(--green)}
+  .sevbtn[data-s="medium"].on{background:var(--amber-soft);border-color:var(--amber);color:var(--amber)}
+  .sevbtn[data-s="high"].on{background:var(--red-soft);border-color:var(--red);color:var(--red)}
+
+  /* ── Deliverable form ── */
+  .deliv{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin-top:16px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .deliv .dh{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  .deliv .dn{flex:0 0 auto;width:32px;height:32px;border-radius:9px;background:var(--purple-soft);color:var(--purple-deep);font-family:'Fraunces',serif;font-weight:600;display:grid;place-items:center}
+  .deliv h3{font-size:1.08rem;font-weight:700;color:var(--ink)}
+  .deliv .dsub{font-size:.96rem;color:var(--muted);margin-bottom:14px}
+
+  /* ── Export bar ── */
+  .exportbar{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+  .ebtn{flex:1 1 200px;display:flex;align-items:center;justify-content:center;gap:9px;padding:15px 18px;border-radius:13px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;border:1.5px solid var(--purple);transition:transform .16s,box-shadow .16s}
+  .ebtn svg{width:18px;height:18px}
+  .ebtn.primary{background:var(--purple);color:#fff}
+  .ebtn.primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(123,47,190,.3)}
+  .ebtn.ghost{background:#fff;color:var(--purple-deep)}
+  .ebtn.ghost:hover{background:var(--purple-soft)}
+  .saved{font-size:.9rem;color:var(--green);font-weight:600;margin-top:10px;display:none;align-items:center;gap:7px}
+  .saved.show{display:flex}
+
+  /* ── Closing ── */
+  .closing{margin-top:8px;background:linear-gradient(155deg,#241834,#3A1C5C 55%,#5B1F92);color:#fff;border-radius:22px;padding:46px 42px;position:relative;overflow:hidden}
+  .closing::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%)}
+  .closing .eyebrow .num{background:rgba(255,255,255,.16)}
+  .closing .eyebrow .lab{color:#C9A8EC}
+  .closing h2{color:#fff;position:relative}
+  .closing p{color:rgba(255,255,255,.86);position:relative;font-size:1.05rem}
+  .closing .big{font-family:'Fraunces',serif;font-weight:500;font-size:1.38rem;line-height:1.3;color:#fff;margin:6px 0 0;position:relative}
+  .shift-note{display:inline-flex;align-items:center;gap:9px;margin-top:24px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:11px 18px;font-size:.88rem;font-weight:600;color:#fff;position:relative}
+  .shift-note .dot{background:#9BE3B6;box-shadow:0 0 0 3px rgba(155,227,182,.2);animation:none}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.dot{animation:none}}
+  @media(max-width:600px){body{padding:0 16px 70px}.closing{padding:34px 26px}.chips{width:100%;margin-left:0}.tic-head{gap:8px}.tic-tags{margin-left:0;width:100%}}
+  @media print{.opsbar,.exportbar,.closing,.dot{display:none!important}body{background:#fff}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="opsbar">
+  <div class="brand">
+    <span class="shield"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+    Sentinel Technical Support &amp; Operations
+  </div>
+  <div class="chips">
+    <span class="chip"><span class="dot"></span>3 Open Incidents</span>
+    <span class="chip">Module 2 · Phase A</span>
+    <span class="chip">Human Only</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero reveal">
+    <span class="kicker">Module 2 · Phase A</span>
+    <h1>Human investigation: what is breaking in the system?</h1>
+    <p class="lede">Before AI analysis, diagnose the problem using your own reasoning. Three incidents are open on your queue — start working through them.</p>
+  </header>
+
+  <!-- Role -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">A</span><span class="lab">Your role</span></div>
+    <h2>You are the analyst on these cases</h2>
+    <p class="lead-line">As a <strong>Level 1 IT Support & Systems Analyst</strong> at Sentinel, your job isn't just to watch systems — it's to figure out what's wrong with them. Three incidents came in today. None of them have been diagnosed yet. That's your job right now.</p>
+    <p>You won't fix anything in this phase, and you won't use any AI tools. Your only job is to read what's been reported, think through what might be happening, and write down your best early thinking.</p>
+    <div class="duo">
+      <div class="panel yes">
+        <div class="ph"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><h3>Your job right now</h3></div>
+        <div class="item"><span class="mk">→</span>Read what users have reported for each incident.</div>
+        <div class="item"><span class="mk">→</span>Identify the symptoms — what is actually happening?</div>
+        <div class="item"><span class="mk">→</span>Write possible causes in simple, plain language.</div>
+        <div class="item"><span class="mk">→</span>Rate how serious each incident feels to you.</div>
+      </div>
+      <div class="panel no">
+        <div class="ph"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span><h3>Not yet</h3></div>
+        <div class="item"><span class="mk">×</span>No fixing or resolving incidents yet.</div>
+        <div class="item"><span class="mk">×</span>No AI tools — this is your own thinking only.</div>
+        <div class="item"><span class="mk">×</span>No final decisions — this is your early diagnosis.</div>
+        <div class="item"><span class="mk">×</span>No pressure to have every answer right now.</div>
+      </div>
+    </div>
+    <div class="principle">
+      <span class="qm">"</span>
+      <p>Good troubleshooting starts with careful observation of system behavior.</p>
+    </div>
+  </section>
+
+  <!-- The three incidents -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">1</span><span class="lab">Open Incidents</span></div>
+    <h2>Work through each case</h2>
+    <p class="lead-line">Read the report, fill in your investigation, and rate the severity. Take each one at its own pace.</p>
+
+    <!-- CASE 1 — Performance -->
+    <div class="icase case1">
+      <div class="tic-head">
+        <span class="tic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></span>
+        <div class="tic-meta">
+          <div class="tic-id">Incident #INC-0241 · Government Services Portal</div>
+          <div class="tic-title">Case 1 — System Running Slowly</div>
+        </div>
+        <div class="tic-tags">
+          <span class="ttag open">Open</span>
+          <span class="ttag time">Opened 9:22 AM</span>
+        </div>
+      </div>
+      <div class="tic-report">
+        <div class="rtag">What users reported</div>
+        <div class="report-items">
+          <div class="ri"><span class="ric"></span>"Everything is taking forever to load. Pages that normally open in seconds are now taking a full minute or more."</div>
+          <div class="ri"><span class="ric"></span>Dashboard updates that used to refresh automatically are now delayed — some users have stopped seeing updates entirely.</div>
+          <div class="ri"><span class="ric"></span>Clicking through menus feels sluggish. Buttons respond, but slowly.</div>
+          <div class="ri"><span class="ric"></span>No error messages have appeared. The system has not crashed. It's just slow.</div>
+        </div>
+      </div>
+      <div class="tic-ctx">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+        <span><strong>Context:</strong> Today is the last day of the monthly reporting period. The system normally handles around 40 users at peak times. This morning, over 60 users are logged in at the same time to submit end-of-month reports.</span>
+      </div>
+      <div class="tic-invest">
+        <div class="invest-label">Your investigation</div>
+        <div class="field-group">
+          <label class="fl">Severity — how serious does this feel right now?</label>
+          <div class="sev-row">
+            <button class="sevbtn" data-case="c1" data-s="low">Low — not urgent</button>
+            <button class="sevbtn" data-case="c1" data-s="medium">Medium — needs attention</button>
+            <button class="sevbtn" data-case="c1" data-s="high">High — serious problem</button>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="fl">What symptoms do you notice?</label>
+          <textarea id="c1-symptoms" placeholder="Describe what's actually happening based on the report — what are users experiencing?"></textarea>
+        </div>
+        <div class="field-group">
+          <label class="fl">What might be causing this?</label>
+          <textarea id="c1-causes" placeholder="What could explain slow performance? Think about what changed, what's different today, what might be putting pressure on the system..."></textarea>
+        </div>
+        <div class="field-group">
+          <label class="fl">What else would help you understand this better?</label>
+          <textarea id="c1-missing" placeholder="What information don't you have yet? What would you want to check or ask about before going further?"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE 2 — Login -->
+    <div class="icase case2">
+      <div class="tic-head">
+        <span class="tic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+        <div class="tic-meta">
+          <div class="tic-id">Incident #INC-0242 · Hospital Records Team</div>
+          <div class="tic-title">Case 2 — Users Cannot Log In Properly</div>
+        </div>
+        <div class="tic-tags">
+          <span class="ttag open">Open</span>
+          <span class="ttag time">Opened 11:47 AM</span>
+        </div>
+      </div>
+      <div class="tic-report">
+        <div class="rtag">What users reported</div>
+        <div class="report-items">
+          <div class="ri"><span class="ric"></span>Three employees from the hospital records team say they cannot log in on the first try. Their passwords are being rejected, even though they haven't changed them.</div>
+          <div class="ri"><span class="ric"></span>One user (account U-118) tried five times before getting in. Another user says their password "just stopped working" this morning.</div>
+          <div class="ri"><span class="ric"></span>The system itself is still running. Other users are logged in and working without any problems.</div>
+          <div class="ri"><span class="ric"></span>One user eventually got in successfully after multiple attempts. The others have given up and are waiting for help.</div>
+        </div>
+      </div>
+      <div class="tic-ctx">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+        <span><strong>Context:</strong> Sentinel updated the sign-in process last week. Passwords now need to meet new rules — longer, with a mix of letters and numbers. An announcement was sent by email, but not everyone opened it. Some staff may not know their password no longer meets the new rules.</span>
+      </div>
+      <div class="tic-invest">
+        <div class="invest-label">Your investigation</div>
+        <div class="field-group">
+          <label class="fl">Severity — how serious does this feel right now?</label>
+          <div class="sev-row">
+            <button class="sevbtn" data-case="c2" data-s="low">Low — not urgent</button>
+            <button class="sevbtn" data-case="c2" data-s="medium">Medium — needs attention</button>
+            <button class="sevbtn" data-case="c2" data-s="high">High — serious problem</button>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="fl">What patterns do you notice?</label>
+          <textarea id="c2-symptoms" placeholder="Who is affected? Who isn't? Is this happening to everyone or just some users? What's the pattern here?"></textarea>
+        </div>
+        <div class="field-group">
+          <label class="fl">What might explain this — user error, system issue, or something else?</label>
+          <textarea id="c2-causes" placeholder="Could this be users not knowing about the new password rules? A system bug? A security concern? Walk through the possible explanations..."></textarea>
+        </div>
+        <div class="field-group">
+          <label class="fl">What else would help you understand this better?</label>
+          <textarea id="c2-missing" placeholder="What would you want to check? Who would you talk to? What information is missing from this report?"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE 3 — Unknown -->
+    <div class="icase case3">
+      <div class="tic-head">
+        <span class="tic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg></span>
+        <div class="tic-meta">
+          <div class="tic-id">Incident #INC-0243 · School District IT Contact</div>
+          <div class="tic-title">Case 3 — Strange Behavior, No Clear Cause</div>
+        </div>
+        <div class="tic-tags">
+          <span class="ttag open">Open</span>
+          <span class="ttag time">Opened 2:35 PM</span>
+        </div>
+      </div>
+      <div class="tic-report">
+        <div class="rtag">What users reported</div>
+        <div class="report-items">
+          <div class="ri"><span class="ric"></span>An error message appears when users try to save files: <em>"Action could not be completed."</em> But if they try again a minute later, it sometimes works fine.</div>
+          <div class="ri"><span class="ric"></span>Some users see the error regularly. Others in the same building never see it at all — even doing the same tasks.</div>
+          <div class="ri"><span class="ric"></span>The problem started some time this afternoon. Nobody can say exactly when it began or what might have triggered it.</div>
+          <div class="ri"><span class="ric"></span>No other errors have been reported alongside this one. The system appears to be working in every other way.</div>
+        </div>
+      </div>
+      <div class="tic-ctx">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+        <span><strong>Context:</strong> The school district's file storage system was reorganized two days ago — some folders were moved to a new location on the system. Not all user accounts have been updated with access to the new folder location yet. The IT contact is not sure which accounts still need updating.</span>
+      </div>
+      <div class="tic-invest">
+        <div class="invest-label">Your investigation</div>
+        <div class="field-group">
+          <label class="fl">Severity — how serious does this feel right now?</label>
+          <div class="sev-row">
+            <button class="sevbtn" data-case="c3" data-s="low">Low — not urgent</button>
+            <button class="sevbtn" data-case="c3" data-s="medium">Medium — needs attention</button>
+            <button class="sevbtn" data-case="c3" data-s="high">High — serious problem</button>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="fl">What stands out as unusual about this case?</label>
+          <textarea id="c3-symptoms" placeholder="What's strange here? Why does it affect some users but not others? Why does it sometimes work and sometimes not?"></textarea>
+        </div>
+        <div class="field-group">
+          <label class="fl">What are your possible explanations?</label>
+          <textarea id="c3-causes" placeholder="What could cause an inconsistent error like this? Think about what changed recently. Why might some accounts be affected and others not?"></textarea>
+        </div>
+        <div class="field-group">
+          <label class="fl">What information is missing — and what would you need to figure this out?</label>
+          <textarea id="c3-missing" placeholder="This case is messier than the others. What do you still not know? What would help you narrow down the cause?"></textarea>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Deliverable -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">2</span><span class="lab">Your report</span></div>
+    <h2>Initial System Diagnosis Report</h2>
+    <p class="lead-line">Before you hand this off, pull your thinking together. This is what you'd tell the next analyst or your supervisor at the end of your shift.</p>
+
+    <div class="deliv">
+      <div class="dh"><span class="dn">→</span><h3>Overall: which case concerns you the most — and why?</h3></div>
+      <div class="dsub">Looking at all three together, which one feels most urgent or hardest to explain?</div>
+      <textarea id="d-priority" placeholder="Out of the three cases, the one I'd focus on first is... because..."></textarea>
+    </div>
+
+    <div class="deliv">
+      <div class="dh"><span class="dn">→</span><h3>Is anything connecting these three cases?</h3></div>
+      <div class="dsub">Could any of them be related — or are they separate issues? Explain your thinking.</div>
+      <textarea id="d-connection" placeholder="These cases seem connected / unrelated because... If they are related, the link might be..."></textarea>
+    </div>
+
+    <div class="deliv">
+      <div class="dh"><span class="dn">→</span><h3>What would you want to check first before resolving any of these?</h3></div>
+      <div class="dsub">If you had five minutes before the end of your shift, where would you look?</div>
+      <textarea id="d-next" placeholder="Before doing anything else, I'd want to check..."></textarea>
+    </div>
+
+    <div class="exportbar">
+      <button class="ebtn primary" id="dlTxt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download diagnosis report (.txt)</button>
+      <button class="ebtn ghost" id="printPdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg> Save as PDF</button>
+    </div>
+    <div class="saved" id="saved"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Your diagnosis report has been saved.</div>
+  </section>
+
+  <!-- Transition to Phase B -->
+  <section class="reveal">
+    <div class="closing">
+      <div class="eyebrow"><span class="num">→</span><span class="lab">Next: Phase B</span></div>
+      <h2>Good thinking, analyst</h2>
+      <p>You've worked through three real incidents using nothing but the information you were given and your own reasoning. That's the hardest part — and the most important.</p>
+      <p class="big">Next, you will use AI tools to analyze the same system incidents and compare your reasoning with AI-generated troubleshooting insights.</p>
+      <span class="shift-note"><span class="dot"></span>Phase B — AI-Assisted Diagnosis begins next</span>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  const sevState = {c1:'',c2:'',c3:''};
+
+  document.querySelectorAll('.sevbtn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      sevState[b.dataset.case]=b.dataset.s;
+      b.closest('.sev-row').querySelectorAll('.sevbtn').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+    });
+  });
+
+  function val(id){ const el=document.getElementById(id); return el?el.value.trim():''; }
+
+  const cases=[
+    {id:'c1',label:'Case 1 — System Running Slowly (INC-0241)',
+     fields:[['Symptoms noted','c1-symptoms'],['Possible causes','c1-causes'],['Missing information','c1-missing']]},
+    {id:'c2',label:'Case 2 — Users Cannot Log In Properly (INC-0242)',
+     fields:[['Patterns noticed','c2-symptoms'],['Possible explanations','c2-causes'],['Missing information','c2-missing']]},
+    {id:'c3',label:'Case 3 — Strange Behavior, No Clear Cause (INC-0243)',
+     fields:[['What stands out','c3-symptoms'],['Possible explanations','c3-causes'],['Missing information','c3-missing']]}
+  ];
+
+  function buildReport(){
+    let out='SENTINEL TECHNICAL SUPPORT & OPERATIONS CENTER\n';
+    out+='Initial System Diagnosis Report — Phase A\n';
+    out+='Level 1 IT Support & Systems Analyst\n';
+    out+='Generated: '+new Date().toLocaleString()+'\n';
+    cases.forEach(c=>{
+      out+='\n========================================\n'+c.label+'\n========================================\n';
+      out+='Severity: '+(sevState[c.id]?sevState[c.id].toUpperCase():'(not selected)')+'\n';
+      c.fields.forEach(([label,id])=>{
+        out+='\n'+label+':\n'+(val(id)||'(not answered)')+'\n';
+      });
+    });
+    out+='\n========================================\nSYNTHESIS\n========================================\n';
+    out+='\nMost urgent case & reasoning:\n'+(val('d-priority')||'(not answered)')+'\n';
+    out+='\nConnections between cases:\n'+(val('d-connection')||'(not answered)')+'\n';
+    out+='\nWhat to check first:\n'+(val('d-next')||'(not answered)')+'\n';
+    out+='\n— End of Phase A Diagnosis Report —\n';
+    return out;
+  }
+
+  document.getElementById('dlTxt').addEventListener('click',()=>{
+    const blob=new Blob([buildReport()],{type:'text/plain'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a'); a.href=url; a.download='sentinel-m2-phase-a-diagnosis.txt';
+    document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    const s=document.getElementById('saved'); s.classList.add('show');
+    setTimeout(()=>s.classList.remove('show'),4000);
+  });
+  document.getElementById('printPdf').addEventListener('click',()=>window.print());
+
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

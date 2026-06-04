@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentinel — Module 2 Phase C: Shift Decision Desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple:#7B2FBE; --purple-deep:#5B1F92; --purple-soft:#F3EBFB; --purple-line:#E3D2F5;
+    --ink:#1F1A26; --slate:#4A4658; --muted:#6E6A7A;
+    --paper:#FBF9FC; --card:#FFFFFF; --line:#EAE6F0;
+    --calm:#3A6B8A; --calm-soft:#E7F0F5;
+    --green:#2E7D57; --green-soft:#E8F4EE;
+    --amber:#B26A00; --amber-soft:#FBF0DD;
+    --red:#B52B27; --red-soft:#FAEAEA;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'DM Sans',sans-serif;
+    background:
+      radial-gradient(1100px 520px at 85% -10%, rgba(123,47,190,0.07), transparent 60%),
+      radial-gradient(900px 440px at -8% 2%, rgba(58,107,138,0.05), transparent 55%),
+      var(--paper);
+    color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased;
+    padding:0 20px 90px;
+  }
+  .wrap{max-width:880px;margin:0 auto}
+
+  /* ── Ops bar ── */
+  .opsbar{max-width:880px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:16px 4px;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:.95rem}
+  .shield{width:30px;height:30px;display:grid;place-items:center;border-radius:8px;background:linear-gradient(150deg,var(--purple),var(--purple-deep));color:#fff;box-shadow:0 4px 12px rgba(91,31,146,.28)}
+  .shield svg{width:16px;height:16px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-left:auto}
+  .chip{font-size:.72rem;font-weight:600;padding:5px 11px;border-radius:999px;border:1px solid var(--line);color:var(--slate);background:#fff;display:inline-flex;align-items:center;gap:7px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 3px rgba(178,106,0,.16);animation:pulse 2.2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+
+  /* ── Hero ── */
+  .hero{padding:54px 0 12px}
+  .kicker{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--purple-deep);background:var(--purple-soft);border:1px solid var(--purple-line);padding:6px 13px;border-radius:999px;margin-bottom:22px}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.1rem,5.2vw,3.2rem);line-height:1.06;letter-spacing:-.5px;margin-bottom:16px}
+  .lede{font-size:1.15rem;color:var(--slate);max-width:58ch}
+
+  /* ── Sections ── */
+  section{padding:46px 0;border-top:1px solid var(--line)}
+  section:first-of-type{border-top:none}
+  .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .eyebrow .num{font-family:'Fraunces',serif;font-weight:600;font-size:1rem;color:#fff;background:var(--purple);min-width:34px;height:34px;padding:0 9px;border-radius:9px;display:grid;place-items:center;flex:0 0 auto}
+  .eyebrow .lab{font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple-deep)}
+  h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.6rem,3.4vw,2.05rem);line-height:1.14;letter-spacing:-.3px}
+  p{font-size:1.04rem;color:var(--slate);margin-bottom:14px}
+  p:last-child{margin-bottom:0}
+  p strong{color:var(--ink);font-weight:600}
+  .lead-line{font-size:1.08rem;color:var(--ink);font-weight:500;margin-bottom:16px}
+
+  /* ── Principle ── */
+  .principle{margin:26px 0 0;padding:28px 30px;border-radius:18px;background:linear-gradient(135deg,#2A1840,#4A1E78);color:#fff;position:relative;overflow:hidden}
+  .principle::after{content:"";position:absolute;right:-50px;top:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%)}
+  .principle .qm{font-family:'Fraunces',serif;font-size:2.4rem;line-height:.5;color:#C9A8EC;display:block;margin-bottom:6px}
+  .principle p{font-family:'Fraunces',serif;font-weight:500;font-size:1.26rem;line-height:1.35;color:#fff;margin:0;position:relative}
+
+  /* ── Shift briefing panels ── */
+  .briefing{display:flex;flex-wrap:wrap;gap:16px;margin-top:8px}
+  .bpanel{flex:1 1 320px;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .bpanel .bh{padding:13px 18px;font-weight:700;font-size:.9rem;display:flex;align-items:center;gap:9px}
+  .bpanel.human .bh{background:#EEF9F2;color:var(--green);border-bottom:1px solid #D5EDDF}
+  .bpanel.ai .bh{background:#EEF3F7;color:var(--calm);border-bottom:1px solid #D5E4EE}
+  .bpanel .bh svg{width:15px;height:15px}
+  .bitem{display:flex;gap:10px;padding:11px 18px;border-top:1px solid var(--line);font-size:.96rem;color:var(--slate);line-height:1.5}
+  .bitem:first-of-type{border-top:none}
+  .bitem .bi{flex:0 0 auto;margin-top:3px;font-weight:700}
+  .bpanel.human .bi{color:var(--green)} .bpanel.ai .bi{color:var(--calm)}
+
+  /* ── Decision reference cards ── */
+  .dref{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+  .drc{flex:1 1 190px;border-radius:14px;padding:18px;border:1px solid var(--line);background:var(--card);position:relative;overflow:hidden}
+  .drc::before{content:"";position:absolute;top:0;left:0;right:0;height:4px}
+  .drc.na::before{background:var(--green)} .drc.mo::before{background:var(--calm)} .drc.es::before{background:var(--red)}
+  .drc .dot2{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:6px}
+  .na .dot2{background:var(--green)} .mo .dot2{background:var(--calm)} .es .dot2{background:var(--red)}
+  .drc .dl{font-family:'Fraunces',serif;font-weight:600;font-size:1.08rem;margin-bottom:6px;display:flex;align-items:center}
+  .drc.na .dl{color:var(--green)} .drc.mo .dl{color:var(--calm)} .drc.es .dl{color:var(--red)}
+  .drc p{font-size:.9rem;margin:0;line-height:1.5}
+
+  /* ── Ticket-style resolution cards ── */
+  .tkt{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-top:18px;box-shadow:0 2px 6px rgba(31,26,38,.06)}
+  .tkt-head{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:15px 22px;background:#1F1830;border-bottom:1px solid rgba(255,255,255,.06)}
+  .tkt-icon{flex:0 0 auto;width:36px;height:36px;border-radius:9px;display:grid;place-items:center}
+  .tkt-icon svg{width:19px;height:19px}
+  .case1 .tkt-icon{background:rgba(58,107,138,.35);color:#7BC4E0}
+  .case2 .tkt-icon{background:rgba(178,106,0,.35);color:#F5C776}
+  .case3 .tkt-icon{background:rgba(123,47,190,.35);color:#C9A8EC}
+  .tkt-meta{flex:1 1 auto}
+  .tkt-id{font-size:.7rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:2px}
+  .tkt-title{font-family:'Fraunces',serif;font-weight:600;font-size:1.05rem;color:#fff}
+  .tkt-status{font-size:.72rem;font-weight:700;padding:5px 11px;border-radius:999px;transition:all .3s;white-space:nowrap;margin-left:auto}
+  .tkt-status.pending{background:rgba(255,255,255,.08);color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.12)}
+  .tkt-status.na-done{background:rgba(46,125,87,.35);color:#7BE3A6;border:1px solid rgba(46,125,87,.3)}
+  .tkt-status.mo-done{background:rgba(58,107,138,.35);color:#7BC4E0;border:1px solid rgba(58,107,138,.3)}
+  .tkt-status.es-done{background:rgba(181,43,39,.35);color:#F5A3A0;border:1px solid rgba(181,43,39,.3)}
+
+  /* summary strip in ticket */
+  .tkt-brief{padding:14px 22px;background:#FAF8FC;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:7px}
+  .brow{display:flex;gap:10px;align-items:flex-start;font-size:.94rem;color:var(--slate)}
+  .brow .btag{flex:0 0 auto;font-size:.66rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:2px 7px;border-radius:5px;margin-top:2px}
+  .brow.pa .btag{background:var(--green-soft);color:var(--green)}
+  .brow.pb .btag{background:var(--calm-soft);color:var(--calm)}
+
+  /* decision + reasoning */
+  .tkt-decide{padding:20px 22px}
+  .decide-label{font-size:.72rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:7px}
+  .decide-label::after{content:"";flex:1;height:1px;background:var(--line)}
+  .drow{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+  .dbtn{flex:1 1 90px;border:1.5px solid var(--line);background:#fff;border-radius:11px;padding:11px 8px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.92rem;color:var(--slate);cursor:pointer;transition:all .18s;text-align:center}
+  .dbtn:hover{border-color:var(--purple-line)}
+  .dbtn[data-v="noaction"].on{background:var(--green-soft);border-color:var(--green);color:var(--green)}
+  .dbtn[data-v="monitor"].on{background:var(--calm-soft);border-color:var(--calm);color:var(--calm)}
+  .dbtn[data-v="escalate"].on{background:var(--red-soft);border-color:var(--red);color:var(--red)}
+  textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:13px;font-family:'DM Sans',sans-serif;font-size:1rem;color:var(--ink);line-height:1.55;resize:vertical;min-height:78px;background:#FDFCFE;transition:border-color .18s,box-shadow .18s}
+  textarea:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 3px rgba(123,47,190,.12)}
+  textarea::placeholder{color:#B5AFC0}
+  label.fl{display:block;font-weight:600;color:var(--ink);font-size:.95rem;margin-bottom:7px}
+  label.fl.mt{margin-top:14px}
+
+  /* ── Tradeoff questions ── */
+  .tradeoffs{display:flex;flex-direction:column;gap:10px;margin:16px 0}
+  .tq{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 17px}
+  .tq .tc{flex:0 0 auto;width:32px;height:32px;border-radius:9px;display:grid;place-items:center}
+  .tq .tc svg{width:17px;height:17px}
+  .tq.t1 .tc{background:var(--red-soft);color:var(--red)}
+  .tq.t2 .tc{background:var(--green-soft);color:var(--green)}
+  .tq.t3 .tc{background:var(--amber-soft);color:var(--amber)}
+  .tq.t4 .tc{background:var(--purple-soft);color:var(--purple-deep)}
+  .tq .ttext{font-size:.99rem;color:var(--ink);font-weight:500;line-height:1.5}
+  .tq .tsub{font-size:.91rem;color:var(--muted);margin-top:2px}
+
+  /* ── Deliverable form ── */
+  .deliv{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;margin-top:16px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .deliv .dh{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  .deliv .dn{flex:0 0 auto;width:32px;height:32px;border-radius:9px;background:var(--purple-soft);color:var(--purple-deep);font-family:'Fraunces',serif;font-weight:600;display:grid;place-items:center}
+  .deliv h3{font-size:1.06rem;font-weight:700;color:var(--ink)}
+  .deliv .dsub{font-size:.95rem;color:var(--muted);margin-bottom:14px}
+
+  /* ── Risk selector ── */
+  .riskrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+  .rbtn{flex:1 1 120px;border-radius:12px;padding:15px 12px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.98rem;cursor:pointer;border:1.5px solid var(--line);background:#fff;color:var(--slate);transition:all .16s;text-align:center}
+  .rbtn .rl{font-size:.7rem;font-weight:600;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);margin-bottom:3px;display:block}
+  .rbtn:hover:not(.on){border-color:var(--purple-line)}
+  .rbtn[data-r="low"].on{background:var(--green-soft);border-color:var(--green);color:var(--green)}
+  .rbtn[data-r="medium"].on{background:var(--amber-soft);border-color:var(--amber);color:var(--amber)}
+  .rbtn[data-r="high"].on{background:var(--red-soft);border-color:var(--red);color:var(--red)}
+  .rbtn.on .rl{color:inherit;opacity:.7}
+
+  /* ── Handoff note ── */
+  .handoff{background:linear-gradient(135deg,#1A2733,#1F3040);border-radius:18px;padding:24px;margin-top:16px}
+  .handoff .ht{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .handoff .hi{width:34px;height:34px;border-radius:9px;background:rgba(123,47,190,.35);display:grid;place-items:center;flex:0 0 auto}
+  .handoff .hi svg{width:17px;height:17px;color:#C9A8EC}
+  .handoff h3{color:#fff;font-weight:700;font-size:1.06rem}
+  .handoff .hs{font-size:.95rem;color:rgba(255,255,255,.65);margin-bottom:12px}
+  .handoff textarea{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);color:#fff;min-height:88px}
+  .handoff textarea::placeholder{color:rgba(255,255,255,.3)}
+  .handoff textarea:focus{border-color:rgba(201,168,236,.5);box-shadow:0 0 0 3px rgba(123,47,190,.18)}
+
+  /* ── Export ── */
+  .exportbar{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+  .ebtn{flex:1 1 200px;display:flex;align-items:center;justify-content:center;gap:9px;padding:15px 18px;border-radius:13px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;border:1.5px solid var(--purple);transition:transform .16s,box-shadow .16s}
+  .ebtn svg{width:18px;height:18px}
+  .ebtn.primary{background:var(--purple);color:#fff}
+  .ebtn.primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(123,47,190,.3)}
+  .ebtn.ghost{background:#fff;color:var(--purple-deep)}
+  .ebtn.ghost:hover{background:var(--purple-soft)}
+  .saved{font-size:.9rem;color:var(--green);font-weight:600;margin-top:10px;display:none;align-items:center;gap:7px}
+  .saved.show{display:flex}
+
+  /* ── Closing ── */
+  .closing{margin-top:8px;background:linear-gradient(155deg,#241834,#3A1C5C 55%,#5B1F92);color:#fff;border-radius:22px;padding:48px 42px;position:relative;overflow:hidden}
+  .closing::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%)}
+  .badge{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:14px;padding:12px 18px;margin-bottom:24px;position:relative}
+  .badge svg{width:20px;height:20px;color:#C9A8EC}
+  .badge .bt{font-weight:700;font-size:.88rem;letter-spacing:.3px;color:#fff}
+  .badge .bs{font-size:.76rem;color:rgba(255,255,255,.65);margin-top:1px}
+  .closing .eyebrow .num{background:rgba(255,255,255,.16)}
+  .closing .eyebrow .lab{color:#C9A8EC}
+  .closing h2{color:#fff;position:relative}
+  .closing p{color:rgba(255,255,255,.86);position:relative;font-size:1.05rem}
+  .closing .handoff-line{font-family:'Fraunces',serif;font-weight:500;font-size:1.26rem;line-height:1.4;color:rgba(255,255,255,.94);margin-top:8px;position:relative;border-left:3px solid rgba(201,168,236,.5);padding-left:18px}
+  .shift-note{display:inline-flex;align-items:center;gap:9px;margin-top:26px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:11px 18px;font-size:.88rem;font-weight:600;color:#fff;position:relative}
+  .shift-note .dot{background:#9BE3B6;box-shadow:0 0 0 3px rgba(155,227,182,.2);animation:none}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.dot{animation:none}}
+  @media(max-width:600px){body{padding:0 16px 70px}.closing{padding:34px 26px}.chips{width:100%;margin-left:0}.tkt-head{gap:8px}.tkt-status{margin-left:0;width:100%}}
+  @media print{.opsbar,.exportbar,.closing{display:none!important}body{background:#fff}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="opsbar">
+  <div class="brand">
+    <span class="shield"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+    Sentinel Technical Support &amp; Operations
+  </div>
+  <div class="chips">
+    <span class="chip"><span class="dot"></span>Shift Handoff Pending</span>
+    <span class="chip">Module 2 · Phase C</span>
+    <span class="chip">3 Tickets Open</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero reveal">
+    <span class="kicker">Module 2 · Phase C</span>
+    <h1>Shift Decision Desk: what happens next in the system?</h1>
+    <p class="lede">Your shift is ending. Three tickets are still open. Before you hand off, you need to decide what Sentinel does next for each one.</p>
+  </header>
+
+  <!-- Role -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">C</span><span class="lab">Your responsibility</span></div>
+    <h2>You're the last analyst on shift</h2>
+    <p class="lead-line">You've worked these three cases through Phase A and Phase B. You have your own thinking <em>and</em> the AI's analysis. Now the shift ends in minutes, and you need to make a call on each one.</p>
+    <p>The incoming team will pick up exactly where you leave off. Whatever you decide — and whatever you write — is what they will act on. That's what makes this real.</p>
+    <div class="principle">
+      <span class="qm">"</span>
+      <p>Good support analysts balance speed, safety, and accuracy — not perfection.</p>
+    </div>
+  </section>
+
+  <!-- Shift briefing -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">1</span><span class="lab">Shift briefing</span></div>
+    <h2>What you've learned so far</h2>
+    <p class="lead-line">A quick summary of both phases before you make your final calls.</p>
+    <div class="briefing">
+      <div class="bpanel human">
+        <div class="bh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg> Phase A — Human Analysis</div>
+        <div class="bitem"><span class="bi">→</span>Slowdown in Case 1 matched a clear cause: too many users logged in at once during a reporting deadline.</div>
+        <div class="bitem"><span class="bi">→</span>Login failures in Case 2 most likely tied to a password policy update that wasn't communicated to everyone.</div>
+        <div class="bitem"><span class="bi">→</span>Case 3 errors appeared linked to folder permissions not updated after a recent reorganization.</div>
+        <div class="bitem"><span class="bi">→</span>All three had identifiable causes — but none were fully confirmed with system data.</div>
+      </div>
+      <div class="bpanel ai">
+        <div class="bh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 1 5 5v3M7 7v3a5 5 0 0 0 10 0V7M12 20v-6M8 20h8"/></svg> Phase B — AI Analysis</div>
+        <div class="bitem"><span class="bi">→</span>AI correctly linked heavy user load to the Case 1 slowdown — but didn't know about the reporting deadline.</div>
+        <div class="bitem"><span class="bi">→</span>AI flagged Case 2 logins as a possible security concern — missing the password-policy-change context entirely.</div>
+        <div class="bitem"><span class="bi">→</span>AI aligned with human thinking on Case 3 — suggested a permissions issue as the likely cause.</div>
+        <div class="bitem"><span class="bi">→</span>AI recommended monitoring rather than escalating in all three cases.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Decision framework -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">2</span><span class="lab">Your tools</span></div>
+    <h2>Three actions, one per ticket</h2>
+    <p class="lead-line">Choose the right response for each open case. Keep these in front of you as you work.</p>
+    <div class="dref">
+      <div class="drc na"><div class="dl"><span class="dot2"></span>No Action</div><p>The situation is within normal expected behavior. The system does not need intervention right now.</p></div>
+      <div class="drc mo"><div class="dl"><span class="dot2"></span>Monitor</div><p>Something unusual is happening, but it's not urgent. Keep a close eye and flag for the next shift if it continues.</p></div>
+      <div class="drc es"><div class="dl"><span class="dot2"></span>Escalate</div><p>The issue may affect users or system stability. Route to senior support for immediate review or action.</p></div>
+    </div>
+  </section>
+
+  <!-- Case resolutions -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">3</span><span class="lab">Resolve the tickets</span></div>
+    <h2>Your three open cases</h2>
+    <p class="lead-line">Select your action for each case and explain your reasoning. The ticket status will update as you decide.</p>
+
+    <!-- Case 1 -->
+    <div class="tkt case1" id="tkt1">
+      <div class="tkt-head">
+        <span class="tkt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></span>
+        <div class="tkt-meta">
+          <div class="tkt-id">INC-0241 · Government Services Portal</div>
+          <div class="tkt-title">System Performance Slowdown</div>
+        </div>
+        <span class="tkt-status pending" id="st1">Awaiting Decision</span>
+      </div>
+      <div class="tkt-brief">
+        <div class="brow pa"><span class="btag">Phase A</span>Slowdown during peak hour — 60+ users, end-of-month deadline. System recovered on its own.</div>
+        <div class="brow pb"><span class="btag">Phase B</span>AI confirmed heavy load. No security concern flagged. Recommended monitoring.</div>
+      </div>
+      <div class="tkt-decide">
+        <div class="decide-label">Your decision</div>
+        <div class="drow">
+          <button class="dbtn" data-tkt="1" data-v="noaction">No Action</button>
+          <button class="dbtn" data-tkt="1" data-v="monitor">Monitor</button>
+          <button class="dbtn" data-tkt="1" data-v="escalate">Escalate</button>
+        </div>
+        <label class="fl">Why did you make this call?</label>
+        <textarea id="r1" placeholder="The slowdown recovered on its own and the cause seems clear... or it concerns me because the hospital context means even brief slowdowns matter..."></textarea>
+        <label class="fl mt">What should the next shift watch for — if anything?</label>
+        <textarea id="w1" placeholder="If this happens again at the same time next month... or if the slowdown lasts longer next time..."></textarea>
+      </div>
+    </div>
+
+    <!-- Case 2 -->
+    <div class="tkt case2" id="tkt2">
+      <div class="tkt-head">
+        <span class="tkt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+        <div class="tkt-meta">
+          <div class="tkt-id">INC-0242 · Hospital Records System</div>
+          <div class="tkt-title">Login & Access Issues</div>
+        </div>
+        <span class="tkt-status pending" id="st2">Awaiting Decision</span>
+      </div>
+      <div class="tkt-brief">
+        <div class="brow pa"><span class="btag">Phase A</span>Three users locked out. Likely caused by new password rules not communicated to all staff. One user got in after 5 attempts.</div>
+        <div class="brow pb"><span class="btag">Phase B</span>AI flagged as possible security concern — missed the password policy context. Still recommended monitoring.</div>
+      </div>
+      <div class="tkt-decide">
+        <div class="decide-label">Your decision</div>
+        <div class="drow">
+          <button class="dbtn" data-tkt="2" data-v="noaction">No Action</button>
+          <button class="dbtn" data-tkt="2" data-v="monitor">Monitor</button>
+          <button class="dbtn" data-tkt="2" data-v="escalate">Escalate</button>
+        </div>
+        <label class="fl">Why did you make this call?</label>
+        <textarea id="r2" placeholder="The most likely cause is the password change... but I'm uncertain because the AI raised a security flag... and users are still locked out..."></textarea>
+        <label class="fl mt">What should the next shift watch for — if anything?</label>
+        <textarea id="w2" placeholder="If more accounts start failing... or if these same accounts show unusual activity after logging in..."></textarea>
+      </div>
+    </div>
+
+    <!-- Case 3 -->
+    <div class="tkt case3" id="tkt3">
+      <div class="tkt-head">
+        <span class="tkt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg></span>
+        <div class="tkt-meta">
+          <div class="tkt-id">INC-0243 · School District File System</div>
+          <div class="tkt-title">Unclear System Behavior</div>
+        </div>
+        <span class="tkt-status pending" id="st3">Awaiting Decision</span>
+      </div>
+      <div class="tkt-brief">
+        <div class="brow pa"><span class="btag">Phase A</span>Intermittent file-save errors. Affects some users, not others. Likely linked to folder reorganization and missing permissions.</div>
+        <div class="brow pb"><span class="btag">Phase B</span>AI agreed — permissions issue most likely. Flagged as medium priority. Recommended monitoring.</div>
+      </div>
+      <div class="tkt-decide">
+        <div class="decide-label">Your decision</div>
+        <div class="drow">
+          <button class="dbtn" data-tkt="3" data-v="noaction">No Action</button>
+          <button class="dbtn" data-tkt="3" data-v="monitor">Monitor</button>
+          <button class="dbtn" data-tkt="3" data-v="escalate">Escalate</button>
+        </div>
+        <label class="fl">Why did you make this call?</label>
+        <textarea id="r3" placeholder="Both human and AI analysis point to a permissions gap... the inconsistency makes me more or less confident because..."></textarea>
+        <label class="fl mt">What should the next shift watch for — if anything?</label>
+        <textarea id="w3" placeholder="A list of accounts that still need folder access updated... or if the error starts appearing on more users' accounts..."></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tradeoff -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">4</span><span class="lab">Step back</span></div>
+    <h2>Think through the tradeoffs</h2>
+    <p class="lead-line">Before you write your final report, sit with these four questions. Your shift decisions are the right context for them.</p>
+    <div class="tradeoffs">
+      <div class="tq t1"><div class="tc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg></div><div><div class="ttext">What happens if Sentinel escalates too often?</div><div class="tsub">Who gets pulled in? What's the cost to the team — and to the users waiting for help?</div></div></div>
+      <div class="tq t2"><div class="tc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></div><div><div class="ttext">What happens if Sentinel misses an early warning sign?</div><div class="tsub">What could a small ignored issue grow into — especially on a system that hospitals or schools depend on?</div></div></div>
+      <div class="tq t3"><div class="tc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/></svg></div><div><div class="ttext">How do you decide when you have "enough" information to act?</div><div class="tsub">All three cases are still uncertain. At what point is uncertainty okay — and at what point does it require escalation?</div></div></div>
+      <div class="tq t4"><div class="tc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 1 5 5v3M7 7v3a5 5 0 0 0 10 0V7M12 20v-6M8 20h8"/></svg></div><div><div class="ttext">What role should AI play in these final decisions?</div><div class="tsub">AI recommended monitoring for all three. You may disagree with one or more. What does that tell you about AI's limitations in live support work?</div></div></div>
+    </div>
+    <textarea id="tradeoff" placeholder="The tradeoff I found hardest to think through was... When AI and my own thinking diverged on these cases, it showed me..."></textarea>
+    <div class="principle" style="margin-top:22px">
+      <span class="qm">"</span>
+      <p>Operational judgment is about balancing uncertainty — not eliminating it.</p>
+    </div>
+  </section>
+
+  <!-- Deliverable -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">5</span><span class="lab">Final report</span></div>
+    <h2>Sentinel Shift Resolution Report</h2>
+    <p class="lead-line">Wrap up your shift decisions in one report. This is what stays on record when the incoming team arrives.</p>
+
+    <div class="deliv">
+      <div class="dh"><span class="dn">1</span><h3>Overall risk level for today's shift</h3></div>
+      <div class="dsub">Looking at all three cases together, how would you rate the overall system risk heading into the next shift?</div>
+      <div class="riskrow">
+        <button class="rbtn" data-r="low"><span class="rl">Risk</span>Low</button>
+        <button class="rbtn" data-r="medium"><span class="rl">Risk</span>Medium</button>
+        <button class="rbtn" data-r="high"><span class="rl">Risk</span>High</button>
+      </div>
+    </div>
+
+    <div class="deliv">
+      <div class="dh"><span class="dn">2</span><h3>One improvement recommendation</h3></div>
+      <div class="dsub">Based on today's cases, what would you recommend to improve how Sentinel monitors or communicates going forward?</div>
+      <textarea id="rec" placeholder="One thing that would have helped today was... For the future, Sentinel should consider..."></textarea>
+    </div>
+
+    <div class="handoff">
+      <div class="ht"><span class="hi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-5M12 18l-2-2M12 18l2-2"/></svg></span><h3>Shift handoff note</h3></div>
+      <div class="hs">Write a quick message to the incoming analyst. What do they need to know the moment they sit down?</div>
+      <textarea id="handoff" placeholder="Hey — here's where things stand when I left the desk... Keep an eye on... The one thing I wasn't sure about was..."></textarea>
+    </div>
+
+    <div class="exportbar">
+      <button class="ebtn primary" id="dlTxt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download shift resolution report (.txt)</button>
+      <button class="ebtn ghost" id="printPdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg> Save as PDF</button>
+    </div>
+    <div class="saved" id="saved"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Shift resolution report saved.</div>
+  </section>
+
+  <!-- Module 2 Complete -->
+  <section class="reveal">
+    <div class="closing">
+      <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg><div><div class="bt">Module 2 Complete</div><div class="bs">Sentinel Technical Support &amp; Operations · Level 1 Analyst</div></div></div>
+      <div class="eyebrow"><span class="num">→</span><span class="lab">Shift handed off</span></div>
+      <h2>Your decisions have been recorded.</h2>
+      <p>You worked three real incidents across human investigation, AI analysis, and final operational judgment. You made calls with incomplete information — under real shift conditions. That's the job.</p>
+      <p class="handoff-line">Your decisions will be reviewed by the next shift team. In real environments, these handoffs help maintain system stability across continuous operations.</p>
+      <span class="shift-note"><span class="dot"></span>Module 3 begins next</span>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  const decisions = {t1:'',t2:'',t3:''};
+  let riskLevel = '';
+
+  const statusMap = {
+    noaction:{cls:'na-done',label:'No Action'},
+    monitor:{cls:'mo-done',label:'Monitoring'},
+    escalate:{cls:'es-done',label:'Escalating'}
+  };
+
+  document.querySelectorAll('.dbtn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const tkt=b.dataset.tkt, v=b.dataset.v;
+      decisions['t'+tkt]=v;
+      b.closest('.drow').querySelectorAll('.dbtn').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+      // update ticket status chip
+      const chip=document.getElementById('st'+tkt);
+      chip.className='tkt-status '+statusMap[v].cls;
+      chip.textContent=statusMap[v].label;
+    });
+  });
+
+  document.querySelectorAll('.rbtn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      riskLevel=b.dataset.r;
+      document.querySelectorAll('.rbtn').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+    });
+  });
+
+  function val(id){ const el=document.getElementById(id); return el?el.value.trim():''; }
+
+  const caseData=[
+    {id:'t1',label:'INC-0241 — System Performance Slowdown',r:'r1',w:'w1'},
+    {id:'t2',label:'INC-0242 — Login & Access Issues',r:'r2',w:'w2'},
+    {id:'t3',label:'INC-0243 — Unclear System Behavior',r:'r3',w:'w3'}
+  ];
+
+  function buildReport(){
+    let out='SENTINEL TECHNICAL SUPPORT & OPERATIONS CENTER\n';
+    out+='Shift Resolution Report — Phase C\n';
+    out+='Level 1 IT Support & Systems Analyst\n';
+    out+='Generated: '+new Date().toLocaleString()+'\n';
+    caseData.forEach((c,i)=>{
+      const d=decisions[c.id];
+      out+='\n========================================\n'+c.label+'\n========================================\n';
+      out+='Decision: '+(d?d.replace('noaction','NO ACTION').toUpperCase():'(not chosen)')+'\n';
+      out+='\nReasoning:\n'+(val(c.r)||'(not answered)')+'\n';
+      out+='\nWatch for next shift:\n'+(val(c.w)||'(not answered)')+'\n';
+    });
+    out+='\n========================================\nTRADEOFF REFLECTION\n========================================\n';
+    out+=(val('tradeoff')||'(not answered)')+'\n';
+    out+='\n========================================\nOVERALL RISK LEVEL\n========================================\n';
+    out+=(riskLevel?riskLevel.toUpperCase():'(not selected)')+'\n';
+    out+='\n========================================\nIMPROVEMENT RECOMMENDATION\n========================================\n';
+    out+=(val('rec')||'(not answered)')+'\n';
+    out+='\n========================================\nSHIFT HANDOFF NOTE\n========================================\n';
+    out+=(val('handoff')||'(not written)')+'\n';
+    out+='\n— End of Shift Resolution Report — Module 2 Complete —\n';
+    return out;
+  }
+
+  document.getElementById('dlTxt').addEventListener('click',()=>{
+    const blob=new Blob([buildReport()],{type:'text/plain'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a'); a.href=url; a.download='sentinel-m2-phase-c-resolution.txt';
+    document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    const s=document.getElementById('saved'); s.classList.add('show');
+    setTimeout(()=>s.classList.remove('show'),5000);
+  });
+  document.getElementById('printPdf').addEventListener('click',()=>window.print());
+
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

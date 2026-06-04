@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentinel — Module 2 Phase B: AI Troubleshooting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple:#7B2FBE; --purple-deep:#5B1F92; --purple-soft:#F3EBFB; --purple-line:#E3D2F5;
+    --ink:#1F1A26; --slate:#4A4658; --muted:#6E6A7A;
+    --paper:#FBF9FC; --card:#FFFFFF; --line:#EAE6F0;
+    --calm:#3A6B8A; --calm-soft:#E7F0F5;
+    --green:#2E7D57; --green-soft:#E8F4EE;
+    --amber:#B26A00; --amber-soft:#FBF0DD;
+    --red:#B52B27; --red-soft:#FAEAEA;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'DM Sans',sans-serif;
+    background:
+      radial-gradient(1100px 520px at 85% -10%, rgba(123,47,190,0.07), transparent 60%),
+      radial-gradient(900px 440px at -8% 2%, rgba(58,107,138,0.05), transparent 55%),
+      var(--paper);
+    color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased;
+    padding:0 20px 90px;
+  }
+  .wrap{max-width:880px;margin:0 auto}
+
+  .opsbar{max-width:880px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:16px 4px;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:.95rem}
+  .shield{width:30px;height:30px;display:grid;place-items:center;border-radius:8px;background:linear-gradient(150deg,var(--purple),var(--purple-deep));color:#fff;box-shadow:0 4px 12px rgba(91,31,146,.28)}
+  .shield svg{width:16px;height:16px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-left:auto}
+  .chip{font-size:.72rem;font-weight:600;padding:5px 11px;border-radius:999px;border:1px solid var(--line);color:var(--slate);background:#fff;display:inline-flex;align-items:center;gap:7px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--purple);box-shadow:0 0 0 3px rgba(123,47,190,.16);animation:pulse 2.2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+
+  .hero{padding:54px 0 12px}
+  .kicker{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--purple-deep);background:var(--purple-soft);border:1px solid var(--purple-line);padding:6px 13px;border-radius:999px;margin-bottom:22px}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.1rem,5.2vw,3.2rem);line-height:1.06;letter-spacing:-.5px;margin-bottom:16px}
+  .lede{font-size:1.15rem;color:var(--slate);max-width:58ch}
+
+  section{padding:46px 0;border-top:1px solid var(--line)}
+  section:first-of-type{border-top:none}
+  .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .eyebrow .num{font-family:'Fraunces',serif;font-weight:600;font-size:1rem;color:#fff;background:var(--purple);min-width:34px;height:34px;padding:0 9px;border-radius:9px;display:grid;place-items:center;flex:0 0 auto}
+  .eyebrow .lab{font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple-deep)}
+  h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.6rem,3.4vw,2.05rem);line-height:1.14;letter-spacing:-.3px}
+  p{font-size:1.04rem;color:var(--slate);margin-bottom:14px}
+  p:last-child{margin-bottom:0}
+  p strong{color:var(--ink);font-weight:600}
+  .lead-line{font-size:1.08rem;color:var(--ink);font-weight:500;margin-bottom:16px}
+
+  .principle{margin:26px 0 0;padding:28px 30px;border-radius:18px;background:linear-gradient(135deg,#2A1840,#4A1E78);color:#fff;position:relative;overflow:hidden}
+  .principle::after{content:"";position:absolute;right:-50px;top:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%)}
+  .principle .qm{font-family:'Fraunces',serif;font-size:2.4rem;line-height:.5;color:#C9A8EC;display:block;margin-bottom:6px}
+  .principle p{font-family:'Fraunces',serif;font-weight:500;font-size:1.26rem;line-height:1.35;color:#fff;margin:0;position:relative}
+
+  /* case copy cards */
+  .ccase{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:14px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .ccase .ch{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px;flex-wrap:wrap;gap:8px}
+  .case1 .ch{background:#1A2733;border-bottom:1px solid rgba(58,107,138,.3)}
+  .case2 .ch{background:#221A0E;border-bottom:1px solid rgba(178,106,0,.3)}
+  .case3 .ch{background:#1C1530;border-bottom:1px solid rgba(123,47,190,.3)}
+  .ch .cn{display:flex;align-items:center;gap:9px;font-weight:700;font-size:.92rem;color:#fff}
+  .ch .cn .cic{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;flex:0 0 auto}
+  .ch .cn .cic svg{width:15px;height:15px}
+  .case1 .cic{background:rgba(58,107,138,.4);color:#7BC4E0}
+  .case2 .cic{background:rgba(178,106,0,.4);color:#F5C776}
+  .case3 .cic{background:rgba(123,47,190,.4);color:#C9A8EC}
+  .copybtn{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;border-radius:8px;padding:6px 11px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.78rem;cursor:pointer;transition:background .16s}
+  .copybtn:hover{background:rgba(255,255,255,.18)}
+  .copybtn svg{width:13px;height:13px}
+  .ccase pre{margin:0;padding:15px 18px;font-family:'DM Mono',monospace;font-size:.82rem;line-height:1.75;color:var(--ink);background:#FCFBFE;overflow-x:auto;white-space:pre-wrap}
+
+  .copyall{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;border:1.5px solid var(--purple);background:var(--purple);color:#fff;border-radius:13px;padding:14px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;transition:transform .16s,box-shadow .16s;margin-top:4px}
+  .copyall:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(123,47,190,.3)}
+  .copyall svg{width:17px;height:17px}
+
+  /* workflow steps */
+  .flow{display:flex;flex-direction:column;gap:0;margin-top:8px}
+  .step{display:flex;gap:18px;position:relative;padding-bottom:22px}
+  .step:last-child{padding-bottom:0}
+  .step .rail{flex:0 0 auto;display:flex;flex-direction:column;align-items:center}
+  .step .bub{width:44px;height:44px;border-radius:50%;background:#fff;border:2px solid var(--purple);color:var(--purple-deep);display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:600;font-size:1.15rem;z-index:1}
+  .step .line{flex:1 1 auto;width:2px;background:var(--purple-line);margin:4px 0}
+  .step:last-child .line{display:none}
+  .step .body{padding-top:8px}
+  .step h3{font-size:1.06rem;font-weight:700;color:var(--ink);margin-bottom:3px}
+  .step p{font-size:1rem;margin:0}
+
+  /* prompt box */
+  .promptbox{background:#FAF6FD;border:1px solid var(--purple-line);border-radius:14px;padding:18px 20px;margin-top:14px}
+  .promptbox .pl{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+  .promptbox .pl .tag{font-size:.7rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--purple-deep)}
+  .promptbox .pcopy{border:1px solid var(--purple);background:#fff;color:var(--purple-deep);border-radius:8px;padding:6px 11px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.78rem;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+  .promptbox .pcopy svg{width:13px;height:13px}
+  .promptbox .ptext{font-family:'DM Mono',monospace;font-size:.9rem;line-height:1.6;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px}
+
+  .follows{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+  .follow{display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:12px 14px;font-size:.98rem;color:var(--slate)}
+  .follow svg{width:16px;height:16px;color:var(--purple);flex:0 0 auto;margin-top:3px}
+
+  /* AI panels */
+  .duo{display:flex;flex-wrap:wrap;gap:16px;margin-top:8px}
+  .panel{flex:1 1 320px;border-radius:16px;padding:22px;background:var(--card);border:1px solid var(--line);box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .panel .ph{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .panel .ph .ic{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;flex:0 0 auto}
+  .panel .ph .ic svg{width:16px;height:16px}
+  .panel.yes .ic{background:var(--green-soft);color:var(--green)}
+  .panel.no .ic{background:var(--amber-soft);color:var(--amber)}
+  .panel h3{font-size:1rem;font-weight:700;color:var(--ink)}
+  .panel .item{display:flex;gap:10px;padding:9px 0;font-size:.97rem;color:var(--slate);border-top:1px solid var(--line)}
+  .panel .item:first-of-type{border-top:none;padding-top:2px}
+  .panel .item .mk{flex:0 0 auto;margin-top:1px;font-weight:700;color:var(--green)}
+  .panel.no .item .mk{color:var(--amber)}
+
+  /* per-case comparison blocks */
+  .cblock{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:16px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .cblock .bh{display:flex;align-items:center;gap:12px;padding:15px 20px;border-bottom:1px solid var(--line)}
+  .case1 .bh{background:#EAF2F7}
+  .case2 .bh{background:#FBF0DD}
+  .case3 .bh{background:var(--purple-soft)}
+  .cblock .bh .bnum{font-family:'Fraunces',serif;font-weight:600;font-size:1rem;color:#fff;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;flex:0 0 auto}
+  .case1 .bnum{background:var(--calm)}
+  .case2 .bnum{background:var(--amber)}
+  .case3 .bnum{background:var(--purple)}
+  .cblock .bh .bt{font-weight:700;color:var(--ink);font-size:1rem}
+  .cblock .bi{padding:18px 20px}
+  label.fl{display:block;font-weight:600;color:var(--ink);font-size:.95rem;margin-bottom:7px}
+  label.fl.mt{margin-top:16px}
+  textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:13px;font-family:'DM Sans',sans-serif;font-size:1rem;color:var(--ink);line-height:1.55;resize:vertical;min-height:80px;background:#FDFCFE;transition:border-color .18s,box-shadow .18s}
+  textarea:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 3px rgba(123,47,190,.12)}
+  textarea::placeholder{color:#B5AFC0}
+
+  .sev-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .sevbtn{flex:1 1 80px;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:9px 8px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.88rem;color:var(--slate);cursor:pointer;transition:all .16s;text-align:center}
+  .sevbtn:hover{border-color:var(--purple-line)}
+  .sevbtn[data-s="low"].on{background:var(--green-soft);border-color:var(--green);color:var(--green)}
+  .sevbtn[data-s="medium"].on{background:var(--amber-soft);border-color:var(--amber);color:var(--amber)}
+  .sevbtn[data-s="high"].on{background:var(--red-soft);border-color:var(--red);color:var(--red)}
+
+  /* overall deliverable */
+  .deliv{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin-top:16px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .deliv .dh{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  .deliv .dn{flex:0 0 auto;width:32px;height:32px;border-radius:9px;background:var(--purple-soft);color:var(--purple-deep);font-family:'Fraunces',serif;font-weight:600;display:grid;place-items:center}
+  .deliv h3{font-size:1.08rem;font-weight:700;color:var(--ink)}
+  .deliv .dsub{font-size:.96rem;color:var(--muted);margin-bottom:14px}
+
+  .exportbar{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+  .ebtn{flex:1 1 200px;display:flex;align-items:center;justify-content:center;gap:9px;padding:15px 18px;border-radius:13px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;border:1.5px solid var(--purple);transition:transform .16s,box-shadow .16s}
+  .ebtn svg{width:18px;height:18px}
+  .ebtn.primary{background:var(--purple);color:#fff}
+  .ebtn.primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(123,47,190,.3)}
+  .ebtn.ghost{background:#fff;color:var(--purple-deep)}
+  .ebtn.ghost:hover{background:var(--purple-soft)}
+  .saved{font-size:.9rem;color:var(--green);font-weight:600;margin-top:10px;display:none;align-items:center;gap:7px}
+  .saved.show{display:flex}
+
+  .closing{margin-top:8px;background:linear-gradient(155deg,#241834,#3A1C5C 55%,#5B1F92);color:#fff;border-radius:22px;padding:46px 42px;position:relative;overflow:hidden}
+  .closing::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%)}
+  .closing .eyebrow .num{background:rgba(255,255,255,.16)}
+  .closing .eyebrow .lab{color:#C9A8EC}
+  .closing h2{color:#fff;position:relative}
+  .closing p{color:rgba(255,255,255,.86);position:relative;font-size:1.05rem}
+  .closing .big{font-family:'Fraunces',serif;font-weight:500;font-size:1.38rem;line-height:1.3;color:#fff;margin:6px 0 0;position:relative}
+  .shift-note{display:inline-flex;align-items:center;gap:9px;margin-top:24px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:11px 18px;font-size:.88rem;font-weight:600;color:#fff;position:relative}
+  .shift-note .dot{background:#9BE3B6;box-shadow:0 0 0 3px rgba(155,227,182,.2);animation:none}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.dot{animation:none}}
+  @media(max-width:600px){body{padding:0 16px 70px}.closing{padding:34px 26px}.chips{width:100%;margin-left:0}}
+  @media print{.opsbar,.exportbar,.closing,.copybtn,.copyall,.pcopy{display:none!important}body{background:#fff}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="opsbar">
+  <div class="brand">
+    <span class="shield"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+    Sentinel Technical Support &amp; Operations
+  </div>
+  <div class="chips">
+    <span class="chip"><span class="dot"></span>AI Analysis Active</span>
+    <span class="chip">Module 2 · Phase B</span>
+    <span class="chip">Human + AI</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero reveal">
+    <span class="kicker">Module 2 · Phase B</span>
+    <h1>AI troubleshooting: diagnosing system problems with AI assistance.</h1>
+    <p class="lede">Use AI to analyze the same three incidents from Phase A — then verify its recommendations using your own judgment.</p>
+  </header>
+
+  <!-- Intro -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">B</span><span class="lab">What shifts now</span></div>
+    <h2>A second opinion — from AI</h2>
+    <p class="lead-line">In Phase A, you worked through three incidents using your own thinking. Now you'll hand those same cases to an AI tool and see how it approaches them. The goal isn't to see who got it right — it's to understand <strong>where AI helps and where it falls short.</strong></p>
+    <p>AI can move fast and surface things you might miss. But it also makes assumptions, misses context, and sometimes confidently suggests the wrong thing. Your job is to compare, correct, and improve.</p>
+    <div class="principle">
+      <span class="qm">"</span>
+      <p>AI assists troubleshooting — it does not replace it.</p>
+    </div>
+  </section>
+
+  <!-- The three cases to copy -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">1</span><span class="lab">The cases</span></div>
+    <h2>Your three incidents</h2>
+    <p class="lead-line">Copy these into your AI tool. You can copy each case separately or grab all three at once using the button at the bottom.</p>
+
+    <div class="ccase case1">
+      <div class="ch">
+        <span class="cn"><span class="cic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></span>INC-0241 · System Running Slowly</span>
+        <button class="copybtn" data-copy="c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy</button>
+      </div>
+      <pre id="c1">INCIDENT INC-0241 — System Running Slowly
+Location: Government Services Portal
+Time reported: 9:22 AM
+
+What users said:
+- Pages that normally load in seconds now take over a minute
+- Dashboard updates are delayed or not appearing
+- Buttons and menus respond, but very slowly
+- No error messages — system has not crashed
+
+Context:
+- Today is end-of-month reporting deadline
+- Normally ~40 users logged in at peak
+- This morning: 60+ users logged in simultaneously</pre>
+    </div>
+
+    <div class="ccase case2">
+      <div class="ch">
+        <span class="cn"><span class="cic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>INC-0242 · Users Cannot Log In Properly</span>
+        <button class="copybtn" data-copy="c2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy</button>
+      </div>
+      <pre id="c2">INCIDENT INC-0242 — Users Cannot Log In Properly
+Location: Hospital Records System
+Time reported: 11:47 AM
+
+What users said:
+- Three employees report passwords being rejected on first try
+- One user (U-118) had 5 failed attempts before successfully logging in
+- Another user says their password "just stopped working" this morning
+- System is still running — other users are logged in without issues
+
+Context:
+- Sign-in process was updated last week
+- New password rules now require longer passwords with letters and numbers
+- An email announcement was sent, but not all staff opened it
+- Some users may not know their old password no longer meets the new rules</pre>
+    </div>
+
+    <div class="ccase case3">
+      <div class="ch">
+        <span class="cn"><span class="cic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg></span>INC-0243 · Strange Behavior, No Clear Cause</span>
+        <button class="copybtn" data-copy="c3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy</button>
+      </div>
+      <pre id="c3">INCIDENT INC-0243 — Strange Behavior, No Clear Cause
+Location: School District File System
+Time reported: 2:35 PM
+
+What users said:
+- Error message appears when saving files: "Action could not be completed"
+- Same action sometimes works fine if tried again a minute later
+- Some users see this error regularly — others in the same building never do
+- Problem started sometime this afternoon — no one knows exactly when
+
+Context:
+- File storage was reorganized two days ago — folders moved to new locations
+- Not all user accounts have been updated with access to the new folder locations
+- IT contact is unsure which accounts still need updating</pre>
+    </div>
+
+    <button class="copyall" id="copyAll"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> <span id="copyAllLabel">Copy all three cases</span></button>
+  </section>
+
+  <!-- Step 1 — use the AI tool -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">2</span><span class="lab">The workflow</span></div>
+    <h2>Run them through an AI tool</h2>
+    <p class="lead-line">Open ChatGPT, Claude, or Microsoft Copilot — then follow these steps.</p>
+    <div class="flow">
+      <div class="step"><div class="rail"><span class="bub">1</span><span class="line"></span></div><div class="body"><h3>Copy the cases</h3><p>Use the "Copy all three cases" button above, or copy each one individually.</p></div></div>
+      <div class="step"><div class="rail"><span class="bub">2</span><span class="line"></span></div><div class="body"><h3>Paste them in</h3><p>Drop all three into your AI tool's message box at once.</p></div></div>
+      <div class="step"><div class="rail"><span class="bub">3</span><span class="line"></span></div><div class="body"><h3>Send the analysis prompt</h3><p>Use the exact prompt below for consistent results.</p></div></div>
+      <div class="step"><div class="rail"><span class="bub">4</span></div><div class="body"><h3>Ask follow-up questions</h3><p>Push deeper with the questions listed below the prompt.</p></div></div>
+    </div>
+
+    <div class="promptbox">
+      <div class="pl"><span class="tag">Starter prompt</span><button class="pcopy" id="copyPrompt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy prompt</button></div>
+      <div class="ptext" id="promptText">Analyze these three system incidents from an IT support team. For each case, identify the most likely cause of the problem. Suggest two or three possible explanations. Estimate how serious each issue is on a low, medium, or high scale. Explain your reasoning in simple, clear language — no technical jargon.</div>
+    </div>
+
+    <div class="follows">
+      <div class="follow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg> "What is the single most likely cause for each issue?"</div>
+      <div class="follow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg> "Which of these could be resolved quickly, and which might take longer to fix?"</div>
+      <div class="follow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg> "Could any of these three incidents be connected to each other?"</div>
+      <div class="follow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg> "What information is missing that would help you give a better diagnosis?"</div>
+    </div>
+  </section>
+
+  <!-- Step 2 — what AI does -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">3</span><span class="lab">Read it carefully</span></div>
+    <h2>What AI may do — well, and not</h2>
+    <p class="lead-line">Before you compare its output to your own, keep both of these in mind.</p>
+    <div class="duo">
+      <div class="panel yes">
+        <div class="ph"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><h3>AI often handles well</h3></div>
+        <div class="item"><span class="mk">→</span>Identifying common, well-known causes for system slowdowns.</div>
+        <div class="item"><span class="mk">→</span>Generating several possible explanations quickly.</div>
+        <div class="item"><span class="mk">→</span>Spotting connections between cases that look similar.</div>
+        <div class="item"><span class="mk">→</span>Suggesting logical next steps for investigation.</div>
+      </div>
+      <div class="panel no">
+        <div class="ph"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg></span><h3>Where AI can slip</h3></div>
+        <div class="item"><span class="mk">!</span>Assuming technical complexity when the cause is simple.</div>
+        <div class="item"><span class="mk">!</span>Missing workplace context (the end-of-month deadline, the policy change).</div>
+        <div class="item"><span class="mk">!</span>Treating every login failure as a security threat.</div>
+        <div class="item"><span class="mk">!</span>Sounding certain about things it can't actually know.</div>
+      </div>
+    </div>
+    <div class="principle">
+      <span class="qm">"</span>
+      <p>AI gives interpretation — not truth. The context you bring is something it cannot have.</p>
+    </div>
+  </section>
+
+  <!-- Step 3+4 — build the report -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">4</span><span class="lab">Build your report</span></div>
+    <h2>Compare, correct, and verify</h2>
+    <p class="lead-line">Work through each case. For each one, compare what the AI said to what you found in Phase A — then decide what the corrected version looks like.</p>
+
+    <!-- Case 1 comparison -->
+    <div class="cblock case1">
+      <div class="bh"><span class="bnum">1</span><span class="bt">INC-0241 — System Running Slowly</span></div>
+      <div class="bi">
+        <label class="fl">What did the AI say about this case? (paste or summarize)</label>
+        <textarea id="ai1" placeholder="The AI suggested... It said the likely cause was... It rated severity as..."></textarea>
+        <label class="fl mt">Where did the AI agree with your Phase A thinking?</label>
+        <textarea id="ag1" placeholder="The AI and I both noticed... We agreed that..."></textarea>
+        <label class="fl mt">Where did the AI get it wrong, miss context, or go too far?</label>
+        <textarea id="dg1" placeholder="The AI missed the fact that... It overcomplicated things by... It didn't mention the end-of-month deadline context..."></textarea>
+        <label class="fl mt">Updated severity — after seeing AI analysis, what's your call?</label>
+        <div class="sev-row">
+          <button class="sevbtn" data-case="u1" data-s="low">Low</button>
+          <button class="sevbtn" data-case="u1" data-s="medium">Medium</button>
+          <button class="sevbtn" data-case="u1" data-s="high">High</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 2 comparison -->
+    <div class="cblock case2">
+      <div class="bh"><span class="bnum">2</span><span class="bt">INC-0242 — Users Cannot Log In Properly</span></div>
+      <div class="bi">
+        <label class="fl">What did the AI say about this case? (paste or summarize)</label>
+        <textarea id="ai2" placeholder="The AI suggested... It said the likely cause was... It rated severity as..."></textarea>
+        <label class="fl mt">Where did the AI agree with your Phase A thinking?</label>
+        <textarea id="ag2" placeholder="The AI and I both noticed... We agreed that..."></textarea>
+        <label class="fl mt">Where did the AI get it wrong, miss context, or go too far?</label>
+        <textarea id="dg2" placeholder="The AI jumped straight to a security concern without considering the password policy change... It didn't account for the communication gap..."></textarea>
+        <label class="fl mt">Updated severity — after seeing AI analysis, what's your call?</label>
+        <div class="sev-row">
+          <button class="sevbtn" data-case="u2" data-s="low">Low</button>
+          <button class="sevbtn" data-case="u2" data-s="medium">Medium</button>
+          <button class="sevbtn" data-case="u2" data-s="high">High</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 3 comparison -->
+    <div class="cblock case3">
+      <div class="bh"><span class="bnum">3</span><span class="bt">INC-0243 — Strange Behavior, No Clear Cause</span></div>
+      <div class="bi">
+        <label class="fl">What did the AI say about this case? (paste or summarize)</label>
+        <textarea id="ai3" placeholder="The AI suggested... It said the likely cause was... It rated severity as..."></textarea>
+        <label class="fl mt">Where did the AI agree with your Phase A thinking?</label>
+        <textarea id="ag3" placeholder="The AI and I both noticed the inconsistency... We agreed that..."></textarea>
+        <label class="fl mt">Where did the AI get it wrong, miss context, or go too far?</label>
+        <textarea id="dg3" placeholder="The AI didn't connect the folder reorganization to the error... It suggested complex causes when the explanation might be simpler..."></textarea>
+        <label class="fl mt">Updated severity — after seeing AI analysis, what's your call?</label>
+        <div class="sev-row">
+          <button class="sevbtn" data-case="u3" data-s="low">Low</button>
+          <button class="sevbtn" data-case="u3" data-s="medium">Medium</button>
+          <button class="sevbtn" data-case="u3" data-s="high">High</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Overall -->
+    <div class="deliv" style="margin-top:20px">
+      <div class="dh"><span class="dn">+</span><h3>Corrected overall diagnosis</h3></div>
+      <div class="dsub">After comparing human and AI analysis across all three cases, write your improved, human-verified summary of what's going on across the system today.</div>
+      <textarea id="overall" placeholder="Looking at all three cases together, the most accurate picture is... The AI helped me see... but I'd correct it on... The most important thing to address first is..."></textarea>
+    </div>
+
+    <div class="exportbar">
+      <button class="ebtn primary" id="dlTxt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download review report (.txt)</button>
+      <button class="ebtn ghost" id="printPdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg> Save as PDF</button>
+    </div>
+    <div class="saved" id="saved"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Your troubleshooting review report has been saved.</div>
+  </section>
+
+  <!-- Transition -->
+  <section class="reveal">
+    <div class="closing">
+      <div class="eyebrow"><span class="num">→</span><span class="lab">Next: Phase C</span></div>
+      <h2>You have the full picture now</h2>
+      <p>Your own thinking from Phase A. AI analysis from Phase B. A corrected, human-verified read on all three cases. That's the strongest position to make decisions from.</p>
+      <p class="big">Next, you will decide how Sentinel should respond to each system issue based on both human and AI analysis.</p>
+      <span class="shift-note"><span class="dot"></span>Phase C — Response Decisions begins next</span>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  const sevState = {u1:'',u2:'',u3:''};
+
+  document.querySelectorAll('.sevbtn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      sevState[b.dataset.case]=b.dataset.s;
+      b.closest('.sev-row').querySelectorAll('.sevbtn').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+    });
+  });
+
+  function val(id){ const el=document.getElementById(id); return el?el.value.trim():''; }
+
+  const c1txt=document.getElementById('c1').textContent;
+  const c2txt=document.getElementById('c2').textContent;
+  const c3txt=document.getElementById('c3').textContent;
+  const allCases='=== CASE 1 ===\n'+c1txt+'\n\n=== CASE 2 ===\n'+c2txt+'\n\n=== CASE 3 ===\n'+c3txt;
+  const promptTxt=document.getElementById('promptText').textContent;
+
+  function copyText(txt,btn,label){
+    const done=()=>flash(btn,label);
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done).catch(()=>fallback(txt,btn,label)); }
+    else { fallback(txt,btn,label); }
+  }
+  function fallback(txt,btn,label){ const t=document.createElement('textarea');t.value=txt;t.style.cssText='position:fixed;opacity:0;top:0;left:0';document.body.appendChild(t);t.select();try{document.execCommand('copy');}catch(e){}t.remove();flash(btn,label); }
+  function flash(btn,label){ const h=btn.innerHTML; btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M20 6 9 17l-5-5"/></svg> '+label; setTimeout(()=>{btn.innerHTML=h;},1800); }
+
+  const map={c1:c1txt,c2:c2txt,c3:c3txt};
+  document.querySelectorAll('.copybtn').forEach(b=>{ b.addEventListener('click',()=>copyText(map[b.dataset.copy],b,'Copied')); });
+  document.getElementById('copyAll').addEventListener('click',(e)=>copyText(allCases,e.currentTarget,'All three copied'));
+  document.getElementById('copyPrompt').addEventListener('click',(e)=>copyText(promptTxt,e.currentTarget,'Prompt copied'));
+
+  const caseData=[
+    {label:'CASE 1 — System Running Slowly (INC-0241)',ai:'ai1',ag:'ag1',dg:'dg1',sev:'u1'},
+    {label:'CASE 2 — Users Cannot Log In Properly (INC-0242)',ai:'ai2',ag:'ag2',dg:'dg2',sev:'u2'},
+    {label:'CASE 3 — Strange Behavior, No Clear Cause (INC-0243)',ai:'ai3',ag:'ag3',dg:'dg3',sev:'u3'}
+  ];
+
+  function buildReport(){
+    let out='SENTINEL TECHNICAL SUPPORT & OPERATIONS CENTER\n';
+    out+='AI-Assisted Troubleshooting Review Report — Phase B\n';
+    out+='Level 1 IT Support & Systems Analyst\n';
+    out+='Generated: '+new Date().toLocaleString()+'\n';
+    caseData.forEach(c=>{
+      out+='\n========================================\n'+c.label+'\n========================================\n';
+      out+='\nAI Analysis Summary:\n'+(val(c.ai)||'(not answered)')+'\n';
+      out+='\nAgreement with Phase A:\n'+(val(c.ag)||'(not answered)')+'\n';
+      out+='\nDisagreement / What AI missed:\n'+(val(c.dg)||'(not answered)')+'\n';
+      out+='\nUpdated Severity: '+(sevState[c.sev]?sevState[c.sev].toUpperCase():'(not selected)')+'\n';
+    });
+    out+='\n========================================\nCORRECTED OVERALL DIAGNOSIS\n========================================\n';
+    out+=(val('overall')||'(not answered)')+'\n';
+    out+='\n— End of Phase B Troubleshooting Review Report —\n';
+    return out;
+  }
+
+  document.getElementById('dlTxt').addEventListener('click',()=>{
+    const blob=new Blob([buildReport()],{type:'text/plain'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');a.href=url;a.download='sentinel-m2-phase-b-review.txt';
+    document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+    const s=document.getElementById('saved');s.classList.add('show');
+    setTimeout(()=>s.classList.remove('show'),4000);
+  });
+  document.getElementById('printPdf').addEventListener('click',()=>window.print());
+
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
