@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentinel — Phase C: Decision Phase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple:#7B2FBE; --purple-deep:#5B1F92; --purple-soft:#F3EBFB; --purple-line:#E3D2F5;
+    --ink:#1F1A26; --slate:#4A4658; --muted:#6E6A7A;
+    --paper:#FBF9FC; --card:#FFFFFF; --line:#EAE6F0;
+    --calm:#3A6B8A; --calm-soft:#E7F0F5;
+    --green:#2E7D57; --green-soft:#E8F4EE;
+    --amber:#B26A00; --amber-soft:#FBF0DD;
+    --red:#B52B27; --red-soft:#FAEAEA;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'DM Sans',sans-serif;
+    background:
+      radial-gradient(1100px 520px at 85% -10%, rgba(123,47,190,0.07), transparent 60%),
+      radial-gradient(900px 440px at -8% 2%, rgba(58,107,138,0.05), transparent 55%),
+      var(--paper);
+    color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased;
+    padding:0 20px 90px;
+  }
+  .wrap{max-width:880px;margin:0 auto}
+
+  .opsbar{max-width:880px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:16px 4px;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:.95rem}
+  .shield{width:30px;height:30px;display:grid;place-items:center;border-radius:8px;background:linear-gradient(150deg,var(--purple),var(--purple-deep));color:#fff;box-shadow:0 4px 12px rgba(91,31,146,.28)}
+  .shield svg{width:16px;height:16px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-left:auto}
+  .chip{font-size:.72rem;font-weight:600;padding:5px 11px;border-radius:999px;border:1px solid var(--line);color:var(--slate);background:#fff;display:inline-flex;align-items:center;gap:7px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 3px rgba(178,106,0,.16);animation:pulse 2.2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+
+  .hero{padding:54px 0 12px}
+  .kicker{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--purple-deep);background:var(--purple-soft);border:1px solid var(--purple-line);padding:6px 13px;border-radius:999px;margin-bottom:22px}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.2rem,5.4vw,3.3rem);line-height:1.06;letter-spacing:-.5px;margin-bottom:16px}
+  .lede{font-size:1.16rem;color:var(--slate);max-width:58ch}
+
+  section{padding:48px 0;border-top:1px solid var(--line)}
+  section:first-of-type{border-top:none}
+  .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .eyebrow .num{font-family:'Fraunces',serif;font-weight:600;font-size:1rem;color:#fff;background:var(--purple);min-width:34px;height:34px;padding:0 9px;border-radius:9px;display:grid;place-items:center;flex:0 0 auto}
+  .eyebrow .lab{font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple-deep)}
+  h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.6rem,3.4vw,2.05rem);line-height:1.14;letter-spacing:-.3px}
+  p{font-size:1.05rem;color:var(--slate);margin-bottom:14px}
+  p:last-child{margin-bottom:0}
+  p strong{color:var(--ink);font-weight:600}
+  .lead-line{font-size:1.1rem;color:var(--ink);font-weight:500;margin-bottom:18px}
+
+  .principle{margin:26px 0 0;padding:28px 30px;border-radius:18px;background:linear-gradient(135deg,#2A1840,#4A1E78);color:#fff;position:relative;overflow:hidden}
+  .principle::after{content:"";position:absolute;right:-50px;top:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%)}
+  .principle .qm{font-family:'Fraunces',serif;font-size:2.4rem;line-height:.5;color:#C9A8EC;display:block;margin-bottom:6px}
+  .principle p{font-family:'Fraunces',serif;font-weight:500;font-size:1.26rem;line-height:1.35;color:#fff;margin:0;position:relative}
+
+  /* Briefing panels */
+  .briefing{display:flex;flex-wrap:wrap;gap:16px;margin-top:6px}
+  .bpanel{flex:1 1 320px;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .bpanel .bh{padding:14px 18px;font-weight:700;font-size:.92rem;display:flex;align-items:center;gap:9px}
+  .bpanel.human .bh{background:#EEF9F2;color:var(--green);border-bottom:1px solid #D5EDDF}
+  .bpanel.ai .bh{background:#EEF3F7;color:var(--calm);border-bottom:1px solid #D5E4EE}
+  .bpanel .bh svg{width:16px;height:16px}
+  .bitem{display:flex;gap:10px;padding:12px 18px;border-top:1px solid var(--line);font-size:.97rem;color:var(--slate);line-height:1.5}
+  .bitem:first-of-type{border-top:none}
+  .bitem .bi{flex:0 0 auto;margin-top:2px;font-weight:700}
+  .bpanel.human .bi{color:var(--green)} .bpanel.ai .bi{color:var(--calm)}
+
+  /* Decision reference cards */
+  .dref{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+  .drc{flex:1 1 190px;border-radius:14px;padding:18px 18px 16px;border:1px solid var(--line);background:var(--card);position:relative;overflow:hidden}
+  .drc::before{content:"";position:absolute;top:0;left:0;right:0;height:4px}
+  .drc.ig::before{background:var(--green)} .drc.mo::before{background:var(--calm)} .drc.es::before{background:var(--red)}
+  .drc .dot2{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:6px}
+  .ig .dot2{background:var(--green)} .mo .dot2{background:var(--calm)} .es .dot2{background:var(--red)}
+  .drc .dl{font-family:'Fraunces',serif;font-weight:600;font-size:1.1rem;margin-bottom:7px;display:flex;align-items:center}
+  .drc.ig .dl{color:var(--green)} .drc.mo .dl{color:var(--calm)} .drc.es .dl{color:var(--red)}
+  .drc p{font-size:.91rem;margin:0;line-height:1.5}
+
+  /* Event decision blocks */
+  .eblock{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:16px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .eblock .eh{display:flex;align-items:center;gap:12px;padding:16px 22px;background:#FAF8FC;border-bottom:1px solid var(--line)}
+  .eblock .enum{font-family:'Fraunces',serif;font-weight:600;font-size:1rem;color:#fff;background:var(--purple);width:30px;height:30px;border-radius:8px;display:grid;place-items:center;flex:0 0 auto}
+  .eblock .etitle{font-weight:700;color:var(--ink);font-size:1.05rem}
+  .eblock .etime{font-size:.75rem;font-weight:700;color:var(--purple-deep);background:var(--purple-soft);border-radius:6px;padding:3px 8px;margin-left:auto}
+  .eblock .eb{padding:18px 22px}
+  .context{background:#F9F7FC;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:16px;display:flex;flex-direction:column;gap:10px}
+  .ctx{display:flex;gap:10px;align-items:flex-start;font-size:.95rem;color:var(--slate)}
+  .ctx .ct{flex:0 0 auto;font-size:.7rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:3px 7px;border-radius:5px;margin-top:1px}
+  .ctx.what .ct{background:#F0EBF8;color:var(--purple-deep)}
+  .ctx.pa .ct{background:var(--green-soft);color:var(--green)}
+  .ctx.pb .ct{background:var(--calm-soft);color:var(--calm)}
+  .decide{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+  .dbtn{flex:1 1 90px;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:10px 10px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.9rem;color:var(--slate);cursor:pointer;transition:all .16s}
+  .dbtn:hover{border-color:var(--purple-line)}
+  .dbtn[data-v="ignore"].on{background:var(--green-soft);border-color:var(--green);color:var(--green)}
+  .dbtn[data-v="monitor"].on{background:var(--calm-soft);border-color:var(--calm);color:var(--calm)}
+  .dbtn[data-v="escalate"].on{background:var(--red-soft);border-color:var(--red);color:var(--red)}
+  textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:14px;font-family:'DM Sans',sans-serif;font-size:1rem;color:var(--ink);line-height:1.55;resize:vertical;min-height:80px;background:#FDFCFE;transition:border-color .18s,box-shadow .18s}
+  textarea:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 3px rgba(123,47,190,.12)}
+  textarea::placeholder{color:#B5AFC0}
+  label.fl{display:block;font-weight:600;color:var(--ink);font-size:.96rem;margin:14px 0 7px}
+  label.fl:first-of-type{margin-top:0}
+
+  /* Tradeoff questions */
+  .tradeoffs{display:flex;flex-direction:column;gap:10px;margin:16px 0}
+  .tq{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .tq .tc{flex:0 0 auto;width:32px;height:32px;border-radius:9px;display:grid;place-items:center}
+  .tq .tc svg{width:17px;height:17px}
+  .tq.t1 .tc{background:var(--red-soft);color:var(--red)}
+  .tq.t2 .tc{background:var(--amber-soft);color:var(--amber)}
+  .tq.t3 .tc{background:var(--green-soft);color:var(--green)}
+  .tq .ttext{font-size:1rem;color:var(--ink);font-weight:500;line-height:1.5}
+  .tq .tsub{font-size:.92rem;color:var(--muted);margin-top:2px}
+
+  /* Final deliverable */
+  .deliv{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin-top:16px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .deliv .dh{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  .deliv .dn{flex:0 0 auto;width:32px;height:32px;border-radius:9px;background:var(--purple-soft);color:var(--purple-deep);font-family:'Fraunces',serif;font-weight:600;display:grid;place-items:center}
+  .deliv h3{font-size:1.1rem;font-weight:700;color:var(--ink)}
+  .deliv .dsub{font-size:.97rem;color:var(--muted);margin-bottom:14px}
+
+  /* Risk level selector */
+  .riskrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+  .rbtn{flex:1 1 120px;border-radius:12px;padding:16px 12px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;border:1.5px solid var(--line);background:#fff;color:var(--slate);transition:all .16s;text-align:center}
+  .rbtn[data-r="low"].on{background:var(--green-soft);border-color:var(--green);color:var(--green)}
+  .rbtn[data-r="medium"].on{background:var(--amber-soft);border-color:var(--amber);color:var(--amber)}
+  .rbtn[data-r="high"].on{background:var(--red-soft);border-color:var(--red);color:var(--red)}
+  .rbtn:hover:not(.on){border-color:var(--purple-line)}
+  .rbtn .rl{font-size:.72rem;font-weight:600;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);margin-bottom:3px;display:block}
+  .rbtn.on .rl{color:inherit;opacity:.7}
+
+  .exportbar{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+  .ebtn{flex:1 1 200px;display:flex;align-items:center;justify-content:center;gap:9px;padding:15px 18px;border-radius:13px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;border:1.5px solid var(--purple);transition:transform .16s,box-shadow .16s}
+  .ebtn svg{width:18px;height:18px}
+  .ebtn.primary{background:var(--purple);color:#fff}
+  .ebtn.primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(123,47,190,.3)}
+  .ebtn.ghost{background:#fff;color:var(--purple-deep)}
+  .ebtn.ghost:hover{background:var(--purple-soft)}
+  .saved{font-size:.9rem;color:var(--green);font-weight:600;margin-top:10px;display:none;align-items:center;gap:7px}
+  .saved.show{display:flex}
+
+  /* Closing / completion */
+  .closing{margin-top:8px;background:linear-gradient(155deg,#241834,#3A1C5C 55%,#5B1F92);color:#fff;border-radius:22px;padding:48px 42px;position:relative;overflow:hidden}
+  .closing::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%)}
+  .badge{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:14px;padding:12px 18px;margin-bottom:24px;position:relative}
+  .badge svg{width:20px;height:20px;color:#C9A8EC}
+  .badge .bt{font-weight:700;font-size:.88rem;letter-spacing:.3px;color:#fff}
+  .badge .bs{font-size:.76rem;color:rgba(255,255,255,.7);margin-top:1px}
+  .closing .eyebrow .num{background:rgba(255,255,255,.16)}
+  .closing .eyebrow .lab{color:#C9A8EC}
+  .closing h2{color:#fff;position:relative}
+  .closing p{color:rgba(255,255,255,.86);position:relative;font-size:1.05rem}
+  .closing .big{font-family:'Fraunces',serif;font-weight:500;font-size:1.38rem;line-height:1.3;color:#fff;margin:6px 0 0;position:relative}
+  .shift-note{display:inline-flex;align-items:center;gap:9px;margin-top:24px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:11px 18px;font-size:.88rem;font-weight:600;color:#fff;position:relative}
+  .shift-note .dot{background:#9BE3B6;box-shadow:0 0 0 3px rgba(155,227,182,.2);animation:none}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.dot{animation:none}}
+  @media(max-width:600px){body{padding:0 16px 70px}.closing{padding:34px 26px}.chips{width:100%;margin-left:0}.eblock .eh{flex-wrap:wrap}.eblock .etime{margin-left:0}}
+  @media print{.opsbar,.exportbar,.closing,.dot{display:none!important}body{background:#fff}.reveal{opacity:1;transform:none}.decide,.rbtn{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+  <div class="opsbar">
+    <div class="brand">
+      <span class="shield"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+      Sentinel Monitoring Center
+    </div>
+    <div class="chips">
+      <span class="chip"><span class="dot"></span>Decision Required</span>
+      <span class="chip">Phase C</span>
+      <span class="chip">Final Judgment</span>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <header class="hero reveal">
+      <span class="kicker">Module 1 · Phase C</span>
+      <h1>Decision phase: what should Sentinel do next?</h1>
+      <p class="lede">You are now responsible for final operational judgment. Review the full picture, weigh both human and AI findings, and make the call.</p>
+    </header>
+
+    <!-- 1. Your role -->
+    <section class="reveal">
+      <div class="eyebrow"><span class="num">C</span><span class="lab">Your responsibility</span></div>
+      <h2>You are the analyst on record</h2>
+      <p class="lead-line">As a <strong>Level 1 Security Monitoring Analyst</strong>, your job in this phase is not to observe — it's to <strong>decide</strong>. You've gathered the evidence. Now you're responsible for what happens next.</p>
+      <p>Real analysts rarely have all the information they'd want. Systems don't come with labels that say "this is dangerous." You'll look at the same incomplete picture and make a professional judgment — one you can explain clearly to your team.</p>
+      <div class="principle">
+        <span class="qm">"</span>
+        <p>You will rarely have perfect information — but you must still decide.</p>
+      </div>
+    </section>
+
+    <!-- 2. Summary of findings -->
+    <section class="reveal">
+      <div class="eyebrow"><span class="num">1</span><span class="lab">The full picture</span></div>
+      <h2>Summary of findings</h2>
+      <p class="lead-line">Before you decide, here's what both phases turned up. Read this like a briefing handed to you at the start of your shift.</p>
+      <div class="briefing">
+        <div class="bpanel human">
+          <div class="bh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg> Phase A — Human Analysis</div>
+          <div class="bitem"><span class="bi">→</span>Unusual login noticed from a location never seen on that account before.</div>
+          <div class="bitem"><span class="bi">→</span>System slowdown at 2:14 PM on the hospital records system — cause unknown.</div>
+          <div class="bitem"><span class="bi">→</span>Repeated sign-in failures followed by success — flagged as worth a look.</div>
+          <div class="bitem"><span class="bi">→</span>After-hours file access by a remote user — allowed by the system, but unusual.</div>
+        </div>
+        <div class="bpanel ai">
+          <div class="bh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 1 5 5v3M7 7v3a5 5 0 0 0 10 0V7M12 20v-6M8 20h8"/></svg> Phase B — AI Analysis</div>
+          <div class="bitem"><span class="bi">→</span>New location login flagged as medium concern — could indicate an account being used from somewhere unexpected.</div>
+          <div class="bitem"><span class="bi">→</span>Repeated failed sign-ins treated as a possible unauthorized access attempt.</div>
+          <div class="bitem"><span class="bi">→</span>System slowdown rated low concern — AI noted no clear link to other activity.</div>
+          <div class="bitem"><span class="bi">→</span>After-hours access noted. AI recommended monitoring with no immediate action.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Decision framework -->
+    <section class="reveal">
+      <div class="eyebrow"><span class="num">2</span><span class="lab">Your tools</span></div>
+      <h2>The decision framework</h2>
+      <p class="lead-line">Three choices, every time. Keep them in mind as you work through each event below.</p>
+      <div class="dref">
+        <div class="drc ig"><div class="dl"><span class="dot2"></span>Ignore</div><p>Activity appears normal. No further action needed right now.</p></div>
+        <div class="drc mo"><div class="dl"><span class="dot2"></span>Monitor</div><p>Activity is unusual but not urgent. Keep a close eye and check again next shift.</p></div>
+        <div class="drc es"><div class="dl"><span class="dot2"></span>Escalate</div><p>Activity may signal a real problem. Send it to senior analysts for investigation.</p></div>
+      </div>
+    </section>
+
+    <!-- 4. Event decisions -->
+    <section class="reveal">
+      <div class="eyebrow"><span class="num">3</span><span class="lab">Your decisions</span></div>
+      <h2>Evaluate each event</h2>
+      <p class="lead-line">For each event, choose an action and explain your reasoning. There is no single correct answer — your justification is what counts.</p>
+
+      <!-- Event 1 -->
+      <div class="eblock">
+        <div class="eh"><span class="enum">1</span><span class="etitle">Sign-in from a new location</span><span class="etime">9:14 AM</span></div>
+        <div class="eb">
+          <div class="context">
+            <div class="ctx what"><span class="ct">What happened</span><span>Account U-331 signed in successfully from Denver — a city never seen before on this account.</span></div>
+            <div class="ctx pa"><span class="ct">Phase A</span><span>Flagged as unusual. The new location stood out during observation.</span></div>
+            <div class="ctx pb"><span class="ct">Phase B</span><span>AI rated this medium concern — noted it could indicate someone using the account from an unexpected place.</span></div>
+          </div>
+          <div class="decide">
+            <button class="dbtn" data-ev="e1" data-v="ignore">Ignore</button>
+            <button class="dbtn" data-ev="e1" data-v="monitor">Monitor</button>
+            <button class="dbtn" data-ev="e1" data-v="escalate">Escalate</button>
+          </div>
+          <textarea id="r1" placeholder="Why did you choose this? Could there be an innocent explanation? What would make you change your mind?"></textarea>
+        </div>
+      </div>
+
+      <!-- Event 2 -->
+      <div class="eblock">
+        <div class="eh"><span class="enum">2</span><span class="etitle">System slowdown</span><span class="etime">2:14 PM</span></div>
+        <div class="eb">
+          <div class="context">
+            <div class="ctx what"><span class="ct">What happened</span><span>The hospital records system ran slower than usual for 6 minutes. No cause was identified. It then returned to normal on its own.</span></div>
+            <div class="ctx pa"><span class="ct">Phase A</span><span>Noted and flagged — the hospital setting made this feel more important to watch.</span></div>
+            <div class="ctx pb"><span class="ct">Phase B</span><span>AI rated this low concern — saw no connection to other events and said slowdowns can happen for routine reasons.</span></div>
+          </div>
+          <div class="decide">
+            <button class="dbtn" data-ev="e2" data-v="ignore">Ignore</button>
+            <button class="dbtn" data-ev="e2" data-v="monitor">Monitor</button>
+            <button class="dbtn" data-ev="e2" data-v="escalate">Escalate</button>
+          </div>
+          <textarea id="r2" placeholder="Does the hospital setting change how you think about this? What would a second slowdown tomorrow mean?"></textarea>
+        </div>
+      </div>
+
+      <!-- Event 3 -->
+      <div class="eblock">
+        <div class="eh"><span class="enum">3</span><span class="etitle">Repeated sign-in attempts</span><span class="etime">3:40 PM</span></div>
+        <div class="eb">
+          <div class="context">
+            <div class="ctx what"><span class="ct">What happened</span><span>Account U-118 had 5 failed sign-in tries in a row, then successfully signed in. The account is based in Chicago.</span></div>
+            <div class="ctx pa"><span class="ct">Phase A</span><span>Stood out immediately — a string of failures before success felt like something worth investigating.</span></div>
+            <div class="ctx pb"><span class="ct">Phase B</span><span>AI flagged this as a possible unauthorized access attempt — noted the pattern of multiple failures followed by success.</span></div>
+          </div>
+          <div class="decide">
+            <button class="dbtn" data-ev="e3" data-v="ignore">Ignore</button>
+            <button class="dbtn" data-ev="e3" data-v="monitor">Monitor</button>
+            <button class="dbtn" data-ev="e3" data-v="escalate">Escalate</button>
+          </div>
+          <textarea id="r3" placeholder="Could this be someone who simply forgot their password? What other possibilities are there? Does it matter that the location is normal?"></textarea>
+        </div>
+      </div>
+
+      <!-- Event 4 -->
+      <div class="eblock">
+        <div class="eh"><span class="enum">4</span><span class="etitle">After-hours file access</span><span class="etime">6:12 PM</span></div>
+        <div class="eb">
+          <div class="context">
+            <div class="ctx what"><span class="ct">What happened</span><span>Account U-450 accessed files at 6:12 PM from a remote location — outside of the normal working window. The system allowed it.</span></div>
+            <div class="ctx pa"><span class="ct">Phase A</span><span>Questioned during observation — the combination of late timing and remote access stood out.</span></div>
+            <div class="ctx pb"><span class="ct">Phase B</span><span>AI recommended monitoring but no immediate action — noted remote work is common and doesn't automatically signal a problem.</span></div>
+          </div>
+          <div class="decide">
+            <button class="dbtn" data-ev="e4" data-v="ignore">Ignore</button>
+            <button class="dbtn" data-ev="e4" data-v="monitor">Monitor</button>
+            <button class="dbtn" data-ev="e4" data-v="escalate">Escalate</button>
+          </div>
+          <textarea id="r4" placeholder="Is remote after-hours work common for this kind of organization? What more would you want to know before escalating?"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Tradeoff thinking -->
+    <section class="reveal">
+      <div class="eyebrow"><span class="num">4</span><span class="lab">Think it through</span></div>
+      <h2>The tradeoffs of every decision</h2>
+      <p class="lead-line">Before you finalize your calls, sit with these three questions. There's no wrong answer here — just honest thinking.</p>
+      <div class="tradeoffs">
+        <div class="tq t1"><div class="tc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg></div><div><div class="ttext">What happens if you ignore something that turns out to be important?</div><div class="tsub">Who might be affected? What could you have done differently?</div></div></div>
+        <div class="tq t2"><div class="tc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><div class="ttext">What happens if you escalate something that turns out to be completely normal?</div><div class="tsub">What's the cost? Is it better to be safe, or does over-escalating cause its own problems?</div></div></div>
+        <div class="tq t3"><div class="tc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/></svg></div><div><div class="ttext">How do you stay careful without overreacting to everything?</div><div class="tsub">What does good judgment look like when you're not sure?</div></div></div>
+      </div>
+      <textarea id="tradeoff" placeholder="Write your thoughts on the tradeoffs here — there's no pressure to have it all figured out..."></textarea>
+      <div class="principle" style="margin-top:22px">
+        <span class="qm">"</span>
+        <p>Good analysts are careful — not alarmist.</p>
+      </div>
+    </section>
+
+    <!-- 6. Final synthesis -->
+    <section class="reveal">
+      <div class="eyebrow"><span class="num">5</span><span class="lab">Big picture</span></div>
+      <h2>If this system were yours</h2>
+      <p class="lead-line">One last question before you submit your report.</p>
+      <p>If you were responsible for the Sentinel Monitoring Center tomorrow, what would you pay the most attention to — and why?</p>
+      <textarea id="synthesis" style="margin-top:14px;min-height:110px" placeholder="Tomorrow I'd focus on... because..."></textarea>
+    </section>
+
+    <!-- 7. Final deliverable -->
+    <section class="reveal">
+      <div class="eyebrow"><span class="num">6</span><span class="lab">Your report</span></div>
+      <h2>Sentinel Operational Decision Report</h2>
+      <p class="lead-line">Pull your thinking together into one final document. This is what you'd hand to your supervisor at the end of a real shift.</p>
+
+      <div class="deliv">
+        <div class="dh"><span class="dn">1</span><h3>Phase A — key observations in your own words</h3></div>
+        <div class="dsub">What stood out to you during the human investigation? Summarize it as if you're handing off to the next shift.</div>
+        <textarea id="paObs" placeholder="From my own review of the data, the things that stood out were..."></textarea>
+      </div>
+
+      <div class="deliv">
+        <div class="dh"><span class="dn">2</span><h3>Phase B — AI insights in your own words</h3></div>
+        <div class="dsub">What did the AI add, change, or miss compared to your own thinking?</div>
+        <textarea id="pbSummary" placeholder="The AI analysis helped me see... but I disagreed with it on..."></textarea>
+      </div>
+
+      <div class="deliv">
+        <div class="dh"><span class="dn">3</span><h3>Overall risk level</h3></div>
+        <div class="dsub">Looking at everything from today, how would you rate the overall risk level for the systems you monitored?</div>
+        <div class="riskrow">
+          <button class="rbtn" data-r="low"><span class="rl">Risk level</span>Low</button>
+          <button class="rbtn" data-r="medium"><span class="rl">Risk level</span>Medium</button>
+          <button class="rbtn" data-r="high"><span class="rl">Risk level</span>High</button>
+        </div>
+      </div>
+
+      <div class="deliv">
+        <div class="dh"><span class="dn">4</span><h3>Tomorrow's monitoring focus</h3></div>
+        <div class="dsub">One thing you'd tell the next analyst to watch closely when their shift starts.</div>
+        <textarea id="tomorrow" placeholder="First thing tomorrow, watch for..."></textarea>
+      </div>
+
+      <div class="exportbar">
+        <button class="ebtn primary" id="dlTxt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download full report (.txt)</button>
+        <button class="ebtn ghost" id="printPdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg> Save as PDF</button>
+      </div>
+      <div class="saved" id="saved"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Your Operational Decision Report has been saved.</div>
+    </section>
+
+    <!-- Module 1 Complete / Transition -->
+    <section class="reveal">
+      <div class="closing">
+        <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg><div><div class="bt">Module 1 Complete</div><div class="bs">Sentinel Monitoring Center · Level 1 Analyst</div></div></div>
+        <div class="eyebrow"><span class="num">→</span><span class="lab">Module 2</span></div>
+        <h2>Your decisions have been recorded.</h2>
+        <p>You've worked through the same data three times — first with your own judgment, then with AI support, and now as the analyst responsible for the call. That's how real monitoring work gets done.</p>
+        <p class="big">In the next module, you will handle more complex and time-sensitive security events inside the Sentinel Monitoring Center.</p>
+        <span class="shift-note"><span class="dot"></span>Module 2 begins next</span>
+      </div>
+    </section>
+
+  </div>
+
+<script>
+  const evDecisions = {e1:'',e2:'',e3:'',e4:''};
+  let riskLevel = '';
+
+  // Event decision toggles
+  document.querySelectorAll('.decide .dbtn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      evDecisions[b.dataset.ev]=b.dataset.v;
+      b.parentElement.querySelectorAll('.dbtn').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+    });
+  });
+
+  // Risk level buttons
+  document.querySelectorAll('.rbtn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      riskLevel=b.dataset.r;
+      document.querySelectorAll('.rbtn').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+    });
+  });
+
+  const events=[
+    {id:'e1',time:'9:14 AM',title:'Sign-in from a new location',ra:'r1'},
+    {id:'e2',time:'2:14 PM',title:'System slowdown',ra:'r2'},
+    {id:'e3',time:'3:40 PM',title:'Repeated sign-in attempts',ra:'r3'},
+    {id:'e4',time:'6:12 PM',title:'After-hours file access',ra:'r4'}
+  ];
+
+  function val(id){const el=document.getElementById(id); return el?el.value.trim():'';}
+
+  function buildReport(){
+    let out='SENTINEL MONITORING CENTER\nOperational Decision Report\nLevel 1 Security Monitoring Analyst — Phase C\n';
+    out+='Generated: '+new Date().toLocaleString()+'\n';
+    out+='\n========================================\nPHASE A — KEY OBSERVATIONS\n========================================\n';
+    out+=(val('paObs')||'(not answered)')+'\n';
+    out+='\n========================================\nPHASE B — AI INSIGHTS SUMMARY\n========================================\n';
+    out+=(val('pbSummary')||'(not answered)')+'\n';
+    out+='\n========================================\nFINAL EVENT DECISIONS\n========================================\n';
+    events.forEach((ev,i)=>{
+      const d=evDecisions[ev.id];
+      out+='\n['+(i+1)+'] '+ev.time+' — '+ev.title+'\n';
+      out+='Decision: '+(d?d.toUpperCase():'(not chosen)')+'\n';
+      out+='Reasoning: '+(val(ev.ra)||'(not written)')+'\n';
+    });
+    out+='\n========================================\nTRADEOFF REFLECTION\n========================================\n';
+    out+=(val('tradeoff')||'(not answered)')+'\n';
+    out+='\n========================================\nFINAL SYNTHESIS — WHAT TO FOCUS ON TOMORROW\n========================================\n';
+    out+=(val('synthesis')||'(not answered)')+'\n';
+    out+='\n========================================\nOVERALL RISK ASSESSMENT\n========================================\n';
+    out+=(riskLevel?riskLevel.toUpperCase():'(not selected)')+'\n';
+    out+='\n========================================\nTOMORROW\'S MONITORING FOCUS\n========================================\n';
+    out+=(val('tomorrow')||'(not answered)')+'\n';
+    out+='\n— End of Operational Decision Report — Module 1 Complete —\n';
+    return out;
+  }
+
+  document.getElementById('dlTxt').addEventListener('click',()=>{
+    const blob=new Blob([buildReport()],{type:'text/plain'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a'); a.href=url; a.download='sentinel-phase-c-decision-report.txt';
+    document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    const s=document.getElementById('saved'); s.classList.add('show');
+    setTimeout(()=>s.classList.remove('show'),5000);
+  });
+  document.getElementById('printPdf').addEventListener('click',()=>window.print());
+
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

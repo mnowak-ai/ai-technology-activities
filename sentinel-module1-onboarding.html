@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentinel Monitoring Center — Onboarding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple:#7B2FBE; --purple-deep:#5B1F92; --purple-soft:#F3EBFB; --purple-line:#E3D2F5;
+    --ink:#1F1A26; --slate:#4A4658; --muted:#6E6A7A;
+    --paper:#FBF9FC; --card:#FFFFFF; --line:#EAE6F0;
+    --calm:#3A6B8A; --green:#2E7D57; --amber:#B26A00;
+    --green-soft:#E8F4EE; --amber-soft:#FBF0DD;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'DM Sans',sans-serif;
+    background:
+      radial-gradient(1100px 520px at 85% -10%, rgba(123,47,190,0.07), transparent 60%),
+      radial-gradient(900px 440px at -8% 2%, rgba(58,107,138,0.05), transparent 55%),
+      var(--paper);
+    color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased;
+    padding:0 20px 90px;
+  }
+  .wrap{max-width:880px;margin:0 auto}
+
+  /* Ops bar */
+  .opsbar{max-width:880px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:16px 4px;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:.95rem}
+  .shield{width:30px;height:30px;display:grid;place-items:center;border-radius:8px;background:linear-gradient(150deg,var(--purple),var(--purple-deep));color:#fff;box-shadow:0 4px 12px rgba(91,31,146,.28)}
+  .shield svg{width:16px;height:16px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-left:auto}
+  .chip{font-size:.72rem;font-weight:600;padding:5px 11px;border-radius:999px;border:1px solid var(--line);color:var(--slate);background:#fff;display:inline-flex;align-items:center;gap:7px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--purple);box-shadow:0 0 0 3px rgba(123,47,190,.16);animation:pulse 2.2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+
+  /* Hero */
+  .hero{padding:60px 0 12px;text-align:left}
+  .kicker{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--purple-deep);background:var(--purple-soft);border:1px solid var(--purple-line);padding:6px 13px;border-radius:999px;margin-bottom:22px}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.4rem,6vw,3.7rem);line-height:1.05;letter-spacing:-.5px;margin-bottom:18px}
+  .lede{font-size:1.18rem;color:var(--slate);max-width:56ch}
+
+  /* Sections */
+  section{padding:52px 0;border-top:1px solid var(--line)}
+  section:first-of-type{border-top:none}
+  .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+  .eyebrow .num{font-family:'Fraunces',serif;font-weight:600;font-size:1.05rem;color:#fff;background:var(--purple);width:34px;height:34px;border-radius:9px;display:grid;place-items:center;flex:0 0 auto}
+  h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.7rem,3.6vw,2.15rem);line-height:1.12;letter-spacing:-.3px}
+  p{font-size:1.06rem;color:var(--slate);margin-bottom:16px}
+  p:last-child{margin-bottom:0}
+  p strong{color:var(--ink);font-weight:600}
+  .lead-line{font-size:1.12rem;color:var(--ink);font-weight:500;margin-bottom:20px}
+
+  /* Who we protect — icon tiles */
+  .tiles{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 4px}
+  .tile{flex:1 1 130px;display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-weight:600;font-size:.92rem;color:var(--ink)}
+  .tile svg{width:18px;height:18px;color:var(--purple);flex:0 0 auto}
+
+  /* Analogy callout */
+  .aside{display:flex;gap:16px;background:var(--purple-soft);border:1px solid var(--purple-line);border-radius:16px;padding:22px 24px;margin:26px 0 0}
+  .aside .ail{flex:0 0 auto;width:42px;height:42px;border-radius:11px;background:#fff;border:1px solid var(--purple-line);display:grid;place-items:center;color:var(--purple-deep)}
+  .aside .ail svg{width:22px;height:22px}
+  .aside .tag{font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple-deep);margin-bottom:5px}
+  .aside p{margin:0;font-size:1rem;color:var(--slate)}
+
+  /* Principle banner */
+  .principle{margin:30px 0;padding:30px 32px;border-radius:18px;background:linear-gradient(135deg,#2A1840,#4A1E78);color:#fff;position:relative;overflow:hidden}
+  .principle::after{content:"";position:absolute;right:-50px;top:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%)}
+  .principle .qm{font-family:'Fraunces',serif;font-size:2.6rem;line-height:.5;color:#C9A8EC;display:block;margin-bottom:6px}
+  .principle p{font-family:'Fraunces',serif;font-weight:500;font-size:1.32rem;line-height:1.35;color:#fff;margin:0;position:relative}
+
+  /* Two-panel duties */
+  .duo{display:flex;flex-wrap:wrap;gap:16px;margin-top:8px}
+  .panel{flex:1 1 320px;border-radius:16px;padding:22px;background:var(--card);border:1px solid var(--line);box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .panel .ph{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .panel .ph .ic{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;flex:0 0 auto}
+  .panel .ph .ic svg{width:16px;height:16px}
+  .panel.yes .ic{background:var(--green-soft);color:var(--green)}
+  .panel.no .ic{background:#F4EFF7;color:var(--muted)}
+  .panel h3{font-size:1rem;font-weight:700;color:var(--ink)}
+  .panel .item{display:flex;gap:10px;padding:9px 0;font-size:.98rem;color:var(--slate);border-top:1px solid var(--line)}
+  .panel .item:first-of-type{border-top:none;padding-top:2px}
+  .panel .item .mk{flex:0 0 auto;margin-top:1px;font-weight:700;color:var(--green)}
+  .panel.no .item .mk{color:var(--muted)}
+
+  /* Workflow steps */
+  .flow{display:flex;flex-direction:column;gap:0;margin-top:8px}
+  .step{display:flex;gap:18px;position:relative;padding-bottom:22px}
+  .step:last-child{padding-bottom:0}
+  .step .rail{flex:0 0 auto;display:flex;flex-direction:column;align-items:center}
+  .step .bub{width:44px;height:44px;border-radius:50%;background:#fff;border:2px solid var(--purple);color:var(--purple-deep);display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:600;font-size:1.15rem;z-index:1}
+  .step .line{flex:1 1 auto;width:2px;background:linear-gradient(var(--purple-line),var(--purple-line));margin:4px 0}
+  .step:last-child .line{display:none}
+  .step .body{padding-top:8px}
+  .step h3{font-size:1.08rem;font-weight:700;color:var(--ink);margin-bottom:3px}
+  .step p{font-size:1rem;margin:0}
+
+  /* Situation cards */
+  .cards{display:flex;flex-wrap:wrap;gap:14px;margin-top:8px}
+  .scard{flex:1 1 250px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 1px 2px rgba(31,26,38,.04);transition:transform .22s,box-shadow .22s,border-color .22s}
+  .scard:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(91,31,146,.10);border-color:var(--purple-line)}
+  .scard .sic{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;background:var(--purple-soft);color:var(--purple-deep);margin-bottom:13px}
+  .scard .sic svg{width:21px;height:21px}
+  .scard h3{font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:5px}
+  .scard p{font-size:.94rem;margin:0;line-height:1.5}
+
+  /* Decisions */
+  .decisions{display:flex;flex-wrap:wrap;gap:14px;margin-top:8px}
+  .dcard{flex:1 1 230px;border-radius:16px;padding:22px;border:1px solid var(--line);background:var(--card);position:relative;overflow:hidden}
+  .dcard::before{content:"";position:absolute;top:0;left:0;right:0;height:5px}
+  .dcard.ig::before{background:var(--green)} .dcard.mo::before{background:var(--calm)} .dcard.es::before{background:var(--amber)}
+  .dcard .dh{display:flex;align-items:center;gap:9px;margin-bottom:10px}
+  .dcard .dh .di{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;flex:0 0 auto}
+  .dcard .dh .di svg{width:16px;height:16px}
+  .dcard.ig .di{background:var(--green-soft);color:var(--green)} .dcard.mo .di{background:#E7F0F5;color:var(--calm)} .dcard.es .di{background:var(--amber-soft);color:var(--amber)}
+  .dcard .label{font-family:'Fraunces',serif;font-weight:600;font-size:1.18rem}
+  .dcard.ig .label{color:var(--green)} .dcard.mo .label{color:var(--calm)} .dcard.es .label{color:var(--amber)}
+  .dcard .meaning{font-size:.72rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);margin:1px 0 11px}
+  .dcard p{font-size:.95rem;margin:0;line-height:1.5}
+
+  /* AI row */
+  .ailist{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+  .ai-item{flex:1 1 240px;display:flex;gap:13px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .ai-item .ic{width:32px;height:32px;border-radius:9px;flex:0 0 auto;display:grid;place-items:center}
+  .ai-item .ic svg{width:17px;height:17px}
+  .ai-item.help .ic{background:var(--purple-soft);color:var(--purple-deep)}
+  .ai-item.care .ic{background:var(--amber-soft);color:var(--amber)}
+  .ai-item p{margin:0;font-size:.96rem;line-height:1.45}
+  .ai-item b{color:var(--ink);font-weight:700;display:block;margin-bottom:2px}
+
+  /* Closing */
+  .closing{margin-top:8px;background:linear-gradient(155deg,#241834,#3A1C5C 55%,#5B1F92);color:#fff;border-radius:22px;padding:48px 42px;position:relative;overflow:hidden}
+  .closing::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%)}
+  .closing .num{background:rgba(255,255,255,.16);color:#fff}
+  .closing h2{color:#fff;position:relative}
+  .closing p{color:rgba(255,255,255,.86);position:relative;font-size:1.06rem}
+  .shift-note{display:inline-flex;align-items:center;gap:9px;margin-top:24px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:10px 18px;font-size:.85rem;font-weight:600;color:#fff;position:relative}
+  .shift-note .dot{background:#9BE3B6;box-shadow:0 0 0 3px rgba(155,227,182,.2);animation:none}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.dot{animation:none}}
+  @media(max-width:600px){body{padding:0 16px 70px}.closing{padding:34px 26px}.chips{width:100%;margin-left:0}.principle{padding:24px 22px}}
+</style>
+</head>
+<body>
+
+  <div class="opsbar">
+    <div class="brand">
+      <span class="shield"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+      Sentinel Monitoring Center
+    </div>
+    <div class="chips">
+      <span class="chip"><span class="dot"></span>Systems Watched</span>
+      <span class="chip">Shift&nbsp;·&nbsp;Day 1</span>
+      <span class="chip">Onboarding</span>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <header class="hero reveal">
+      <span class="kicker">Module 1 · Welcome Aboard</span>
+      <h1>Your first day at the Sentinel Monitoring Center.</h1>
+      <p class="lede">A few minutes to learn where you are, what we do, and how your new team keeps important systems safe.</p>
+    </header>
+
+    <!-- 1 -->
+    <section class="reveal">
+      <div class="eyebrow"><span class="num">1</span></div>
+      <h2>Welcome to the team</h2>
+      <p class="lead-line">You've joined <strong>Sentinel Security Group</strong> — and you'll work inside our <strong>Monitoring Center</strong>, watching over the digital systems that important organizations depend on, around the clock.</p>
+      <div class="tiles">
+        <div class="tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6v12M6 12h12"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>Hospitals</div>
+        <div class="tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 3 2 6 2s6-1 6-2v-5"/></svg>Schools</div>
+        <div class="tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Logistics</div>
+        <div class="tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V10M19 21V10M3 10l9-6 9 6"/></svg>Government</div>
+        <div class="tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Banks</div>
+      </div>
+      <div class="aside">
+        <span class="ail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2 5 4-12 2 7h6"/></svg></span>
+        <div>
+          <div class="tag">Think of it this way</div>
+          <p>Like a hospital monitor tracking a patient's heartbeat — if something changes, it shows on screen and someone takes a look. We do the same, except the "patient" is a digital system.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="reveal">
+      <div class="eyebrow"><span class="num">2</span></div>
+      <h2>Your role on the team</h2>
+      <p class="lead-line">You're a <strong>Security Monitoring Analyst</strong> — the starting role every analyst holds. You read <strong>activity reports</strong> (records of what a system has been doing) and notice anything that looks off.</p>
+      <div class="duo">
+        <div class="panel yes">
+          <div class="ph"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><h3>What you do</h3></div>
+          <div class="item"><span class="mk">→</span>Watch activity reports during your shift.</div>
+          <div class="item"><span class="mk">→</span>Notice anything unusual or unexpected.</div>
+          <div class="item"><span class="mk">→</span>Take a closer look to understand it.</div>
+          <div class="item"><span class="mk">→</span>Decide whether it needs more attention.</div>
+        </div>
+        <div class="panel no">
+          <div class="ph"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span><h3>Handled by others</h3></div>
+          <div class="item"><span class="mk">×</span>Repairing the systems themselves.</div>
+          <div class="item"><span class="mk">×</span>Making big decisions on your own.</div>
+          <div class="item"><span class="mk">×</span>Handling serious problems alone.</div>
+          <div class="item"><span class="mk">×</span>Having every answer on day one.</div>
+        </div>
+      </div>
+      <p style="margin-top:20px">In short: <strong>you are the first set of eyes.</strong> Notice things early, pass along what looks important — and grow into it shift by shift.</p>
+    </section>
+
+    <!-- 3 -->
+    <section class="reveal">
+      <div class="eyebrow"><span class="num">3</span></div>
+      <h2>How work happens here</h2>
+      <p class="lead-line">Every shift follows the same simple rhythm.</p>
+      <div class="flow">
+        <div class="step"><div class="rail"><span class="bub">1</span><span class="line"></span></div><div class="body"><h3>Watch</h3><p>Activity reports come in all shift. Most of what you see is completely normal.</p></div></div>
+        <div class="step"><div class="rail"><span class="bub">2</span><span class="line"></span></div><div class="body"><h3>Spot</h3><p>Something stands out — an odd sign-in time, or a sudden change in how busy things are.</p></div></div>
+        <div class="step"><div class="rail"><span class="bub">3</span><span class="line"></span></div><div class="body"><h3>Look closer</h3><p>Check the details and look for a pattern. One-time thing, or part of something bigger?</p></div></div>
+        <div class="step"><div class="rail"><span class="bub">4</span></div><div class="body"><h3>Decide</h3><p>Choose how to respond. You'll learn the three choices just below.</p></div></div>
+      </div>
+      <div class="principle">
+        <span class="qm">"</span>
+        <p>Not everything unusual is dangerous — but everything unusual should be checked.</p>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="reveal">
+      <div class="eyebrow"><span class="num">4</span></div>
+      <h2>What you'll see</h2>
+      <p class="lead-line">Common things that show up in reports. None is automatically a problem — just worth a look.</p>
+      <div class="cards">
+        <div class="scard"><span class="sic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="9" width="16" height="12" rx="2"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg></span><h3>Unusual sign-ins</h3><p>Someone signs in from far away, or at an odd hour like the middle of the night.</p></div>
+        <div class="scard"><span class="sic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg></span><h3>System errors</h3><p>A part of a system reports that something didn't work the way it should.</p></div>
+        <div class="scard"><span class="sic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 7-7M14 8h7v7"/></svg></span><h3>A sudden spike</h3><p>Far more requests arrive at once than the system normally handles.</p></div>
+        <div class="scard"><span class="sic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11l-3 3-2-2"/></svg></span><h3>Access changes</h3><p>Someone can suddenly open files they couldn't reach before, with no clear reason.</p></div>
+        <div class="scard"><span class="sic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><h3>A slowdown</h3><p>A usually-fast system starts responding much more slowly than normal.</p></div>
+        <div class="scard"><span class="sic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span><h3>Repeated failed sign-ins</h3><p>The same account tried over and over with the wrong password.</p></div>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="reveal">
+      <div class="eyebrow"><span class="num">5</span></div>
+      <h2>How decisions work</h2>
+      <p class="lead-line">After a closer look, you'll pick one of three responses.</p>
+      <div class="decisions">
+        <div class="dcard ig">
+          <div class="dh"><span class="di"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="label">Ignore</span></div>
+          <div class="meaning">It's normal</div>
+          <p>Everyday, expected behavior. Nothing here needs follow-up.</p>
+        </div>
+        <div class="dcard mo">
+          <div class="dh"><span class="di"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="label">Monitor</span></div>
+          <div class="meaning">Keep watching</div>
+          <p>Not clearly a problem, but worth noting to see if it continues.</p>
+        </div>
+        <div class="dcard es">
+          <div class="dh"><span class="di"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span><span class="label">Escalate</span></div>
+          <div class="meaning">Send it up</div>
+          <p>Important enough that the senior team should review it.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <span class="qm">"</span>
+        <p>There is no perfect answer — just good reasoning.</p>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="reveal">
+      <div class="eyebrow"><span class="num">6</span></div>
+      <h2>Working with AI tools</h2>
+      <p class="lead-line">AI helps you work faster — but know exactly what it does, and what it doesn't.</p>
+      <div class="ailist">
+        <div class="ai-item help"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h7"/></svg></span><p><b>Summarizes</b>Pulls a long report down to the key points fast.</p></div>
+        <div class="ai-item help"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3-3 3 3 5-6"/></svg></span><p><b>Spots patterns</b>Flags things that repeat or look like past events.</p></div>
+        <div class="ai-item care"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg></span><p><b>Can be wrong</b>It misses things sometimes. Treat it as a suggestion.</p></div>
+        <div class="ai-item care"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg></span><p><b>You decide</b>A human always reviews and makes the final call.</p></div>
+      </div>
+      <div class="principle">
+        <span class="qm">"</span>
+        <p>AI is a support tool, not the decision-maker.</p>
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section class="reveal">
+      <div class="closing">
+        <div class="eyebrow"><span class="num">7</span></div>
+        <h2>Before your first mission</h2>
+        <p>You don't need to know everything today. Every analyst here started right where you are. The skills that matter — paying attention, looking closely, explaining your thinking — grow with practice.</p>
+        <p>In Mission 1, you'll read real-style activity reports, decide what stands out, and choose how to respond. Take your time and trust your reasoning.</p>
+        <p style="font-weight:600;color:#fff">You're ready. Let's get you on shift.</p>
+        <span class="shift-note"><span class="dot"></span>Mission 1 begins next</span>
+      </div>
+    </section>
+
+  </div>
+
+<script>
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

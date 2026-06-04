@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentinel — Phase B: AI Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple:#7B2FBE; --purple-deep:#5B1F92; --purple-soft:#F3EBFB; --purple-line:#E3D2F5;
+    --ink:#1F1A26; --slate:#4A4658; --muted:#6E6A7A;
+    --paper:#FBF9FC; --card:#FFFFFF; --line:#EAE6F0;
+    --calm:#3A6B8A; --green:#2E7D57; --amber:#B26A00;
+    --green-soft:#E8F4EE; --amber-soft:#FBF0DD; --calm-soft:#E7F0F5;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'DM Sans',sans-serif;
+    background:
+      radial-gradient(1100px 520px at 85% -10%, rgba(123,47,190,0.07), transparent 60%),
+      radial-gradient(900px 440px at -8% 2%, rgba(58,107,138,0.05), transparent 55%),
+      var(--paper);
+    color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased;
+    padding:0 20px 90px;
+  }
+  .wrap{max-width:880px;margin:0 auto}
+
+  .opsbar{max-width:880px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:16px 4px;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:.95rem}
+  .shield{width:30px;height:30px;display:grid;place-items:center;border-radius:8px;background:linear-gradient(150deg,var(--purple),var(--purple-deep));color:#fff;box-shadow:0 4px 12px rgba(91,31,146,.28)}
+  .shield svg{width:16px;height:16px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-left:auto}
+  .chip{font-size:.72rem;font-weight:600;padding:5px 11px;border-radius:999px;border:1px solid var(--line);color:var(--slate);background:#fff;display:inline-flex;align-items:center;gap:7px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--purple);box-shadow:0 0 0 3px rgba(123,47,190,.16);animation:pulse 2.2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+
+  .hero{padding:54px 0 12px}
+  .kicker{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--purple-deep);background:var(--purple-soft);border:1px solid var(--purple-line);padding:6px 13px;border-radius:999px;margin-bottom:22px}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.2rem,5.4vw,3.3rem);line-height:1.06;letter-spacing:-.5px;margin-bottom:16px}
+  .lede{font-size:1.16rem;color:var(--slate);max-width:58ch}
+
+  section{padding:48px 0;border-top:1px solid var(--line)}
+  section:first-of-type{border-top:none}
+  .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .eyebrow .num{font-family:'Fraunces',serif;font-weight:600;font-size:1rem;color:#fff;background:var(--purple);min-width:34px;height:34px;padding:0 9px;border-radius:9px;display:grid;place-items:center;flex:0 0 auto}
+  .eyebrow .lab{font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple-deep)}
+  h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.6rem,3.4vw,2.05rem);line-height:1.14;letter-spacing:-.3px}
+  p{font-size:1.05rem;color:var(--slate);margin-bottom:14px}
+  p:last-child{margin-bottom:0}
+  p strong{color:var(--ink);font-weight:600}
+  .lead-line{font-size:1.1rem;color:var(--ink);font-weight:500;margin-bottom:18px}
+
+  .principle{margin:26px 0 0;padding:28px 30px;border-radius:18px;background:linear-gradient(135deg,#2A1840,#4A1E78);color:#fff;position:relative;overflow:hidden}
+  .principle::after{content:"";position:absolute;right:-50px;top:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%)}
+  .principle .qm{font-family:'Fraunces',serif;font-size:2.4rem;line-height:.5;color:#C9A8EC;display:block;margin-bottom:6px}
+  .principle p{font-family:'Fraunces',serif;font-weight:500;font-size:1.26rem;line-height:1.35;color:#fff;margin:0;position:relative}
+
+  /* Files */
+  .filewrap{margin-top:6px}
+  .file{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:14px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .file .fh{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;background:#1F1830;color:#fff}
+  .file .fh .fn{display:flex;align-items:center;gap:9px;font-weight:700;font-size:.92rem}
+  .file .fh .fn svg{width:16px;height:16px;color:#C9A8EC}
+  .file pre{margin:0;padding:16px 18px;font-family:'DM Mono',monospace;font-size:.82rem;line-height:1.7;color:var(--ink);background:#FCFBFE;overflow-x:auto;white-space:pre}
+  .copybtn{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.10);color:#fff;border-radius:8px;padding:6px 11px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.78rem;cursor:pointer;transition:background .16s}
+  .copybtn:hover{background:rgba(255,255,255,.20)}
+  .copybtn svg{width:13px;height:13px}
+  .copyall{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;border:1.5px solid var(--purple);background:var(--purple);color:#fff;border-radius:13px;padding:14px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;transition:transform .16s,box-shadow .16s;margin-top:4px}
+  .copyall:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(123,47,190,.3)}
+  .copyall svg{width:17px;height:17px}
+
+  /* Steps numbered */
+  .flow{display:flex;flex-direction:column;gap:0;margin-top:8px}
+  .step{display:flex;gap:18px;position:relative;padding-bottom:22px}
+  .step:last-child{padding-bottom:0}
+  .step .rail{flex:0 0 auto;display:flex;flex-direction:column;align-items:center}
+  .step .bub{width:44px;height:44px;border-radius:50%;background:#fff;border:2px solid var(--purple);color:var(--purple-deep);display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:600;font-size:1.15rem;z-index:1}
+  .step .line{flex:1 1 auto;width:2px;background:var(--purple-line);margin:4px 0}
+  .step:last-child .line{display:none}
+  .step .body{padding-top:8px}
+  .step h3{font-size:1.08rem;font-weight:700;color:var(--ink);margin-bottom:3px}
+  .step p{font-size:1rem;margin:0}
+
+  /* Prompt box */
+  .promptbox{background:#FAF6FD;border:1px solid var(--purple-line);border-radius:14px;padding:18px 20px;margin-top:14px}
+  .promptbox .pl{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+  .promptbox .pl .tag{font-size:.7rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--purple-deep)}
+  .promptbox .pcopy{border:1px solid var(--purple);background:#fff;color:var(--purple-deep);border-radius:8px;padding:6px 11px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.78rem;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+  .promptbox .pcopy svg{width:13px;height:13px}
+  .promptbox .ptext{font-family:'DM Mono',monospace;font-size:.9rem;line-height:1.6;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px}
+
+  /* Follow-up chips */
+  .follows{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+  .follow{display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:12px 14px;font-size:.98rem;color:var(--slate)}
+  .follow svg{width:16px;height:16px;color:var(--purple);flex:0 0 auto;margin-top:3px}
+
+  /* AI does / may slip — two panels */
+  .duo{display:flex;flex-wrap:wrap;gap:16px;margin-top:8px}
+  .panel{flex:1 1 320px;border-radius:16px;padding:22px;background:var(--card);border:1px solid var(--line);box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .panel .ph{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .panel .ph .ic{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;flex:0 0 auto}
+  .panel .ph .ic svg{width:16px;height:16px}
+  .panel.yes .ic{background:var(--green-soft);color:var(--green)}
+  .panel.no .ic{background:var(--amber-soft);color:var(--amber)}
+  .panel h3{font-size:1rem;font-weight:700;color:var(--ink)}
+  .panel .item{display:flex;gap:10px;padding:9px 0;font-size:.98rem;color:var(--slate);border-top:1px solid var(--line)}
+  .panel .item:first-of-type{border-top:none;padding-top:2px}
+  .panel .item .mk{flex:0 0 auto;margin-top:1px;font-weight:700;color:var(--green)}
+  .panel.no .item .mk{color:var(--amber)}
+
+  /* Tasks */
+  .task{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin-top:16px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .task .th{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  .task .tn{flex:0 0 auto;width:32px;height:32px;border-radius:9px;background:var(--purple-soft);color:var(--purple-deep);font-family:'Fraunces',serif;font-weight:600;display:grid;place-items:center}
+  .task h3{font-size:1.12rem;font-weight:700;color:var(--ink)}
+  .task .sub{font-size:.97rem;color:var(--muted);margin-bottom:14px}
+  label.fl{display:block;font-weight:600;color:var(--ink);font-size:.96rem;margin:14px 0 7px}
+  label.fl:first-of-type{margin-top:0}
+  textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:14px;font-family:'DM Sans',sans-serif;font-size:1rem;color:var(--ink);line-height:1.55;resize:vertical;min-height:90px;background:#FDFCFE;transition:border-color .18s,box-shadow .18s}
+  textarea:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 3px rgba(123,47,190,.12)}
+  textarea::placeholder{color:#B5AFC0}
+
+  .legend{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 16px}
+  .lg{display:flex;align-items:center;gap:8px;font-size:.92rem;color:var(--slate);background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 12px}
+  .lg b{color:var(--ink)} .lg .lc{width:10px;height:10px;border-radius:50%}
+  .lg .lc.g{background:var(--green)} .lg .lc.b{background:var(--calm)} .lg .lc.a{background:var(--amber)}
+
+  .erow{border:1px solid var(--line);border-radius:14px;padding:15px 16px;margin-bottom:10px;background:#FDFCFE}
+  .erow:last-child{margin-bottom:0}
+  .erow .ehd{display:flex;align-items:center;gap:8px;margin-bottom:11px}
+  .erow .etime{font-size:.76rem;font-weight:700;color:var(--purple-deep);background:var(--purple-soft);border-radius:6px;padding:3px 7px}
+  .erow .et{font-weight:700;color:var(--ink);font-size:.98rem}
+  .decide{display:flex;flex-wrap:wrap;gap:8px}
+  .dbtn{flex:1 1 90px;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:9px 10px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.9rem;color:var(--slate);cursor:pointer;transition:all .16s}
+  .dbtn:hover{border-color:var(--purple-line)}
+  .dbtn[data-v="ignore"].on{background:var(--green-soft);border-color:var(--green);color:var(--green)}
+  .dbtn[data-v="monitor"].on{background:var(--calm-soft);border-color:var(--calm);color:var(--calm)}
+  .dbtn[data-v="escalate"].on{background:var(--amber-soft);border-color:var(--amber);color:var(--amber)}
+
+  .exportbar{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+  .ebtn{flex:1 1 200px;display:flex;align-items:center;justify-content:center;gap:9px;padding:15px 18px;border-radius:13px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;border:1.5px solid var(--purple);transition:transform .16s,box-shadow .16s}
+  .ebtn svg{width:18px;height:18px}
+  .ebtn.primary{background:var(--purple);color:#fff}
+  .ebtn.primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(123,47,190,.3)}
+  .ebtn.ghost{background:#fff;color:var(--purple-deep)}
+  .ebtn.ghost:hover{background:var(--purple-soft)}
+  .saved{font-size:.9rem;color:var(--green);font-weight:600;margin-top:10px;display:none;align-items:center;gap:7px}
+  .saved.show{display:flex}
+
+  .closing{margin-top:8px;background:linear-gradient(155deg,#241834,#3A1C5C 55%,#5B1F92);color:#fff;border-radius:22px;padding:46px 42px;position:relative;overflow:hidden}
+  .closing::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%)}
+  .closing .eyebrow .num{background:rgba(255,255,255,.16)}
+  .closing .eyebrow .lab{color:#C9A8EC}
+  .closing h2{color:#fff;position:relative}
+  .closing p{color:rgba(255,255,255,.86);position:relative;font-size:1.05rem}
+  .closing .big{font-family:'Fraunces',serif;font-weight:500;font-size:1.4rem;line-height:1.3;color:#fff;margin:6px 0 0}
+  .shift-note{display:inline-flex;align-items:center;gap:9px;margin-top:24px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:11px 18px;font-size:.88rem;font-weight:600;color:#fff;position:relative}
+  .shift-note .dot{background:#9BE3B6;box-shadow:0 0 0 3px rgba(155,227,182,.2)}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.dot{animation:none}}
+  @media(max-width:600px){body{padding:0 16px 70px}.closing{padding:34px 26px}.chips{width:100%;margin-left:0}}
+  @media print{.opsbar,.exportbar,.closing,.copyall,.copybtn,.pcopy{display:none}body{background:#fff}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+  <div class="opsbar">
+    <div class="brand">
+      <span class="shield"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+      Sentinel Monitoring Center
+    </div>
+    <div class="chips">
+      <span class="chip"><span class="dot"></span>On Shift</span>
+      <span class="chip">Phase B</span>
+      <span class="chip">AI + Human</span>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <header class="hero reveal">
+      <span class="kicker">Module 1 · Phase B</span>
+      <h1>AI Analysis: the same data, a second opinion.</h1>
+      <p class="lede">Compare human reasoning with AI insights — and verify what is real. You'll run today's data through a real AI tool, then refine its work with your own judgment.</p>
+    </header>
+
+    <!-- Intro -->
+    <section class="reveal">
+      <div class="eyebrow"><span class="num">B</span><span class="lab">What's different now</span></div>
+      <h2>AI joins the shift</h2>
+      <p class="lead-line">In Phase A, you reviewed the day using your own eyes. Now you'll hand the <strong>same data</strong> to an AI tool, read its take, and compare.</p>
+      <p>The point isn't to let AI decide. It's to get a second interpretation of the same situation, then use your judgment to keep what's useful and fix what isn't.</p>
+      <div class="principle">
+        <span class="qm">"</span>
+        <p>AI does not replace human thinking — it offers a second interpretation of the same situation.</p>
+      </div>
+    </section>
+
+    <!-- Data files -->
+    <section class="reveal">
+      <div class="eyebrow"><span class="num">1</span><span class="lab">The data</span></div>
+      <h2>Today's exported files</h2>
+      <p class="lead-line">These three files were pulled from the Monitoring Center at the end of the day — the same activity you reviewed in Phase A. You'll feed these to the AI tool.</p>
+      <div class="filewrap">
+        <div class="file">
+          <div class="fh"><span class="fn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg> File 1 — System Activity Log</span><button class="copybtn" data-copy="f1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy</button></div>
+          <pre id="f1">Date, Time, Event Type, Description
+06/01, 07:58 AM, Login, Multiple users logged in from usual locations
+06/01, 09:14 AM, Login, User accessed system from a new city
+06/01, 11:20 AM, File Activity, Sudden spike in file access activity
+06/01, 11:35 AM, File Activity, Activity returned to normal
+06/01, 02:14 PM, System Performance, System slowdown for 6 minutes
+06/01, 03:40 PM, Login Attempts, 5 failed login attempts followed by success
+06/01, 06:12 PM, File Access, File accessed outside normal working hours</pre>
+        </div>
+        <div class="file">
+          <div class="fh"><span class="fn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg> File 2 — Login Activity Report</span><button class="copybtn" data-copy="f2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy</button></div>
+          <pre id="f2">User ID, Time, Location, Login Status, Notes
+U-102, 07:58 AM, Chicago, Success, Normal login
+U-215, 08:10 AM, Chicago, Success, Normal login
+U-331, 09:14 AM, Denver, Success, New location detected
+U-118, 03:40 PM, Chicago, Failed x4 then Success, Multiple failed attempts
+U-450, 06:12 PM, Remote, Success, After-hours access</pre>
+        </div>
+        <div class="file">
+          <div class="fh"><span class="fn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg> File 3 — System Performance Summary</span><button class="copybtn" data-copy="f3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy</button></div>
+          <pre id="f3">Time Period | System Area | Status | Notes
+Morning | Login System | Normal | No issues detected
+Midday | File System | Busy | Higher-than-usual activity
+2:14 PM | Database System | Slow | Temporary slowdown, unclear cause
+Afternoon | Overall System | Stable | Returned to normal</pre>
+        </div>
+        <button class="copyall" id="copyAll"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> <span id="copyAllText">Copy all three files</span></button>
+      </div>
+    </section>
+
+    <!-- Step 1 how to use AI -->
+    <section class="reveal">
+      <div class="eyebrow"><span class="num">2</span><span class="lab">The workflow</span></div>
+      <h2>Run it through an AI tool</h2>
+      <p class="lead-line">Open a real AI tool you have access to — such as ChatGPT, Claude, or Microsoft Copilot — and follow these steps.</p>
+      <div class="flow">
+        <div class="step"><div class="rail"><span class="bub">1</span><span class="line"></span></div><div class="body"><h3>Copy the data</h3><p>Use the "Copy all three files" button above.</p></div></div>
+        <div class="step"><div class="rail"><span class="bub">2</span><span class="line"></span></div><div class="body"><h3>Paste it in</h3><p>Drop the files into the AI tool's message box.</p></div></div>
+        <div class="step"><div class="rail"><span class="bub">3</span><span class="line"></span></div><div class="body"><h3>Ask it to analyze</h3><p>Use the prompt below, then read its response closely.</p></div></div>
+        <div class="step"><div class="rail"><span class="bub">4</span></div><div class="body"><h3>Ask follow-ups</h3><p>Push a little further with the questions below.</p></div></div>
+      </div>
+
+      <div class="promptbox">
+        <div class="pl"><span class="tag">Starter prompt</span><button class="pcopy" id="copyPrompt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy prompt</button></div>
+        <div class="ptext" id="promptText">Analyze this system activity data from a monitoring center. Summarize what happened in simple language. Highlight anything unusual. Explain what might be normal versus what might need a closer look. Group related events into patterns if possible.</div>
+      </div>
+
+      <div class="follows">
+        <div class="follow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 1 1 3 2.4c-.6.2-1 .8-1 1.6M12 17h.01"/></svg> "What stands out the most?"</div>
+        <div class="follow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 1 1 3 2.4c-.6.2-1 .8-1 1.6M12 17h.01"/></svg> "Could any of this be a false alarm?"</div>
+        <div class="follow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 1 1 3 2.4c-.6.2-1 .8-1 1.6M12 17h.01"/></svg> "What should be watched more closely?"</div>
+      </div>
+    </section>
+
+    <!-- Step 2 what AI may do -->
+    <section class="reveal">
+      <div class="eyebrow"><span class="num">3</span><span class="lab">Read it carefully</span></div>
+      <h2>What AI may do — well, and not</h2>
+      <p class="lead-line">AI is helpful, but it isn't always right. Keep both columns in mind as you read its answer.</p>
+      <div class="duo">
+        <div class="panel yes">
+          <div class="ph"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><h3>It often gets right</h3></div>
+          <div class="item"><span class="mk">→</span>Summarizing the data clearly.</div>
+          <div class="item"><span class="mk">→</span>Spotting patterns quickly.</div>
+          <div class="item"><span class="mk">→</span>Pointing out unusual activity.</div>
+          <div class="item"><span class="mk">→</span>Suggesting possible risks.</div>
+        </div>
+        <div class="panel no">
+          <div class="ph"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg></span><h3>Where it can slip</h3></div>
+          <div class="item"><span class="mk">!</span>Making a normal event sound alarming.</div>
+          <div class="item"><span class="mk">!</span>Missing real-world context you know.</div>
+          <div class="item"><span class="mk">!</span>Jumping to a worst-case story.</div>
+          <div class="item"><span class="mk">!</span>Sounding sure even when it isn't.</div>
+        </div>
+      </div>
+      <div class="principle">
+        <span class="qm">"</span>
+        <p>AI gives interpretation — not truth.</p>
+      </div>
+    </section>
+
+    <!-- Build the verified report -->
+    <section class="reveal">
+      <div class="eyebrow"><span class="num">4</span><span class="lab">Your deliverable</span></div>
+      <h2>Build your human-verified report</h2>
+      <p class="lead-line">Now compare the AI's take with your Phase A work, then refine it into one report you'd be comfortable handing to your team.</p>
+
+      <div class="task">
+        <div class="th"><span class="tn">1</span><h3>Compare</h3></div>
+        <div class="sub">Paste the AI's analysis, then note where you and the AI line up — and where you don't.</div>
+        <label class="fl">The AI's analysis (paste it here)</label>
+        <textarea id="aiOut" placeholder="Paste what the AI tool gave you..."></textarea>
+        <label class="fl">Where you and the AI agree</label>
+        <textarea id="agree" placeholder="Points where the AI matched your own Phase A thinking..."></textarea>
+        <label class="fl">Where you disagree — or what the AI got wrong, missed, or misread</label>
+        <textarea id="disagree" placeholder="Anything the AI overstated, skipped, or misunderstood about the context..."></textarea>
+      </div>
+
+      <div class="task">
+        <div class="th"><span class="tn">2</span><h3>Improve</h3></div>
+        <div class="sub">Rewrite the analysis in your own words — corrected, with the real-world context the AI didn't have.</div>
+        <textarea id="corrected" placeholder="Your corrected, human-verified summary of what really happened today..."></textarea>
+      </div>
+
+      <div class="task">
+        <div class="th"><span class="tn">3</span><h3>Set final priorities</h3></div>
+        <div class="sub">Make the call on each event — your decision, after weighing both human and AI views.</div>
+        <div class="legend">
+          <span class="lg"><span class="lc g"></span><b>Ignore</b>&nbsp;— looks normal</span>
+          <span class="lg"><span class="lc b"></span><b>Monitor</b>&nbsp;— keep watching</span>
+          <span class="lg"><span class="lc a"></span><b>Escalate</b>&nbsp;— send for review</span>
+        </div>
+        <div id="prioList"></div>
+      </div>
+
+      <div class="task">
+        <div class="th"><span class="tn">4</span><h3>Final interpretation</h3></div>
+        <div class="sub">In a few sentences, what's your overall read on the day — and what would you tell the next shift?</div>
+        <textarea id="final" placeholder="Overall, today looked... The one thing I'd hand off to the next shift is..."></textarea>
+      </div>
+
+      <div class="exportbar">
+        <button class="ebtn primary" id="dlTxt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download my report (.txt)</button>
+        <button class="ebtn ghost" id="printPdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg> Save as PDF</button>
+      </div>
+      <div class="saved" id="saved"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Your report has been downloaded.</div>
+    </section>
+
+    <!-- Transition -->
+    <section class="reveal">
+      <div class="closing">
+        <div class="eyebrow"><span class="num">→</span><span class="lab">Next: Phase C</span></div>
+        <h2>You've got both views now</h2>
+        <p>Human judgment and AI insight, side by side, refined into one report. That's exactly how the work is done here.</p>
+        <p class="big">Next, you'll take full responsibility for making operational decisions based on both human and AI analysis inside the Sentinel Monitoring Center.</p>
+        <span class="shift-note"><span class="dot"></span>Phase C — Your decisions begin next</span>
+      </div>
+    </section>
+
+  </div>
+
+<script>
+  const events = [
+    {id:'e1', time:'07:58 AM', title:'Morning logins from usual locations'},
+    {id:'e2', time:'09:14 AM', title:'Sign-in from a new city (Denver)'},
+    {id:'e3', time:'11:20 AM', title:'Spike in file activity'},
+    {id:'e4', time:'02:14 PM', title:'Brief system slowdown'},
+    {id:'e5', time:'03:40 PM', title:'5 failed sign-ins, then success'},
+    {id:'e6', time:'06:12 PM', title:'After-hours file access'}
+  ];
+  const decisions = {};
+
+  const prio = document.getElementById('prioList');
+  events.forEach(ev=>{
+    const c=document.createElement('div'); c.className='erow';
+    c.innerHTML='<div class="ehd"><span class="etime">'+ev.time+'</span><span class="et">'+ev.title+'</span></div>'+
+      '<div class="decide">'+
+        '<button class="dbtn" data-id="'+ev.id+'" data-v="ignore">Ignore</button>'+
+        '<button class="dbtn" data-id="'+ev.id+'" data-v="monitor">Monitor</button>'+
+        '<button class="dbtn" data-id="'+ev.id+'" data-v="escalate">Escalate</button>'+
+      '</div>';
+    prio.appendChild(c);
+  });
+  prio.querySelectorAll('.dbtn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      decisions[b.dataset.id]=b.dataset.v;
+      b.parentElement.querySelectorAll('.dbtn').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+    });
+  });
+
+  // Copy helpers
+  function copyText(txt, btn, doneLabel){
+    const finish=()=>{ const o=btn.dataset.label||btn.textContent; flash(btn,doneLabel); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(()=>flash(btn,doneLabel)).catch(()=>fallback(txt,btn,doneLabel));
+    } else { fallback(txt,btn,doneLabel); }
+  }
+  function fallback(txt,btn,doneLabel){
+    const ta=document.createElement('textarea'); ta.value=txt; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    try{document.execCommand('copy');}catch(e){}
+    ta.remove(); flash(btn,doneLabel);
+  }
+  function flash(btn,doneLabel){
+    const html=btn.innerHTML; btn.innerHTML='✓ '+doneLabel;
+    setTimeout(()=>{btn.innerHTML=html;},1600);
+  }
+
+  const f1=document.getElementById('f1').textContent;
+  const f2=document.getElementById('f2').textContent;
+  const f3=document.getElementById('f3').textContent;
+  const allData='=== FILE 1: SYSTEM ACTIVITY LOG ===\n'+f1+'\n\n=== FILE 2: LOGIN ACTIVITY REPORT ===\n'+f2+'\n\n=== FILE 3: SYSTEM PERFORMANCE SUMMARY ===\n'+f3;
+
+  document.querySelectorAll('.copybtn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const map={f1:f1,f2:f2,f3:f3};
+      copyText(map[b.dataset.copy],b,'Copied');
+    });
+  });
+  document.getElementById('copyAll').addEventListener('click',(e)=>{
+    copyText(allData, e.currentTarget, 'Copied all three files');
+  });
+  document.getElementById('copyPrompt').addEventListener('click',(e)=>{
+    copyText(document.getElementById('promptText').textContent, e.currentTarget, 'Copied prompt');
+  });
+
+  // Build report
+  function val(id){return document.getElementById(id).value.trim();}
+  function buildReport(){
+    let out='SENTINEL MONITORING CENTER\nAI-Assisted System Analysis Report (Human Verified)\nLevel 1 Security Monitoring Analyst — Phase B\n';
+    out+='Generated: '+new Date().toLocaleString()+'\n';
+    out+='\n========================================\nAI ANALYSIS (as provided by the tool)\n========================================\n';
+    out+=(val('aiOut')||'(not pasted)')+'\n';
+    out+='\n========================================\nAGREEMENT — where human & AI lined up\n========================================\n';
+    out+=(val('agree')||'(not answered)')+'\n';
+    out+='\n========================================\nDISAGREEMENT — what AI got wrong / missed / misread\n========================================\n';
+    out+=(val('disagree')||'(not answered)')+'\n';
+    out+='\n========================================\nHUMAN-VERIFIED SUMMARY (corrected)\n========================================\n';
+    out+=(val('corrected')||'(not answered)')+'\n';
+    out+='\n========================================\nFINAL RISK PRIORITIES\n========================================\n';
+    events.forEach((ev,i)=>{
+      const d=decisions[ev.id];
+      out+=(i+1)+'. '+ev.time+' — '+ev.title+'\n   Decision: '+(d?d.toUpperCase():'(not chosen)')+'\n';
+    });
+    out+='\n========================================\nFINAL INTERPRETATION & HAND-OFF\n========================================\n';
+    out+=(val('final')||'(not answered)')+'\n';
+    out+='\n— End of Phase B report —\n';
+    return out;
+  }
+
+  document.getElementById('dlTxt').addEventListener('click',()=>{
+    const blob=new Blob([buildReport()],{type:'text/plain'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a'); a.href=url; a.download='sentinel-phase-b-report.txt';
+    document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    const s=document.getElementById('saved'); s.classList.add('show');
+    setTimeout(()=>s.classList.remove('show'),4000);
+  });
+  document.getElementById('printPdf').addEventListener('click',()=>window.print());
+
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
