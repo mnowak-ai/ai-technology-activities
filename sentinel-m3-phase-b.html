@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentinel — Module 3 Phase B: AI Documentation Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple:#7B2FBE; --purple-deep:#5B1F92; --purple-soft:#F3EBFB; --purple-line:#E3D2F5;
+    --ink:#1F1A26; --slate:#4A4658; --muted:#6E6A7A;
+    --paper:#FBF9FC; --card:#FFFFFF; --line:#EAE6F0;
+    --calm:#3A6B8A; --calm-soft:#E7F0F5;
+    --green:#2E7D57; --green-soft:#E8F4EE; --green-line:#C6E4D4;
+    --amber:#B26A00; --amber-soft:#FBF0DD;
+    --red:#B52B27; --red-soft:#FAEAEA;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'DM Sans',sans-serif;
+    background:
+      radial-gradient(1100px 520px at 85% -10%, rgba(46,125,87,0.04), transparent 60%),
+      radial-gradient(900px 440px at -8% 2%, rgba(123,47,190,0.04), transparent 55%),
+      var(--paper);
+    color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased;
+    padding:0 20px 90px;
+  }
+  .wrap{max-width:880px;margin:0 auto}
+
+  .opsbar{max-width:880px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:16px 4px;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:.95rem}
+  .shield{width:30px;height:30px;display:grid;place-items:center;border-radius:8px;background:linear-gradient(150deg,var(--purple),var(--purple-deep));color:#fff;box-shadow:0 4px 12px rgba(91,31,146,.28)}
+  .shield svg{width:16px;height:16px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-left:auto}
+  .chip{font-size:.72rem;font-weight:600;padding:5px 11px;border-radius:999px;border:1px solid var(--line);color:var(--slate);background:#fff;display:inline-flex;align-items:center;gap:7px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--purple);box-shadow:0 0 0 3px rgba(123,47,190,.16);animation:pulse 2.2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+
+  .hero{padding:54px 0 12px}
+  .kicker{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--purple-deep);background:var(--purple-soft);border:1px solid var(--purple-line);padding:6px 13px;border-radius:999px;margin-bottom:22px}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.1rem,5.2vw,3.2rem);line-height:1.06;letter-spacing:-.5px;margin-bottom:16px}
+  .lede{font-size:1.15rem;color:var(--slate);max-width:58ch}
+
+  section{padding:46px 0;border-top:1px solid var(--line)}
+  section:first-of-type{border-top:none}
+  .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .eyebrow .num{font-family:'Fraunces',serif;font-weight:600;font-size:1rem;color:#fff;background:var(--purple);min-width:34px;height:34px;padding:0 9px;border-radius:9px;display:grid;place-items:center;flex:0 0 auto}
+  .eyebrow .lab{font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple-deep)}
+  h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.6rem,3.4vw,2.05rem);line-height:1.14;letter-spacing:-.3px}
+  p{font-size:1.04rem;color:var(--slate);margin-bottom:14px}
+  p:last-child{margin-bottom:0}
+  p strong{color:var(--ink);font-weight:600}
+  .lead-line{font-size:1.08rem;color:var(--ink);font-weight:500;margin-bottom:16px}
+
+  .principle{margin:26px 0 0;padding:28px 30px;border-radius:18px;background:linear-gradient(135deg,#2A1840,#4A1E78);color:#fff;position:relative;overflow:hidden}
+  .principle::after{content:"";position:absolute;right:-50px;top:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%)}
+  .principle .qm{font-family:'Fraunces',serif;font-size:2.4rem;line-height:.5;color:#C9A8EC;display:block;margin-bottom:6px}
+  .principle p{font-family:'Fraunces',serif;font-weight:500;font-size:1.26rem;line-height:1.35;color:#fff;margin:0;position:relative}
+
+  /* Input bay */
+  .bay{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 1px 2px rgba(31,26,38,.04);margin-top:6px}
+  .bay .bh{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 20px;background:#1F1830;flex-wrap:wrap;gap:8px}
+  .bay .bn{display:flex;align-items:center;gap:9px;font-weight:700;font-size:.92rem;color:#fff}
+  .bay .bn svg{width:16px;height:16px;color:#C9A8EC}
+  .bay .bb{padding:16px 20px}
+  .bay .bd{font-size:.92rem;color:var(--muted);margin-bottom:10px}
+  .cbtn{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;border-radius:8px;padding:7px 12px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.78rem;cursor:pointer;transition:background .16s;white-space:nowrap}
+  .cbtn:hover{background:rgba(255,255,255,.2)}
+  .cbtn svg{width:13px;height:13px}
+  .copybay{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:#fff;color:var(--purple-deep);border-radius:9px;padding:9px 14px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.88rem;cursor:pointer;transition:all .15s;margin-top:10px}
+  .copybay:hover{background:var(--purple-soft);border-color:var(--purple-line)}
+  .copybay svg{width:14px;height:14px}
+
+  /* Phase A recap pills */
+  .recaprow{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:14px}
+  .rpill{flex:1 1 200px;display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:11px;padding:10px 13px;background:#FAF8FC;font-size:.92rem;color:var(--slate)}
+  .rpill .ri{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;flex:0 0 auto}
+  .rpill .ri svg{width:14px;height:14px}
+  .rpill.r1 .ri{background:var(--calm-soft);color:var(--calm)}
+  .rpill.r2 .ri{background:var(--amber-soft);color:var(--amber)}
+  .rpill.r3 .ri{background:var(--purple-soft);color:var(--purple-deep)}
+  .rpill b{color:var(--ink)}
+
+  /* Steps */
+  .flow{display:flex;flex-direction:column;gap:0;margin-top:8px}
+  .step{display:flex;gap:18px;position:relative;padding-bottom:20px}
+  .step:last-child{padding-bottom:0}
+  .step .rail{flex:0 0 auto;display:flex;flex-direction:column;align-items:center}
+  .step .bub{width:44px;height:44px;border-radius:50%;background:#fff;border:2px solid var(--purple);color:var(--purple-deep);display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:600;font-size:1.15rem;z-index:1}
+  .step .line{flex:1 1 auto;width:2px;background:var(--purple-line);margin:4px 0}
+  .step:last-child .line{display:none}
+  .step .body{padding-top:8px}
+  .step h3{font-size:1.06rem;font-weight:700;color:var(--ink);margin-bottom:3px}
+  .step p{font-size:1rem;margin:0}
+
+  /* Prompt box */
+  .promptbox{background:#FAF6FD;border:1px solid var(--purple-line);border-radius:14px;padding:18px 20px;margin-top:14px}
+  .promptbox .pl{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap;gap:8px}
+  .promptbox .pl .tag{font-size:.7rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--purple-deep)}
+  .promptbox .pcopy{border:1px solid var(--purple);background:#fff;color:var(--purple-deep);border-radius:8px;padding:7px 12px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.78rem;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+  .promptbox .pcopy svg{width:13px;height:13px}
+  .promptbox .ptext{font-family:'DM Mono',monospace;font-size:.88rem;line-height:1.65;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:10px;padding:15px}
+
+  /* Expected output cards */
+  .outref{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+  .orc{flex:1 1 210px;border-radius:14px;padding:18px;border:1px solid var(--line);background:var(--card);position:relative;overflow:hidden}
+  .orc::before{content:"";position:absolute;top:0;left:0;right:0;height:4px}
+  .orc.rpt::before{background:var(--calm)} .orc.sop::before{background:var(--amber)} .orc.kb::before{background:var(--purple)}
+  .orc .ol{font-family:'Fraunces',serif;font-weight:600;font-size:1.06rem;margin-bottom:5px}
+  .orc.rpt .ol{color:var(--calm)} .orc.sop .ol{color:var(--amber)} .orc.kb .ol{color:var(--purple)}
+  .orc .os{font-size:.8rem;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .orc p{font-size:.91rem;margin:0;line-height:1.5}
+
+  /* AI panels */
+  .duo{display:flex;flex-wrap:wrap;gap:16px;margin-top:8px}
+  .panel{flex:1 1 300px;border-radius:16px;padding:22px;background:var(--card);border:1px solid var(--line);box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .panel .ph{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .panel .ph .ic{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;flex:0 0 auto}
+  .panel .ph .ic svg{width:16px;height:16px}
+  .panel.yes .ic{background:var(--green-soft);color:var(--green)}
+  .panel.no .ic{background:var(--amber-soft);color:var(--amber)}
+  .panel h3{font-size:1rem;font-weight:700;color:var(--ink)}
+  .panel .item{display:flex;gap:10px;padding:9px 0;font-size:.97rem;color:var(--slate);border-top:1px solid var(--line)}
+  .panel .item:first-of-type{border-top:none;padding-top:2px}
+  .panel .item .mk{flex:0 0 auto;margin-top:1px;font-weight:700;color:var(--green)}
+  .panel.no .item .mk{color:var(--amber)}
+
+  /* AI output paste areas */
+  .outblock{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:16px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .outblock .oh{padding:13px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+  .outblock .oh .onum{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;font-weight:700;font-size:.88rem;color:#fff;flex:0 0 auto}
+  .ob-rpt .oh .onum{background:var(--calm)}
+  .ob-sop .oh .onum{background:var(--amber)}
+  .ob-kb .oh .onum{background:var(--purple)}
+  .outblock .oh .ot{font-weight:700;color:var(--ink);font-size:1rem}
+  .outblock .oh .os{font-size:.8rem;color:var(--muted);margin-left:4px}
+  .outblock .ob{padding:18px 20px}
+  label.fl{display:block;font-weight:600;color:var(--ink);font-size:.95rem;margin-bottom:7px}
+  label.fl.mt{margin-top:16px}
+  textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:13px;font-family:'DM Sans',sans-serif;font-size:1rem;color:var(--ink);line-height:1.55;resize:vertical;min-height:90px;background:#FDFCFE;transition:border-color .18s,box-shadow .18s}
+  textarea:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 3px rgba(123,47,190,.12)}
+  textarea::placeholder{color:#B5AFC0}
+  textarea.tall{min-height:130px}
+
+  /* Final deliverable */
+  .delivblock{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:16px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .delivblock .dh{padding:14px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+  .delivblock .dh .dn{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;flex:0 0 auto}
+  .delivblock .dh .dn svg{width:15px;height:15px}
+  .db-rpt .dh .dn{background:var(--calm-soft);color:var(--calm)}
+  .db-sop .dh .dn{background:var(--amber-soft);color:var(--amber)}
+  .db-kb .dh .dn{background:var(--purple-soft);color:var(--purple-deep)}
+  .db-rev .dh .dn{background:var(--green-soft);color:var(--green)}
+  .delivblock .dh .dt{font-weight:700;color:var(--ink);font-size:1rem}
+  .delivblock .dh .ds{font-size:.85rem;color:var(--muted);margin-top:1px}
+  .delivblock .db{padding:18px 20px}
+  .delivblock .db .dsub{font-size:.94rem;color:var(--muted);margin-bottom:12px}
+
+  .exportbar{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+  .ebtn{flex:1 1 200px;display:flex;align-items:center;justify-content:center;gap:9px;padding:15px 18px;border-radius:13px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;border:1.5px solid var(--purple);transition:transform .16s,box-shadow .16s}
+  .ebtn svg{width:18px;height:18px}
+  .ebtn.primary{background:var(--purple);color:#fff}
+  .ebtn.primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(123,47,190,.3)}
+  .ebtn.ghost{background:#fff;color:var(--purple-deep)}
+  .ebtn.ghost:hover{background:var(--purple-soft)}
+  .saved{font-size:.9rem;color:var(--green);font-weight:600;margin-top:10px;display:none;align-items:center;gap:7px}
+  .saved.show{display:flex}
+
+  .closing{margin-top:8px;background:linear-gradient(155deg,#241834,#3A1C5C 55%,#5B1F92);color:#fff;border-radius:22px;padding:46px 42px;position:relative;overflow:hidden}
+  .closing::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%)}
+  .closing .eyebrow .num{background:rgba(255,255,255,.16)}
+  .closing .eyebrow .lab{color:#C9A8EC}
+  .closing h2{color:#fff;position:relative}
+  .closing p{color:rgba(255,255,255,.86);position:relative;font-size:1.05rem}
+  .closing .big{font-family:'Fraunces',serif;font-weight:500;font-size:1.38rem;line-height:1.3;color:#fff;margin:6px 0 0;position:relative}
+  .shift-note{display:inline-flex;align-items:center;gap:9px;margin-top:24px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:11px 18px;font-size:.88rem;font-weight:600;color:#fff;position:relative}
+  .shift-note .dot{background:#9BE3B6;box-shadow:0 0 0 3px rgba(155,227,182,.2);animation:none}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.dot{animation:none}}
+  @media(max-width:600px){body{padding:0 16px 70px}.closing{padding:34px 26px}.chips{width:100%;margin-left:0}}
+  @media print{.opsbar,.exportbar,.closing,.cbtn,.copybay,.pcopy{display:none!important}body{background:#fff}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="opsbar">
+  <div class="brand">
+    <span class="shield"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+    Sentinel Knowledge Operations
+  </div>
+  <div class="chips">
+    <span class="chip"><span class="dot"></span>AI Lab Active</span>
+    <span class="chip">Module 3 · Phase B</span>
+    <span class="chip">Human + AI</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero reveal">
+    <span class="kicker">Module 3 · Phase B</span>
+    <h1>AI documentation lab: turning incident notes into professional reports.</h1>
+    <p class="lede">Your Phase A documentation goes in. AI generates a report, an SOP, and a knowledge base entry. Then you decide what's accurate, what's wrong, and what the final version should say.</p>
+  </header>
+
+  <!-- Intro -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">B</span><span class="lab">What changes now</span></div>
+    <h2>AI becomes your first draft writer</h2>
+    <p class="lead-line">In Phase A, you wrote the documentation from memory and notes. That was the hard, human work. Now you hand those notes to an AI tool and ask it to produce three professional documents — then review every word it generates.</p>
+    <p>AI is fast at structuring and formatting documents. But it will also fill in gaps, assume causes, and sound more certain than you were. Your job is to catch every place where AI went beyond what the original notes actually said.</p>
+    <div class="principle">
+      <span class="qm">"</span>
+      <p>AI produces drafts. Humans produce final truth.</p>
+    </div>
+  </section>
+
+  <!-- Step 1: Load Phase A documentation -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">1</span><span class="lab">Your input</span></div>
+    <h2>Start with your Phase A documentation</h2>
+    <p class="lead-line">Retrieve the incident documentation report you downloaded from Phase A. You'll paste it into the area below, then copy it into your AI tool.</p>
+    <div class="recaprow">
+      <div class="rpill r1"><span class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 16l4-7 4 4 4-6"/></svg></span><div><b>Incident 1</b> — System slowdown (INC-0241)</div></div>
+      <div class="rpill r2"><span class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span><div><b>Incident 2</b> — Login issues (INC-0242)</div></div>
+      <div class="rpill r3"><span class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg></span><div><b>Incident 3</b> — Unknown behavior (INC-0243)</div></div>
+    </div>
+    <div class="bay">
+      <div class="bh"><span class="bn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></svg> Your Phase A Incident Documentation Report</span></div>
+      <div class="bb">
+        <div class="bd">Paste the contents of your downloaded Phase A report here. Once it's in, use the copy button to transfer everything to your AI tool.</div>
+        <textarea id="phaseAInput" class="tall" placeholder="Paste your Phase A incident documentation here...&#10;&#10;(Open your downloaded sentinel-m3-phase-a-documentation.txt and paste the full contents)"></textarea>
+        <button class="copybay" id="copyPhaseA"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy to clipboard — ready to paste into AI tool</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 2: Run through AI -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">2</span><span class="lab">The workflow</span></div>
+    <h2>Send it to an AI tool</h2>
+    <p class="lead-line">Open ChatGPT, Claude, or Microsoft Copilot and follow these steps. Use the prompt below exactly — it asks AI for all three document types in one request.</p>
+    <div class="flow">
+      <div class="step"><div class="rail"><span class="bub">1</span><span class="line"></span></div><div class="body"><h3>Open your AI tool</h3><p>ChatGPT, Claude, or Microsoft Copilot — any of these will work.</p></div></div>
+      <div class="step"><div class="rail"><span class="bub">2</span><span class="line"></span></div><div class="body"><h3>Paste your Phase A notes</h3><p>Use the copy button above. Paste everything into the AI's message box.</p></div></div>
+      <div class="step"><div class="rail"><span class="bub">3</span><span class="line"></span></div><div class="body"><h3>Send the prompt below</h3><p>Add the documentation prompt after your notes. Send it all in one message.</p></div></div>
+      <div class="step"><div class="rail"><span class="bub">4</span></div><div class="body"><h3>Read everything carefully</h3><p>AI will generate three documents. Read each one before pasting it below.</p></div></div>
+    </div>
+
+    <div class="promptbox">
+      <div class="pl"><span class="tag">Documentation prompt — use this exactly</span><button class="pcopy" id="copyPrompt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy prompt</button></div>
+      <div class="ptext" id="promptText">Take the incident documentation above and do three things. First, rewrite it as a professional IT support report with clear sections, improved formatting, and better readability for each incident. Second, create a simple standard operating procedure for each type of incident — short numbered steps for identifying the problem, responding to it, and preventing it in future. Third, write a brief internal knowledge base entry for each incident — two to three sentences that a team member could read quickly to understand what happened and what to watch for. Please keep all language simple and free of technical jargon.</div>
+    </div>
+
+    <div style="margin-top:18px">
+      <p class="lead-line" style="margin-bottom:12px">AI will produce three types of documents. Here's what each one is for:</p>
+      <div class="outref">
+        <div class="orc rpt"><div class="ol">Incident Report</div><div class="os">Formal record</div><p>A structured summary of what happened — used for internal review, audits, and team debriefs.</p></div>
+        <div class="orc sop"><div class="ol">SOP</div><div class="os">Operational guide</div><p>Step-by-step instructions for handling this type of incident in the future — used by support teams during live shifts.</p></div>
+        <div class="orc kb"><div class="ol">Knowledge Base Entry</div><div class="os">Quick reference</div><p>A short summary written for the whole organization — readable in seconds, used for training and prevention.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 3: What AI may do -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">3</span><span class="lab">Before you read the output</span></div>
+    <h2>What AI does with documentation — well, and not</h2>
+    <p class="lead-line">Documentation tasks bring out both AI's strengths and its most common mistakes. Keep both columns close as you review.</p>
+    <div class="duo">
+      <div class="panel yes">
+        <div class="ph"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><h3>AI often handles well</h3></div>
+        <div class="item"><span class="mk">→</span>Restructuring scattered notes into clear, readable sections.</div>
+        <div class="item"><span class="mk">→</span>Adding professional headings, labels, and document structure.</div>
+        <div class="item"><span class="mk">→</span>Generating numbered SOP steps from a general description.</div>
+        <div class="item"><span class="mk">→</span>Writing brief, clear knowledge base summaries from longer notes.</div>
+      </div>
+      <div class="panel no">
+        <div class="ph"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg></span><h3>Where AI tends to slip</h3></div>
+        <div class="item"><span class="mk">!</span>Adding specific details that were never in your original notes.</div>
+        <div class="item"><span class="mk">!</span>Turning uncertain causes into confirmed explanations.</div>
+        <div class="item"><span class="mk">!</span>Writing SOPs for situations it invented or assumed.</div>
+        <div class="item"><span class="mk">!</span>Sounding confident where your notes said "unclear" or "unknown."</div>
+      </div>
+    </div>
+    <div class="principle">
+      <span class="qm">"</span>
+      <p>If AI adds details that were not in the original notes, they must be corrected.</p>
+    </div>
+  </section>
+
+  <!-- Step 4: Review AI output -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">4</span><span class="lab">Paste and review</span></div>
+    <h2>Review each AI output</h2>
+    <p class="lead-line">Paste each document from the AI's response into the matching area below. Then answer the validation questions for each one.</p>
+
+    <!-- Incident Report -->
+    <div class="outblock ob-rpt">
+      <div class="oh"><span class="onum">1</span><span class="ot">Incident Report</span><span class="os">— AI's formal summary of all three incidents</span></div>
+      <div class="ob">
+        <label class="fl">Paste the AI's incident report here</label>
+        <textarea id="ai-rpt" class="tall" placeholder="Paste the full incident report the AI generated..."></textarea>
+        <label class="fl mt">What did AI do well in this report?</label>
+        <textarea id="ai-rpt-good" placeholder="The AI improved the structure by... It made the summary clearer by..."></textarea>
+        <label class="fl mt">What did AI add, change, or get wrong — compared to your original Phase A notes?</label>
+        <textarea id="ai-rpt-bad" placeholder="The AI stated that the cause was confirmed — but in my notes I said it was unclear... It added a detail about [X] that was never in the original documentation..."></textarea>
+      </div>
+    </div>
+
+    <!-- SOP -->
+    <div class="outblock ob-sop">
+      <div class="oh"><span class="onum">2</span><span class="ot">Standard Operating Procedure</span><span class="os">— AI's step-by-step handling guide</span></div>
+      <div class="ob">
+        <label class="fl">Paste the AI's SOP here</label>
+        <textarea id="ai-sop" class="tall" placeholder="Paste the SOP the AI generated..."></textarea>
+        <label class="fl mt">Are the steps in the SOP accurate — based on what you actually know happened?</label>
+        <textarea id="ai-sop-check" placeholder="The steps for Case 1 look reasonable... But the SOP for Case 3 includes a step I'd never be able to do without more information... Step X assumes the cause was confirmed when it wasn't..."></textarea>
+      </div>
+    </div>
+
+    <!-- Knowledge Base Entry -->
+    <div class="outblock ob-kb">
+      <div class="oh"><span class="onum">3</span><span class="ot">Knowledge Base Entry</span><span class="os">— AI's quick-reference summaries</span></div>
+      <div class="ob">
+        <label class="fl">Paste the AI's knowledge base entry here</label>
+        <textarea id="ai-kb" class="tall" placeholder="Paste the knowledge base entry the AI generated..."></textarea>
+        <label class="fl mt">Would these summaries be safe to publish to the whole Sentinel team — or do they need corrections first?</label>
+        <textarea id="ai-kb-check" placeholder="The summary for Incident 2 could mislead a new analyst because it says the cause was a security issue — but we don't actually know that... Incident 1's summary is accurate and could be published as-is..."></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final deliverable -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">5</span><span class="lab">Final package</span></div>
+    <h2>Sentinel AI-Enhanced Documentation Package</h2>
+    <p class="lead-line">Correct, refine, and finalize. What goes in this section is what Sentinel would actually publish and use — not the AI's first draft.</p>
+
+    <div class="delivblock db-rpt">
+      <div class="dh"><span class="dn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></svg></span><div><div class="dt">Final Incident Report</div><div class="ds">Corrected + human-verified formal record</div></div></div>
+      <div class="db"><div class="dsub">Rewrite or edit the AI's incident report so every statement is accurate, every uncertainty is honest, and no unsupported details remain.</div>
+      <textarea id="final-rpt" class="tall" placeholder="Final corrected incident report — covering all three incidents, accurate to your original Phase A notes..."></textarea></div>
+    </div>
+
+    <div class="delivblock db-sop">
+      <div class="dh"><span class="dn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span><div><div class="dt">Final SOP Document</div><div class="ds">Corrected step-by-step operational guide</div></div></div>
+      <div class="db"><div class="dsub">Edit the AI's SOP so the steps reflect what an analyst could actually do — based on what you know, not what the AI assumed. Remove any steps that require information that isn't confirmed.</div>
+      <textarea id="final-sop" class="tall" placeholder="Final corrected SOP — step-by-step guidance for each incident type, with only confirmed information..."></textarea></div>
+    </div>
+
+    <div class="delivblock db-kb">
+      <div class="dh"><span class="dn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><div><div class="dt">Final Knowledge Base Entry</div><div class="ds">Corrected quick-reference summaries for all teams</div></div></div>
+      <div class="db"><div class="dsub">Write the final version of each knowledge base summary — 2–3 sentences per incident, accurate, honest about uncertainty, and ready for any Sentinel team member to read.</div>
+      <textarea id="final-kb" placeholder="Final knowledge base entries — one per incident, safe to publish to the whole organization..."></textarea></div>
+    </div>
+
+    <div class="delivblock db-rev">
+      <div class="dh"><span class="dn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5M4 4l4 4-4 4"/></svg></span><div><div class="dt">AI vs Human Review Notes</div><div class="ds">What you changed and why</div></div></div>
+      <div class="db"><div class="dsub">Summarize what the AI got right, what it got wrong, what you had to remove, and what you had to add back in. This is your editorial record of the review process.</div>
+      <label class="fl">What AI did well across all three documents</label>
+      <textarea id="rev-good" placeholder="Overall, AI helped with... The formatting was much better after AI restructured it... The SOP for Case 1 was largely accurate..."></textarea>
+      <label class="fl mt">What had to be corrected — and why</label>
+      <textarea id="rev-fix" placeholder="The AI stated that the cause of the slowdown was 'system overload' as if it were confirmed — I changed this to 'likely related to high user volume' to match the original uncertainty... AI removed the detail about the password policy change not being communicated — I added it back because it's essential context..."></textarea>
+      <label class="fl mt">What was removed entirely</label>
+      <textarea id="rev-removed" placeholder="I removed the escalation step in the SOP for Case 3 because it referred to a specific team that was never mentioned in the original notes..."></textarea></div>
+    </div>
+
+    <div class="exportbar">
+      <button class="ebtn primary" id="dlTxt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download documentation package (.txt)</button>
+      <button class="ebtn ghost" id="printPdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg> Save as PDF</button>
+    </div>
+    <div class="saved" id="saved"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Documentation package saved.</div>
+  </section>
+
+  <!-- Transition -->
+  <section class="reveal">
+    <div class="closing">
+      <div class="eyebrow"><span class="num">→</span><span class="lab">Next: Phase C</span></div>
+      <h2>Three documents — reviewed, corrected, and ready.</h2>
+      <p>You brought the AI's first drafts up to the standard Sentinel actually needs. That gap between first draft and final truth is exactly what human review is for.</p>
+      <p class="big">Next, you will decide which documentation is approved for use across Sentinel teams and how it should be communicated to other departments.</p>
+      <span class="shift-note"><span class="dot"></span>Phase C — Documentation Approval begins next</span>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  function val(id){ const el=document.getElementById(id); return el?el.value.trim():''; }
+
+  function copyText(txt,btn,label){
+    if(!txt){btn.textContent='Nothing to copy yet';setTimeout(()=>btn.innerHTML=btn._orig,1600);return;}
+    const done=()=>flash(btn,label);
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done).catch(()=>fallback(txt,btn,label)); }
+    else{fallback(txt,btn,label);}
+  }
+  function fallback(txt,btn,label){const t=document.createElement('textarea');t.value=txt;t.style.cssText='position:fixed;opacity:0;top:0;left:0';document.body.appendChild(t);t.select();try{document.execCommand('copy');}catch(e){}t.remove();flash(btn,label);}
+  function flash(btn,label){const h=btn.innerHTML;if(!btn._orig)btn._orig=h;btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M20 6 9 17l-5-5"/></svg> '+label;setTimeout(()=>{btn.innerHTML=h;},1800);}
+
+  document.getElementById('copyPhaseA').addEventListener('click',(e)=>{
+    const txt=val('phaseAInput');
+    copyText(txt,e.currentTarget,'Copied — paste into your AI tool');
+  });
+  document.getElementById('copyPrompt').addEventListener('click',(e)=>{
+    copyText(val('promptText')||document.getElementById('promptText').textContent,e.currentTarget,'Prompt copied');
+  });
+  // fix: promptText is a div, not textarea
+  document.getElementById('copyPrompt').addEventListener('click',(e)=>{
+    copyText(document.getElementById('promptText').innerText,e.currentTarget,'Prompt copied');
+  });
+
+  function buildReport(){
+    let out='SENTINEL KNOWLEDGE OPERATIONS\n';
+    out+='AI-Enhanced Documentation Package — Phase B\n';
+    out+='Generated: '+new Date().toLocaleString()+'\n';
+    out+='\n========================================\nAI OUTPUTS — RAW REVIEW\n========================================\n';
+    out+='\n--- AI Incident Report (as generated) ---\n'+(val('ai-rpt')||'(not pasted)')+'\n';
+    out+='\nWhat AI did well in the report:\n'+(val('ai-rpt-good')||'(not answered)')+'\n';
+    out+='\nWhat AI got wrong in the report:\n'+(val('ai-rpt-bad')||'(not answered)')+'\n';
+    out+='\n--- AI Standard Operating Procedure (as generated) ---\n'+(val('ai-sop')||'(not pasted)')+'\n';
+    out+='\nSOP accuracy check:\n'+(val('ai-sop-check')||'(not answered)')+'\n';
+    out+='\n--- AI Knowledge Base Entry (as generated) ---\n'+(val('ai-kb')||'(not pasted)')+'\n';
+    out+='\nKnowledge base publish check:\n'+(val('ai-kb-check')||'(not answered)')+'\n';
+    out+='\n========================================\nFINAL CORRECTED DOCUMENTS\n========================================\n';
+    out+='\n--- Final Incident Report ---\n'+(val('final-rpt')||'(not completed)')+'\n';
+    out+='\n--- Final SOP Document ---\n'+(val('final-sop')||'(not completed)')+'\n';
+    out+='\n--- Final Knowledge Base Entry ---\n'+(val('final-kb')||'(not completed)')+'\n';
+    out+='\n========================================\nAI VS HUMAN REVIEW NOTES\n========================================\n';
+    out+='\nWhat AI did well:\n'+(val('rev-good')||'(not answered)')+'\n';
+    out+='\nWhat was corrected:\n'+(val('rev-fix')||'(not answered)')+'\n';
+    out+='\nWhat was removed entirely:\n'+(val('rev-removed')||'(not answered)')+'\n';
+    out+='\n— End of AI-Enhanced Documentation Package — Module 3 Phase B —\n';
+    return out;
+  }
+
+  document.getElementById('dlTxt').addEventListener('click',()=>{
+    const blob=new Blob([buildReport()],{type:'text/plain'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');a.href=url;a.download='sentinel-m3-phase-b-documentation.txt';
+    document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+    const s=document.getElementById('saved');s.classList.add('show');
+    setTimeout(()=>s.classList.remove('show'),4000);
+  });
+  document.getElementById('printPdf').addEventListener('click',()=>window.print());
+
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

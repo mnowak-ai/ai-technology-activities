@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentinel — Module 3 Phase A: Human Documentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple:#7B2FBE; --purple-deep:#5B1F92; --purple-soft:#F3EBFB; --purple-line:#E3D2F5;
+    --ink:#1F1A26; --slate:#4A4658; --muted:#6E6A7A;
+    --paper:#FBF9FC; --card:#FFFFFF; --line:#EAE6F0;
+    --calm:#3A6B8A; --calm-soft:#E7F0F5;
+    --green:#2E7D57; --green-soft:#E8F4EE; --green-line:#C6E4D4;
+    --amber:#B26A00; --amber-soft:#FBF0DD;
+    --red:#B52B27; --red-soft:#FAEAEA;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'DM Sans',sans-serif;
+    background:
+      radial-gradient(1100px 520px at 85% -10%, rgba(46,125,87,0.04), transparent 60%),
+      radial-gradient(900px 440px at -8% 2%, rgba(123,47,190,0.04), transparent 55%),
+      var(--paper);
+    color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased;
+    padding:0 20px 90px;
+  }
+  .wrap{max-width:880px;margin:0 auto}
+
+  /* ── Ops bar ── */
+  .opsbar{max-width:880px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:16px 4px;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:.95rem}
+  .shield{width:30px;height:30px;display:grid;place-items:center;border-radius:8px;background:linear-gradient(150deg,var(--purple),var(--purple-deep));color:#fff;box-shadow:0 4px 12px rgba(91,31,146,.28)}
+  .shield svg{width:16px;height:16px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-left:auto}
+  .chip{font-size:.72rem;font-weight:600;padding:5px 11px;border-radius:999px;border:1px solid var(--line);color:var(--slate);background:#fff;display:inline-flex;align-items:center;gap:7px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(46,125,87,.16);animation:pulse 3s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+  /* ── Hero ── */
+  .hero{padding:54px 0 12px}
+  .kicker{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--purple-deep);background:var(--purple-soft);border:1px solid var(--purple-line);padding:6px 13px;border-radius:999px;margin-bottom:22px}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.1rem,5.2vw,3.2rem);line-height:1.06;letter-spacing:-.5px;margin-bottom:16px}
+  .lede{font-size:1.15rem;color:var(--slate);max-width:58ch}
+
+  /* ── Sections ── */
+  section{padding:46px 0;border-top:1px solid var(--line)}
+  section:first-of-type{border-top:none}
+  .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .eyebrow .num{font-family:'Fraunces',serif;font-weight:600;font-size:1rem;color:#fff;background:var(--purple);min-width:34px;height:34px;padding:0 9px;border-radius:9px;display:grid;place-items:center;flex:0 0 auto}
+  .eyebrow .lab{font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple-deep)}
+  h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.6rem,3.4vw,2.05rem);line-height:1.14;letter-spacing:-.3px}
+  p{font-size:1.04rem;color:var(--slate);margin-bottom:14px}
+  p:last-child{margin-bottom:0}
+  p strong{color:var(--ink);font-weight:600}
+  .lead-line{font-size:1.08rem;color:var(--ink);font-weight:500;margin-bottom:16px}
+
+  /* ── Principle ── */
+  .principle{margin:26px 0 0;padding:28px 30px;border-radius:18px;background:linear-gradient(135deg,#2A1840,#4A1E78);color:#fff;position:relative;overflow:hidden}
+  .principle::after{content:"";position:absolute;right:-50px;top:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%)}
+  .principle .qm{font-family:'Fraunces',serif;font-size:2.4rem;line-height:.5;color:#C9A8EC;display:block;margin-bottom:6px}
+  .principle p{font-family:'Fraunces',serif;font-weight:500;font-size:1.26rem;line-height:1.35;color:#fff;margin:0;position:relative}
+
+  /* ── Role panels ── */
+  .duo{display:flex;flex-wrap:wrap;gap:16px;margin-top:8px}
+  .panel{flex:1 1 300px;border-radius:16px;padding:22px;background:var(--card);border:1px solid var(--line);box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .panel .ph{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .panel .ph .ic{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;flex:0 0 auto}
+  .panel .ph .ic svg{width:16px;height:16px}
+  .panel.yes .ic{background:var(--green-soft);color:var(--green)}
+  .panel.no .ic{background:#F4EFF7;color:var(--muted)}
+  .panel h3{font-size:1rem;font-weight:700;color:var(--ink)}
+  .panel .item{display:flex;gap:10px;padding:9px 0;font-size:.97rem;color:var(--slate);border-top:1px solid var(--line)}
+  .panel .item:first-of-type{border-top:none;padding-top:2px}
+  .panel .item .mk{flex:0 0 auto;margin-top:1px;font-weight:700;color:var(--green)}
+  .panel.no .item .mk{color:var(--muted)}
+
+  /* ── Documentation principles ── */
+  .docprinciples{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+  .dp{flex:1 1 200px;border-radius:16px;padding:20px;background:var(--card);border:1px solid var(--line);box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .dp .dpi{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;margin-bottom:13px}
+  .dp .dpi svg{width:20px;height:20px}
+  .dp.c1 .dpi{background:var(--calm-soft);color:var(--calm)}
+  .dp.c2 .dpi{background:var(--green-soft);color:var(--green)}
+  .dp.c3 .dpi{background:var(--purple-soft);color:var(--purple-deep)}
+  .dp h3{font-weight:700;color:var(--ink);font-size:1.04rem;margin-bottom:5px}
+  .dp p{font-size:.94rem;margin:0;line-height:1.5}
+  .dp .dq{font-size:.83rem;font-style:italic;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}
+
+  /* ── Document cards ── */
+  .doc{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-top:18px;box-shadow:0 2px 6px rgba(31,26,38,.05)}
+
+  .doc-head{padding:18px 24px 16px;border-bottom:1px solid var(--line);position:relative}
+  .doc-head::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:20px 0 0 0}
+  .d1 .doc-head::before{background:var(--calm)}
+  .d2 .doc-head::before{background:var(--amber)}
+  .d3 .doc-head::before{background:var(--purple)}
+  .dh-top{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:6px}
+  .doc-ref{font-size:.7rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
+  .doc-status{font-size:.7rem;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--green-soft);color:var(--green);border:1px solid var(--green-line)}
+  .doc-num{font-family:'Fraunces',serif;font-weight:600;font-size:1rem;color:#fff;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;flex:0 0 auto}
+  .d1 .doc-num{background:var(--calm)} .d2 .doc-num{background:var(--amber)} .d3 .doc-num{background:var(--purple)}
+  .doc-title{font-family:'Fraunces',serif;font-weight:600;font-size:1.12rem;color:var(--ink)}
+  .doc-context{display:flex;gap:10px;align-items:flex-start;font-size:.92rem;color:var(--slate);background:#FAF8FC;border-radius:10px;padding:11px 13px;margin-top:2px}
+  .doc-context svg{width:14px;height:14px;color:var(--muted);flex:0 0 auto;margin-top:2px}
+
+  /* documentation fields */
+  .doc-body{padding:20px 24px 24px}
+  .doc-field{margin-bottom:20px}
+  .doc-field:last-of-type{margin-bottom:0}
+  .field-head{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+  .field-num{width:24px;height:24px;border-radius:7px;background:var(--purple-soft);color:var(--purple-deep);font-weight:700;font-size:.82rem;display:grid;place-items:center;flex:0 0 auto}
+  .field-label{font-weight:700;color:var(--ink);font-size:.98rem}
+  .field-sub{font-size:.87rem;color:var(--muted);margin-top:1px}
+  textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:13px;font-family:'DM Sans',sans-serif;font-size:1rem;color:var(--ink);line-height:1.55;resize:vertical;min-height:80px;background:#FDFCFE;transition:border-color .18s,box-shadow .18s}
+  textarea:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 3px rgba(123,47,190,.12)}
+  textarea::placeholder{color:#B5AFC0}
+  textarea.short{min-height:62px}
+
+  /* clarity check */
+  .clarity{display:flex;flex-wrap:wrap;gap:8px;padding:14px 24px;background:var(--green-soft);border-top:1px solid var(--green-line);align-items:center}
+  .clarity .cq{font-size:.92rem;font-weight:600;color:var(--ink);flex:1 1 auto}
+  .clarity .cq span{color:var(--green)}
+  .cbtn-g{border:1.5px solid var(--line);background:#fff;border-radius:9px;padding:7px 13px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.86rem;color:var(--slate);cursor:pointer;transition:all .15s}
+  .cbtn-g:hover{border-color:var(--green)}
+  .cbtn-g[data-c="yes"].on{background:var(--green-soft);border-color:var(--green);color:var(--green)}
+  .cbtn-g[data-c="needs"].on{background:var(--amber-soft);border-color:var(--amber);color:var(--amber)}
+
+  /* ── Final deliverable ── */
+  .deliv{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;margin-top:16px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .deliv .dh{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  .deliv .dn{flex:0 0 auto;width:32px;height:32px;border-radius:9px;background:var(--purple-soft);color:var(--purple-deep);font-family:'Fraunces',serif;font-weight:600;display:grid;place-items:center}
+  .deliv h3{font-size:1.06rem;font-weight:700;color:var(--ink)}
+  .deliv .dsub{font-size:.96rem;color:var(--muted);margin-bottom:14px}
+  label.fl{display:block;font-weight:600;color:var(--ink);font-size:.95rem;margin-bottom:7px}
+  label.fl.mt{margin-top:14px}
+
+  /* ── Export ── */
+  .exportbar{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+  .ebtn{flex:1 1 200px;display:flex;align-items:center;justify-content:center;gap:9px;padding:15px 18px;border-radius:13px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;border:1.5px solid var(--purple);transition:transform .16s,box-shadow .16s}
+  .ebtn svg{width:18px;height:18px}
+  .ebtn.primary{background:var(--purple);color:#fff}
+  .ebtn.primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(123,47,190,.3)}
+  .ebtn.ghost{background:#fff;color:var(--purple-deep)}
+  .ebtn.ghost:hover{background:var(--purple-soft)}
+  .saved{font-size:.9rem;color:var(--green);font-weight:600;margin-top:10px;display:none;align-items:center;gap:7px}
+  .saved.show{display:flex}
+
+  /* ── Closing ── */
+  .closing{margin-top:8px;background:linear-gradient(155deg,#241834,#3A1C5C 55%,#5B1F92);color:#fff;border-radius:22px;padding:46px 42px;position:relative;overflow:hidden}
+  .closing::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%)}
+  .closing .eyebrow .num{background:rgba(255,255,255,.16)}
+  .closing .eyebrow .lab{color:#C9A8EC}
+  .closing h2{color:#fff;position:relative}
+  .closing p{color:rgba(255,255,255,.86);position:relative;font-size:1.05rem}
+  .closing .big{font-family:'Fraunces',serif;font-weight:500;font-size:1.38rem;line-height:1.3;color:#fff;margin:6px 0 0;position:relative}
+  .shift-note{display:inline-flex;align-items:center;gap:9px;margin-top:24px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:11px 18px;font-size:.88rem;font-weight:600;color:#fff;position:relative}
+  .shift-note .dot{background:#9BE3B6;box-shadow:0 0 0 3px rgba(155,227,182,.2);animation:none}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.dot{animation:none}}
+  @media(max-width:600px){body{padding:0 16px 70px}.closing{padding:34px 26px}.chips{width:100%;margin-left:0}.doc-body{padding:16px 18px 20px}.doc-head{padding:14px 18px 13px}.clarity{padding:12px 18px}}
+  @media print{.opsbar,.exportbar,.closing{display:none!important}body{background:#fff}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="opsbar">
+  <div class="brand">
+    <span class="shield"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+    Sentinel Knowledge Operations
+  </div>
+  <div class="chips">
+    <span class="chip"><span class="dot"></span>All Systems Stable</span>
+    <span class="chip">Module 3 · Phase A</span>
+    <span class="chip">Documentation Mode</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero reveal">
+    <span class="kicker">Module 3 · Phase A</span>
+    <h1>Human documentation: turning incidents into clear knowledge.</h1>
+    <p class="lede">Before AI gets involved, you write it. Three resolved incidents from Module 2 are waiting to become clear, usable records for the rest of the Sentinel team.</p>
+  </header>
+
+  <!-- Role -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">A</span><span class="lab">Your role has shifted</span></div>
+    <h2>You're no longer troubleshooting</h2>
+    <p class="lead-line">The incidents from Module 2 are resolved. Systems are stable. Your job now is different: <strong>you are creating the official memory of what happened.</strong></p>
+    <p>Other analysts, trainers, and future teams will use what you write here. If it's unclear or too detailed, it won't help anyone. Good documentation is short, honest, and easy to understand without extra explanation.</p>
+    <div class="duo">
+      <div class="panel yes">
+        <div class="ph"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><h3>Your job in this phase</h3></div>
+        <div class="item"><span class="mk">→</span>Review what happened in each resolved incident.</div>
+        <div class="item"><span class="mk">→</span>Write a clear, structured summary for each one.</div>
+        <div class="item"><span class="mk">→</span>Focus on what others need to know — not every detail.</div>
+        <div class="item"><span class="mk">→</span>Identify what the organization should learn from it.</div>
+      </div>
+      <div class="panel no">
+        <div class="ph"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span><h3>Not this time</h3></div>
+        <div class="item"><span class="mk">×</span>Troubleshooting or investigating — that's done.</div>
+        <div class="item"><span class="mk">×</span>Proving what caused the issue — it's already resolved.</div>
+        <div class="item"><span class="mk">×</span>Using AI tools — this phase is human writing only.</div>
+        <div class="item"><span class="mk">×</span>Technical detail — clarity beats completeness here.</div>
+      </div>
+    </div>
+    <div class="principle">
+      <span class="qm">"</span>
+      <p>If someone else had to understand this incident in 30 seconds, what would you tell them?</p>
+    </div>
+  </section>
+
+  <!-- Documentation principles -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">1</span><span class="lab">Before you write</span></div>
+    <h2>Three principles of good documentation</h2>
+    <p class="lead-line">Keep these in mind as you work through each incident. Good documentation passes one test: will another analyst understand this without asking you a single question?</p>
+    <div class="docprinciples">
+      <div class="dp c1">
+        <div class="dpi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <h3>Be clear</h3>
+        <p>Use plain language. If a word feels technical, swap it for a simpler one. Pretend you're explaining it to someone on their first day.</p>
+        <div class="dq">"Would someone with no background understand this?"</div>
+      </div>
+      <div class="dp c2">
+        <div class="dpi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 10h8M4 14h12M4 18h6"/></svg></div>
+        <h3>Be brief</h3>
+        <p>Write only what's needed. Long documentation gets ignored. Short, well-organized documentation gets used. Cut anything that doesn't help someone take action.</p>
+        <div class="dq">"Does every sentence earn its place?"</div>
+      </div>
+      <div class="dp c3">
+        <div class="dpi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Be useful</h3>
+        <p>Think about why someone will read this. Future training? Preventing a repeat? Make sure the document serves that purpose directly.</p>
+        <div class="dq">"What will someone do differently after reading this?"</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The three incidents -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">2</span><span class="lab">Document each incident</span></div>
+    <h2>Three incidents to document</h2>
+    <p class="lead-line">Work through each one in order. For every incident, you'll complete five documentation fields. There's a clarity check at the end of each — a moment to ask whether your notes would actually help someone else.</p>
+
+    <!-- INCIDENT 1 -->
+    <div class="doc d1">
+      <div class="doc-head">
+        <div class="dh-top">
+          <span class="doc-num">1</span>
+          <span class="doc-title">System Performance Slowdown</span>
+          <span class="doc-status">✓ Resolved</span>
+        </div>
+        <div class="doc-ref">INC-0241 · Government Services Portal</div>
+        <div class="doc-context"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg><span>The system slowed noticeably during a busy reporting period. It recovered on its own. No users lost data. The likely cause was too many people logged in at the same time, but this was never confirmed.</span></div>
+      </div>
+      <div class="doc-body">
+        <div class="doc-field">
+          <div class="field-head"><span class="field-num">1</span><div><div class="field-label">Incident Summary — what happened?</div><div class="field-sub">2–3 sentences. Write it as if you're telling a colleague who was out that day.</div></div></div>
+          <textarea id="i1s1" placeholder="During the morning of [date], the Government Services Portal slowed significantly for users trying to load pages and access dashboards..."></textarea>
+        </div>
+        <div class="doc-field">
+          <div class="field-head"><span class="field-num">2</span><div><div class="field-label">Observed behavior — what did users see or experience?</div><div class="field-sub">Focus on what was visible, not what was happening behind the scenes.</div></div></div>
+          <textarea id="i1s2" class="short" placeholder="Pages took over a minute to load. Dashboard updates stopped appearing. Buttons responded but very slowly..."></textarea>
+        </div>
+        <div class="doc-field">
+          <div class="field-head"><span class="field-num">3</span><div><div class="field-label">Impact — who was affected, and how much?</div><div class="field-sub">How disruptive was this — minor, moderate, or significant? Who noticed?</div></div></div>
+          <textarea id="i1s3" class="short" placeholder="All active users on the portal experienced delays. The timing coincided with the monthly reporting deadline, when the system had unusually high traffic..."></textarea>
+        </div>
+        <div class="doc-field">
+          <div class="field-head"><span class="field-num">4</span><div><div class="field-label">Resolution — how did it end?</div><div class="field-sub">Did someone intervene, or did it resolve on its own? Be honest about what's still uncertain.</div></div></div>
+          <textarea id="i1s4" class="short" placeholder="The system returned to normal performance within approximately 30 minutes. No action was taken — it resolved on its own. The root cause was not confirmed..."></textarea>
+        </div>
+        <div class="doc-field">
+          <div class="field-head"><span class="field-num">5</span><div><div class="field-label">Key takeaway — what should Sentinel remember?</div><div class="field-sub">One or two sentences. What should be monitored or done differently next time?</div></div></div>
+          <textarea id="i1s5" class="short" placeholder="During high-traffic reporting periods, the system may be at risk of slowdowns. Monitoring user counts before known deadline dates could help the team prepare..."></textarea>
+        </div>
+      </div>
+      <div class="clarity">
+        <span class="cq">Clarity check: Could another analyst understand this incident from your notes alone — <span>without seeing the original report?</span></span>
+        <button class="cbtn-g" data-doc="d1" data-c="yes">Yes, it's clear</button>
+        <button class="cbtn-g" data-doc="d1" data-c="needs">Needs more detail</button>
+      </div>
+    </div>
+
+    <!-- INCIDENT 2 -->
+    <div class="doc d2">
+      <div class="doc-head">
+        <div class="dh-top">
+          <span class="doc-num">2</span>
+          <span class="doc-title">Login & Access Issues</span>
+          <span class="doc-status">✓ Resolved</span>
+        </div>
+        <div class="doc-ref">INC-0242 · Hospital Records System</div>
+        <div class="doc-context"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg><span>Several users could not log in on the first try. The most likely explanation was that a password policy change wasn't communicated clearly — some users didn't know their old password no longer worked. No confirmed security issue. One user logged in after hours.</span></div>
+      </div>
+      <div class="doc-body">
+        <div class="doc-field">
+          <div class="field-head"><span class="field-num">1</span><div><div class="field-label">Incident Summary — what happened?</div><div class="field-sub">Describe the issue briefly. Mention the setting — hospital records — because context matters for future readers.</div></div></div>
+          <textarea id="i2s1" placeholder="Members of the hospital records team reported being unable to log in on the first attempt. Three users were affected. One account required five attempts before access was granted..."></textarea>
+        </div>
+        <div class="doc-field">
+          <div class="field-head"><span class="field-num">2</span><div><div class="field-label">Observed behavior — what did users see or experience?</div><div class="field-sub">What happened on screen? What did users report to support?</div></div></div>
+          <textarea id="i2s2" class="short" placeholder="Passwords were rejected even though users hadn't changed them. One user received repeated 'invalid password' messages before eventually getting in..."></textarea>
+        </div>
+        <div class="doc-field">
+          <div class="field-head"><span class="field-num">3</span><div><div class="field-label">Impact — how disruptive was this?</div><div class="field-sub">Did it affect patient records access? Were users locked out completely or just delayed?</div></div></div>
+          <textarea id="i2s3" class="short" placeholder="Three users were delayed in accessing patient records. One was unable to log in without contacting the support desk. The rest of the system remained fully functional for unaffected users..."></textarea>
+        </div>
+        <div class="doc-field">
+          <div class="field-head"><span class="field-num">4</span><div><div class="field-label">Resolution — how did it end?</div><div class="field-sub">Were users able to regain access? Was a root cause confirmed?</div></div></div>
+          <textarea id="i2s4" class="short" placeholder="Most affected users eventually gained access after multiple attempts. The issue is believed to be related to the password rule change introduced the previous week, though this was not formally confirmed..."></textarea>
+        </div>
+        <div class="doc-field">
+          <div class="field-head"><span class="field-num">5</span><div><div class="field-label">Key takeaway — what should Sentinel remember?</div><div class="field-sub">What process change or monitoring approach might prevent this next time?</div></div></div>
+          <textarea id="i2s5" class="short" placeholder="When password rules are updated, all affected users should receive clear notification with instructions for updating their credentials before the change takes effect..."></textarea>
+        </div>
+      </div>
+      <div class="clarity">
+        <span class="cq">Clarity check: Would the next analyst understand why users couldn't log in — and what the likely cause was — <span>just from your notes?</span></span>
+        <button class="cbtn-g" data-doc="d2" data-c="yes">Yes, it's clear</button>
+        <button class="cbtn-g" data-doc="d2" data-c="needs">Needs more detail</button>
+      </div>
+    </div>
+
+    <!-- INCIDENT 3 -->
+    <div class="doc d3">
+      <div class="doc-head">
+        <div class="dh-top">
+          <span class="doc-num">3</span>
+          <span class="doc-title">Unexpected System Behavior</span>
+          <span class="doc-status">✓ Stabilized</span>
+        </div>
+        <div class="doc-ref">INC-0243 · School District File System</div>
+        <div class="doc-context"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg><span>Some users started seeing an intermittent error when saving files. Others doing the same tasks had no problems. A folder reorganization two days earlier may have caused some accounts to lose access to new folder locations, but this was never fully confirmed. The issue stabilized on its own.</span></div>
+      </div>
+      <div class="doc-body">
+        <div class="doc-field">
+          <div class="field-head"><span class="field-num">1</span><div><div class="field-label">Incident Summary — what happened?</div><div class="field-sub">This one is messier — be honest about the uncertainty. Good documentation admits what wasn't known.</div></div></div>
+          <textarea id="i3s1" placeholder="A subset of school district users began seeing an error message when saving files. The error appeared inconsistently — sometimes the same action would work moments later..."></textarea>
+        </div>
+        <div class="doc-field">
+          <div class="field-head"><span class="field-num">2</span><div><div class="field-label">Observed behavior — what stood out as unusual?</div><div class="field-sub">The inconsistency is the key detail here — describe it clearly.</div></div></div>
+          <textarea id="i3s2" class="short" placeholder="Users would attempt to save a file and receive an 'Action could not be completed' error. Retrying the same action a minute later sometimes worked. Other users in the same area saw no error at all..."></textarea>
+        </div>
+        <div class="doc-field">
+          <div class="field-head"><span class="field-num">3</span><div><div class="field-label">Impact — how much did this affect users?</div><div class="field-sub">Inconsistent issues are often harder for users to report and harder for support to track.</div></div></div>
+          <textarea id="i3s3" class="short" placeholder="Some users were unable to reliably save their work. Because the error was inconsistent, some users may not have reported it at all, which means the actual number of affected accounts may be higher than recorded..."></textarea>
+        </div>
+        <div class="doc-field">
+          <div class="field-head"><span class="field-num">4</span><div><div class="field-label">Resolution — how did it end?</div><div class="field-sub">Be transparent about unresolved questions — it matters for future reference.</div></div></div>
+          <textarea id="i3s4" class="short" placeholder="The error rate appeared to reduce on its own later in the afternoon. No confirmed fix was applied. The folder reorganization from two days earlier remains a possible explanation — not yet confirmed or ruled out..."></textarea>
+        </div>
+        <div class="doc-field">
+          <div class="field-head"><span class="field-num">5</span><div><div class="field-label">Key takeaway — what should Sentinel flag for the future?</div><div class="field-sub">Especially for cases like this where the cause is unclear, what should be checked or monitored going forward?</div></div></div>
+          <textarea id="i3s5" class="short" placeholder="After any system reorganization affecting file or folder locations, all user accounts should be reviewed to confirm they still have the correct access. Intermittent errors like this are easy to miss until they grow..."></textarea>
+        </div>
+      </div>
+      <div class="clarity">
+        <span class="cq">Clarity check: Is the uncertainty clearly stated — so future readers know this wasn't fully resolved <span>and still needs attention?</span></span>
+        <button class="cbtn-g" data-doc="d3" data-c="yes">Yes, it's clear</button>
+        <button class="cbtn-g" data-doc="d3" data-c="needs">Needs more detail</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final deliverable -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">3</span><span class="lab">Finish strong</span></div>
+    <h2>Sentinel Incident Documentation Report</h2>
+    <p class="lead-line">Three documents written — now pull the bigger picture together before you finalize your report.</p>
+
+    <div class="deliv">
+      <div class="dh"><span class="dn">→</span><h3>Key learnings across all three incidents</h3></div>
+      <div class="dsub">Looking at the three incidents together, what patterns or lessons stand out? What do they have in common — and what does that tell the organization?</div>
+      <textarea id="d-learnings" placeholder="Across all three incidents, the common thread seems to be... In each case, communication gaps played a role in... The most important thing Sentinel should take from this shift is..."></textarea>
+    </div>
+
+    <div class="deliv">
+      <div class="dh"><span class="dn">→</span><h3>One suggestion for improving future documentation</h3></div>
+      <div class="dsub">Based on what you noticed while writing these three summaries — what would make this documentation process easier, clearer, or more useful next time?</div>
+      <textarea id="d-suggestion" placeholder="One thing that would improve how we document incidents in the future is... This would help because..."></textarea>
+    </div>
+
+    <div class="exportbar">
+      <button class="ebtn primary" id="dlTxt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download incident report (.txt)</button>
+      <button class="ebtn ghost" id="printPdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg> Save as PDF</button>
+    </div>
+    <div class="saved" id="saved"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Documentation report saved.</div>
+  </section>
+
+  <!-- Transition -->
+  <section class="reveal">
+    <div class="closing">
+      <div class="eyebrow"><span class="num">→</span><span class="lab">Next: Phase B</span></div>
+      <h2>The incidents have a written record now.</h2>
+      <p>You did the hard part first — turning raw events into something a human can read and use. That's the foundation everything else builds on.</p>
+      <p class="big">Next, you will use AI tools to transform your documentation into structured reports and knowledge base articles used across Sentinel teams.</p>
+      <span class="shift-note"><span class="dot"></span>Phase B — AI-Assisted Documentation begins next</span>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  const clarityState = {d1:'',d2:'',d3:''};
+
+  document.querySelectorAll('.cbtn-g').forEach(b=>{
+    b.addEventListener('click',()=>{
+      clarityState[b.dataset.doc]=b.dataset.c;
+      b.parentElement.querySelectorAll('.cbtn-g').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+    });
+  });
+
+  function val(id){ const el=document.getElementById(id); return el?el.value.trim():''; }
+
+  const incidents=[
+    {
+      label:'INCIDENT 1 — System Performance Slowdown (INC-0241)',
+      doc:'d1',
+      fields:[
+        ['Incident Summary',  'i1s1'],
+        ['Observed Behavior', 'i1s2'],
+        ['Impact Overview',   'i1s3'],
+        ['Resolution Status', 'i1s4'],
+        ['Key Takeaway',      'i1s5']
+      ]
+    },
+    {
+      label:'INCIDENT 2 — Login & Access Issues (INC-0242)',
+      doc:'d2',
+      fields:[
+        ['Incident Summary',  'i2s1'],
+        ['Observed Behavior', 'i2s2'],
+        ['Impact Overview',   'i2s3'],
+        ['Resolution Status', 'i2s4'],
+        ['Key Takeaway',      'i2s5']
+      ]
+    },
+    {
+      label:'INCIDENT 3 — Unexpected System Behavior (INC-0243)',
+      doc:'d3',
+      fields:[
+        ['Incident Summary',  'i3s1'],
+        ['Observed Behavior', 'i3s2'],
+        ['Impact Overview',   'i3s3'],
+        ['Resolution Status', 'i3s4'],
+        ['Key Takeaway',      'i3s5']
+      ]
+    }
+  ];
+
+  function buildReport(){
+    let out='SENTINEL KNOWLEDGE OPERATIONS\n';
+    out+='Incident Documentation Report — Phase A\n';
+    out+='Level 1 IT Support Analyst\n';
+    out+='Generated: '+new Date().toLocaleString()+'\n';
+    incidents.forEach(inc=>{
+      out+='\n========================================\n'+inc.label+'\n========================================\n';
+      inc.fields.forEach(([label,id])=>{
+        out+='\n'+label+':\n'+(val(id)||'(not answered)')+'\n';
+      });
+      const c=clarityState[inc.doc];
+      out+='\nClarity Check: '+(c==='yes'?'Clear — another analyst could understand this':(c==='needs'?'Needs more detail':'(not answered)'  ))+'\n';
+    });
+    out+='\n========================================\nKEY LEARNINGS ACROSS ALL INCIDENTS\n========================================\n';
+    out+=(val('d-learnings')||'(not answered)')+'\n';
+    out+='\n========================================\nSUGGESTION FOR IMPROVING FUTURE DOCUMENTATION\n========================================\n';
+    out+=(val('d-suggestion')||'(not answered)')+'\n';
+    out+='\n— End of Incident Documentation Report — Module 3 Phase A —\n';
+    return out;
+  }
+
+  document.getElementById('dlTxt').addEventListener('click',()=>{
+    const blob=new Blob([buildReport()],{type:'text/plain'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a'); a.href=url; a.download='sentinel-m3-phase-a-documentation.txt';
+    document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    const s=document.getElementById('saved'); s.classList.add('show');
+    setTimeout(()=>s.classList.remove('show'),4000);
+  });
+  document.getElementById('printPdf').addEventListener('click',()=>window.print());
+
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
