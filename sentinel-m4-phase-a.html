@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentinel — Module 4 Phase A: Operations Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple:#7B2FBE; --purple-deep:#5B1F92; --purple-soft:#F3EBFB; --purple-line:#E3D2F5;
+    --ink:#1F1A26; --slate:#4A4658; --muted:#6E6A7A;
+    --paper:#F9F8FC; --card:#FFFFFF; --line:#EAE6F0;
+    --calm:#3A6B8A; --calm-soft:#E7F0F5;
+    --green:#2E7D57; --green-soft:#E8F4EE; --green-line:#C6E4D4;
+    --amber:#B26A00; --amber-soft:#FBF0DD;
+    --red:#B52B27; --red-soft:#FAEAEA;
+    --teal:#1E7A72; --teal-soft:#E3F5F3; --teal-line:#B2DDD9;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'DM Sans',sans-serif;
+    background:
+      radial-gradient(1100px 520px at 85% -10%, rgba(30,122,114,0.05), transparent 60%),
+      radial-gradient(900px 440px at -8% 2%, rgba(123,47,190,0.04), transparent 55%),
+      var(--paper);
+    color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased;
+    padding:0 20px 90px;
+  }
+  .wrap{max-width:880px;margin:0 auto}
+
+  /* ── Ops bar ── */
+  .opsbar{max-width:880px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:16px 4px;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:.95rem}
+  .shield{width:30px;height:30px;display:grid;place-items:center;border-radius:8px;background:linear-gradient(150deg,var(--purple),var(--purple-deep));color:#fff;box-shadow:0 4px 12px rgba(91,31,146,.28)}
+  .shield svg{width:16px;height:16px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-left:auto}
+  .chip{font-size:.72rem;font-weight:600;padding:5px 11px;border-radius:999px;border:1px solid var(--line);color:var(--slate);background:#fff;display:inline-flex;align-items:center;gap:7px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 3px rgba(30,122,114,.18);animation:pulse 2.5s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+  /* ── Hero ── */
+  .hero{padding:48px 0 10px}
+  .kicker{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--purple-deep);background:var(--purple-soft);border:1px solid var(--purple-line);padding:6px 13px;border-radius:999px;margin-bottom:20px}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2rem,5vw,3rem);line-height:1.07;letter-spacing:-.5px;margin-bottom:14px}
+  .lede{font-size:1.12rem;color:var(--slate);max-width:58ch}
+
+  /* ── Progress tracker ── */
+  .progress{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:28px 0 8px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .progress .pt{font-size:.72rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+  .progress .pt span{color:var(--teal)}
+  .psteps{display:flex;align-items:center}
+  .pnode{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:4px}
+  .pnode .pb{width:32px;height:32px;border-radius:50%;border:2px solid var(--line);background:#fff;display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:600;font-size:.88rem;color:var(--muted);transition:all .3s}
+  .pnode .pl{font-size:.66rem;font-weight:700;color:var(--muted);text-align:center;max-width:62px;line-height:1.2;transition:color .3s}
+  .pnode.active .pb{background:var(--teal);border-color:var(--teal);color:#fff;box-shadow:0 4px 12px rgba(30,122,114,.28)}
+  .pnode.active .pl{color:var(--teal)}
+  .pnode.done .pb{background:var(--green);border-color:var(--green);color:#fff}
+  .pnode.done .pl{color:var(--green)}
+  .pline{flex:1 1 auto;height:2px;background:var(--line);margin-bottom:18px;transition:background .3s}
+  .pline.done{background:var(--green)}
+
+  /* ── Step cards ── */
+  .step-card{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-bottom:16px;box-shadow:0 2px 8px rgba(31,26,38,.06);transition:opacity .4s}
+  .step-card.hidden{display:none}
+  .step-card.done-card{opacity:.62}
+  .step-card.done-card .sc-body{pointer-events:none}
+  .sc-head{padding:18px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}
+  .sc-num{font-family:'Fraunces',serif;font-weight:600;font-size:1rem;color:#fff;width:34px;height:34px;border-radius:9px;display:grid;place-items:center;flex:0 0 auto}
+  .s1 .sc-num{background:var(--purple)} .s2 .sc-num{background:var(--teal)}
+  .s3 .sc-num{background:var(--calm)} .s4 .sc-num{background:var(--amber)}
+  .s5 .sc-num{background:var(--red)} .s6 .sc-num{background:var(--green)}
+  .sc-title{flex:1 1 auto}
+  .sc-title .st{font-family:'Fraunces',serif;font-weight:600;font-size:1.1rem;color:var(--ink)}
+  .sc-title .ss{font-size:.82rem;color:var(--muted);margin-top:1px}
+  .sc-status{font-size:.72rem;font-weight:700;padding:5px 11px;border-radius:999px;white-space:nowrap}
+  .sc-status.pending{background:#F0EEF6;color:var(--muted);border:1px solid var(--line)}
+  .sc-status.active{background:var(--teal-soft);color:var(--teal);border:1px solid var(--teal-line)}
+  .sc-status.done{background:var(--green-soft);color:var(--green);border:1px solid var(--green-line)}
+  .sc-body{padding:22px 24px}
+  .sc-foot{padding:16px 24px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .skip-note{font-size:.82rem;color:var(--muted)}
+  .done-note{font-size:.88rem;color:var(--green);font-weight:600;display:flex;align-items:center;gap:6px}
+  .continue-btn{display:inline-flex;align-items:center;gap:8px;background:var(--teal);color:#fff;border:none;border-radius:12px;padding:12px 22px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;transition:transform .16s,box-shadow .16s}
+  .continue-btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(30,122,114,.3)}
+  .continue-btn svg{width:16px;height:16px}
+
+  /* ── Type styles ── */
+  h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.5rem,3.2vw,1.95rem);line-height:1.14;letter-spacing:-.3px;margin-bottom:14px}
+  h3{font-family:'DM Sans',sans-serif;font-weight:700;font-size:1.06rem;color:var(--ink);margin-bottom:6px}
+  p{font-size:1.04rem;color:var(--slate);margin-bottom:14px}
+  p:last-child{margin-bottom:0}
+  p strong{color:var(--ink);font-weight:600}
+  .lead{font-size:1.08rem;color:var(--ink);font-weight:500;margin-bottom:16px}
+
+  /* ── Principle ── */
+  .principle{margin:20px 0 0;padding:24px 26px;border-radius:16px;background:linear-gradient(135deg,#2A1840,#4A1E78);color:#fff;position:relative;overflow:hidden}
+  .principle::after{content:"";position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%)}
+  .principle .qm{font-family:'Fraunces',serif;font-size:2.2rem;line-height:.5;color:#C9A8EC;display:block;margin-bottom:6px}
+  .principle p{font-family:'Fraunces',serif;font-weight:500;font-size:1.2rem;line-height:1.35;color:#fff;margin:0;position:relative}
+
+  /* ── Data reports ── */
+  .rpt{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:14px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .rpt-head{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}
+  .rpt-head .ri{flex:0 0 auto;width:34px;height:34px;border-radius:9px;display:grid;place-items:center}
+  .rpt-head .ri svg{width:18px;height:18px}
+  .r1h .ri{background:#E7F3F7;color:var(--calm)} .r2h .ri{background:var(--amber-soft);color:var(--amber)}
+  .r3h .ri{background:var(--purple-soft);color:var(--purple-deep)} .r4h .ri{background:var(--teal-soft);color:var(--teal)}
+  .rpt-head .rt .rn{font-size:.66rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:1px}
+  .rpt-head .rt .rl{font-weight:700;color:var(--ink);font-size:1rem}
+  .rpt-body{padding:16px 18px}
+  .metrics{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:14px}
+  .met{flex:1 1 120px;background:#FAF8FC;border:1px solid var(--line);border-radius:11px;padding:11px 13px;text-align:center}
+  .met .mv{font-family:'Fraunces',serif;font-weight:600;font-size:1.8rem;line-height:1;margin-bottom:3px}
+  .met .ml{font-size:.74rem;color:var(--muted);font-weight:600;letter-spacing:.2px}
+  .r1h .mv{color:var(--calm)} .r2h .mv{color:var(--amber)} .r3h .mv{color:var(--purple)} .r4h .mv{color:var(--teal)}
+  .barchart{display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
+  .bar-row{display:flex;align-items:center;gap:10px}
+  .bar-label{flex:0 0 auto;font-size:.83rem;color:var(--slate);width:190px;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bar-track{flex:1 1 auto;background:#EAE6F0;border-radius:999px;height:9px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:999px}
+  .bar-pct{flex:0 0 auto;font-size:.8rem;font-weight:700;color:var(--slate);width:32px}
+  .dtable{width:100%;border-collapse:collapse;font-size:.88rem;margin-bottom:0}
+  .dtable thead tr{background:#FAF6FD}
+  .dtable thead th{padding:8px 11px;text-align:left;font-weight:700;color:var(--ink);font-size:.8rem;border-bottom:1px solid var(--line)}
+  .dtable tbody td{padding:8px 11px;color:var(--slate);border-top:1px solid var(--line)}
+  .dtable tbody td:first-child{font-weight:600;color:var(--ink)}
+  .badge-sm{display:inline-block;font-size:.7rem;font-weight:700;padding:2px 6px;border-radius:4px}
+  .badge-sm.hi{background:var(--red-soft);color:var(--red)} .badge-sm.med{background:var(--amber-soft);color:var(--amber)} .badge-sm.low{background:var(--green-soft);color:var(--green)}
+  .gauge-row{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:12px}
+  .gauge{flex:1 1 160px;background:#FAF8FC;border:1px solid var(--line);border-radius:11px;padding:12px}
+  .gauge .gl{font-size:.74rem;font-weight:700;color:var(--muted);letter-spacing:.3px;text-transform:uppercase;margin-bottom:3px}
+  .gauge .gv{font-family:'Fraunces',serif;font-weight:600;font-size:1.45rem;color:var(--teal)}
+  .gauge .gsub{font-size:.76rem;color:var(--muted);margin-top:2px}
+
+  /* ── Task / classification ── */
+  .task-block{background:#FAF8FC;border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:10px}
+  .task-block:last-child{margin-bottom:0}
+  .tb-head{display:flex;align-items:center;gap:9px;margin-bottom:12px}
+  .tb-head .tbi{width:24px;height:24px;border-radius:6px;display:grid;place-items:center;flex:0 0 auto}
+  .tb-head .tbi svg{width:13px;height:13px}
+  .cr1 .tbi{background:#E7F3F7;color:var(--calm)} .cr2 .tbi{background:var(--amber-soft);color:var(--amber)}
+  .cr3 .tbi{background:var(--purple-soft);color:var(--purple-deep)} .cr4 .tbi{background:var(--teal-soft);color:var(--teal)}
+  .tb-head .tbt{font-weight:700;color:var(--ink);font-size:.96rem}
+  .dtype-btns{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+  .dtbtn{border:1.5px solid var(--line);background:#fff;border-radius:7px;padding:5px 10px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.8rem;color:var(--slate);cursor:pointer;transition:all .15s}
+  .dtbtn:hover{border-color:var(--purple-line)}
+  .dtbtn.on{background:var(--purple-soft);border-color:var(--purple);color:var(--purple-deep)}
+  .csmall{font-size:.86rem;font-weight:600;color:var(--ink);margin-bottom:4px;display:block}
+  textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px;font-family:'DM Sans',sans-serif;font-size:.96rem;color:var(--ink);line-height:1.55;resize:vertical;min-height:66px;background:#FDFCFE;transition:border-color .18s,box-shadow .18s;margin-bottom:8px}
+  textarea:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 3px rgba(123,47,190,.12)}
+  textarea::placeholder{color:#B5AFC0}
+  textarea:last-child{margin-bottom:0}
+  label.fl{display:block;font-weight:600;color:var(--ink);font-size:.93rem;margin:10px 0 5px}
+  label.fl:first-of-type{margin-top:0}
+
+  /* ── Pattern detection ── */
+  .pattern-field{background:#FAF8FC;border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px}
+  .pattern-field:last-child{margin-bottom:0}
+  .pf-label{font-size:.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:7px}
+  .pf-label.trend{color:var(--teal)} .pf-label.repeat{color:var(--amber)} .pf-label.unusual{color:var(--purple-deep)}
+
+  /* ── Workflow assessment ── */
+  .wf-row{background:#FAF8FC;border:1px solid var(--line);border-radius:13px;padding:14px 16px;margin-bottom:10px}
+  .wf-row:last-child{margin-bottom:0}
+  .wf-name{font-weight:700;color:var(--ink);font-size:.98rem;margin-bottom:9px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .wf-freq{font-size:.74rem;font-weight:700;color:var(--muted);background:#F0EEF6;padding:3px 8px;border-radius:5px}
+  .wf-toggles{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:9px}
+  .wft{flex:1 1 180px}
+  .wft .wfl{font-size:.76rem;font-weight:700;color:var(--muted);letter-spacing:.3px;text-transform:uppercase;margin-bottom:4px}
+  .wft-btns{display:flex;gap:5px;flex-wrap:wrap}
+  .wfbtn{border:1.5px solid var(--line);background:#fff;border-radius:7px;padding:5px 9px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.8rem;color:var(--slate);cursor:pointer;transition:all .15s}
+  .wfbtn:hover{border-color:var(--purple-line)}
+  .wfbtn.on-y{background:var(--green-soft);border-color:var(--green);color:var(--green)}
+  .wfbtn.on-m{background:var(--amber-soft);border-color:var(--amber);color:var(--amber)}
+  .wfbtn.on-h{background:var(--red-soft);border-color:var(--red);color:var(--red)}
+
+  /* ── Observation log ── */
+  .obs{background:#FAF8FC;border:1px solid var(--line);border-radius:13px;padding:14px 16px;margin-bottom:10px}
+  .obs:last-child{margin-bottom:0}
+  .obs .oh{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+  .obs .on{width:24px;height:24px;border-radius:6px;background:var(--purple-soft);color:var(--purple-deep);font-family:'Fraunces',serif;font-weight:600;font-size:.86rem;display:grid;place-items:center;flex:0 0 auto}
+  .obs .ot{font-weight:700;color:var(--ink);font-size:.96rem}
+  .obs textarea{min-height:56px}
+
+  /* ── Thinking questions ── */
+  .tq-item{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 16px;margin-bottom:10px}
+  .tq-item:last-child{margin-bottom:0}
+  .tq-item .tql{display:flex;align-items:flex-start;gap:9px;margin-bottom:7px}
+  .tq-item .tqn{flex:0 0 auto;font-family:'Fraunces',serif;font-weight:600;font-size:.84rem;color:#fff;background:var(--purple);width:24px;height:24px;border-radius:6px;display:grid;place-items:center}
+  .tq-item .tqq{font-weight:600;color:var(--ink);font-size:.97rem;line-height:1.45}
+  .tq-item textarea{min-height:60px}
+
+  /* ── Deliverable ── */
+  .deliv{background:#FAF8FC;border:1px solid var(--line);border-radius:13px;padding:14px 16px;margin-bottom:10px}
+  .deliv:last-of-type{margin-bottom:0}
+  .deliv .dh{display:flex;align-items:center;gap:9px;margin-bottom:7px}
+  .deliv .dn{width:26px;height:26px;border-radius:7px;background:var(--purple-soft);color:var(--purple-deep);font-family:'Fraunces',serif;font-weight:600;font-size:.86rem;display:grid;place-items:center;flex:0 0 auto}
+  .deliv h3{font-size:.98rem;font-weight:700;color:var(--ink)}
+  .deliv .dsub{font-size:.88rem;color:var(--muted);margin-bottom:9px}
+  .deliv textarea{min-height:76px}
+
+  /* ── Export ── */
+  .exportbar{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+  .ebtn{flex:1 1 180px;display:flex;align-items:center;justify-content:center;gap:8px;padding:13px 16px;border-radius:12px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;border:1.5px solid var(--purple);transition:transform .16s,box-shadow .16s}
+  .ebtn svg{width:17px;height:17px}
+  .ebtn.primary{background:var(--purple);color:#fff}
+  .ebtn.primary:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(123,47,190,.28)}
+  .ebtn.ghost{background:#fff;color:var(--purple-deep)}
+  .ebtn.ghost:hover{background:var(--purple-soft)}
+  .saved{font-size:.88rem;color:var(--green);font-weight:600;margin-top:8px;display:none;align-items:center;gap:6px}
+  .saved.show{display:flex}
+
+  /* ── Closing ── */
+  .closing-wrap{background:linear-gradient(155deg,#241834,#3A1C5C 55%,#5B1F92);color:#fff;border-radius:20px;padding:42px 38px;position:relative;overflow:hidden;margin-top:8px}
+  .closing-wrap::after{content:"";position:absolute;right:-50px;top:-50px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.09),transparent 70%)}
+  .closing-wrap h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.5rem,3vw,1.9rem);color:#fff;margin-bottom:14px;position:relative}
+  .closing-wrap p{color:rgba(255,255,255,.86);font-size:1.03rem;margin-bottom:12px;position:relative}
+  .closing-wrap .big{font-family:'Fraunces',serif;font-weight:500;font-size:1.28rem;line-height:1.35;color:#fff;margin:6px 0 0;position:relative}
+  .shift-note{display:inline-flex;align-items:center;gap:8px;margin-top:22px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:10px 16px;font-size:.86rem;font-weight:600;color:#fff;position:relative}
+  .shift-note .sdot{width:7px;height:7px;border-radius:50%;background:#9BE3B6;box-shadow:0 0 0 3px rgba(155,227,182,.2);animation:none}
+
+  @media(max-width:600px){body{padding:0 14px 70px}.sc-body,.sc-head,.sc-foot{padding-left:16px;padding-right:16px}.pnode .pl{display:none}.chips{width:100%;margin-left:0}.bar-label{width:110px;font-size:.76rem}}
+  @media print{.opsbar,.sc-foot,.exportbar,.closing-wrap{display:none!important}body{background:#fff}.step-card.hidden{display:block!important}.step-card.done-card{opacity:1}}
+</style>
+</head>
+<body>
+
+<div class="opsbar">
+  <div class="brand">
+    <span class="shield"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+    Sentinel Operations Improvement Team
+  </div>
+  <div class="chips">
+    <span class="chip"><span class="dot"></span>Reports Ready</span>
+    <span class="chip">Module 4 · Phase A</span>
+    <span class="chip" id="progressChip">Step 1 of 6</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <span class="kicker">Module 4 · Phase A</span>
+    <h1>Operations review: what is the data telling us?</h1>
+    <p class="lede">Work through six steps — from your briefing to your final findings report. Each step unlocks the next.</p>
+  </header>
+
+  <!-- Progress tracker -->
+  <div class="progress">
+    <div class="pt">Your analysis progress <span id="progressLabel">Step 1 of 6 — Briefing</span></div>
+    <div class="psteps">
+      <div class="pnode active" id="pn1"><div class="pb">1</div><div class="pl">Briefing</div></div>
+      <div class="pline" id="pl1"></div>
+      <div class="pnode" id="pn2"><div class="pb">2</div><div class="pl">Read reports</div></div>
+      <div class="pline" id="pl2"></div>
+      <div class="pnode" id="pn3"><div class="pb">3</div><div class="pl">Classify data</div></div>
+      <div class="pline" id="pl3"></div>
+      <div class="pnode" id="pn4"><div class="pb">4</div><div class="pl">Find patterns</div></div>
+      <div class="pline" id="pl4"></div>
+      <div class="pnode" id="pn5"><div class="pb">5</div><div class="pl">Investigate workflows</div></div>
+      <div class="pline" id="pl5"></div>
+      <div class="pnode" id="pn6"><div class="pb">6</div><div class="pl">Final report</div></div>
+    </div>
+  </div>
+
+  <!-- ── STEP 1: Briefing ── -->
+  <div class="step-card s1" id="sc1">
+    <div class="sc-head">
+      <span class="sc-num">1</span>
+      <div class="sc-title"><div class="st">Your assignment</div><div class="ss">Understand your role before you open the reports</div></div>
+      <span class="sc-status active" id="ss1">Active</span>
+    </div>
+    <div class="sc-body">
+      <h2>Leadership handed you a stack of reports and asked: "What do you notice?"</h2>
+      <p class="lead">Sentinel has grown fast. New clients across healthcare, education, logistics, and public services have pushed workloads higher. Leadership suspects teams are spending too much time on repetitive tasks — but they need evidence before investing in new tools or systems.</p>
+      <p>Over the next five steps you'll read four operational reports, classify their data, find patterns, investigate specific workflows, and build a findings report. <strong>No AI tools yet</strong> — this phase is your own observation and analysis.</p>
+      <p>You are acting as an <strong>Operations Improvement Analyst</strong>. Your goal isn't to fix anything. It's to understand how work is being performed — and notice what the data reveals.</p>
+      <div class="principle">
+        <span class="qm">"</span>
+        <p>Leadership handed you a stack of operational reports and asked: "What do you notice?"</p>
+      </div>
+    </div>
+    <div class="sc-foot">
+      <span class="skip-note">Read your briefing — then open the reports</span>
+      <button class="continue-btn" onclick="advance(1)">Open the reports — Step 2 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+
+  <!-- ── STEP 2: Read the reports ── -->
+  <div class="step-card s2 hidden" id="sc2">
+    <div class="sc-head">
+      <span class="sc-num">2</span>
+      <div class="sc-title"><div class="st">Read the reports</div><div class="ss">Four operational data exports from the last 30–90 days</div></div>
+      <span class="sc-status pending" id="ss2">Pending</span>
+    </div>
+    <div class="sc-body">
+      <h2>This is your data. Take your time with it.</h2>
+      <p class="lead">Read each report carefully. Look for patterns, recurring themes, and anything that seems like it might be taking more time or effort than it should. You'll analyze all of this in the next steps.</p>
+
+      <!-- Report 1 -->
+      <div class="rpt r1h">
+        <div class="rpt-head"><span class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span><div class="rt"><div class="rn">Report 1 · Last 30 Days</div><div class="rl">Support Ticket Activity</div></div></div>
+        <div class="rpt-body">
+          <div class="metrics">
+            <div class="met"><div class="mv">847</div><div class="ml">Total Tickets</div></div>
+            <div class="met"><div class="mv">2.8h</div><div class="ml">Avg Resolution</div></div>
+            <div class="met"><div class="mv">63%</div><div class="ml">Recurring Types</div></div>
+            <div class="met"><div class="mv">+22%</div><div class="ml">vs Last Month</div></div>
+          </div>
+          <p style="font-size:.85rem;font-weight:700;color:var(--ink);margin-bottom:7px">Ticket categories — last 30 days</p>
+          <div class="barchart">
+            <div class="bar-row"><span class="bar-label">Login &amp; Access Issues</span><div class="bar-track"><div class="bar-fill" style="width:31%;background:var(--calm)"></div></div><span class="bar-pct">31%</span></div>
+            <div class="bar-row"><span class="bar-label">Documentation Requests</span><div class="bar-track"><div class="bar-fill" style="width:24%;background:var(--purple)"></div></div><span class="bar-pct">24%</span></div>
+            <div class="bar-row"><span class="bar-label">Report Generation</span><div class="bar-track"><div class="bar-fill" style="width:18%;background:var(--amber)"></div></div><span class="bar-pct">18%</span></div>
+            <div class="bar-row"><span class="bar-label">System Questions</span><div class="bar-track"><div class="bar-fill" style="width:14%;background:var(--teal)"></div></div><span class="bar-pct">14%</span></div>
+            <div class="bar-row"><span class="bar-label">User Onboarding</span><div class="bar-track"><div class="bar-fill" style="width:8%;background:var(--green)"></div></div><span class="bar-pct">8%</span></div>
+            <div class="bar-row"><span class="bar-label">Other</span><div class="bar-track"><div class="bar-fill" style="width:5%;background:#C9C3D4"></div></div><span class="bar-pct">5%</span></div>
+          </div>
+          <table class="dtable"><thead><tr><th>Top Recurring Request</th><th>Count (30 days)</th><th>Avg Resolution</th></tr></thead>
+          <tbody>
+            <tr><td>Password reset guidance</td><td>142</td><td>0.8h</td></tr>
+            <tr><td>Monthly report format help</td><td>96</td><td>2.1h</td></tr>
+            <tr><td>Shift handoff template requests</td><td>74</td><td>1.6h</td></tr>
+            <tr><td>New user setup assistance</td><td>61</td><td>3.4h</td></tr>
+            <tr><td>Policy &amp; procedure questions</td><td>58</td><td>1.9h</td></tr>
+          </tbody></table>
+          <p style="margin-top:9px;font-size:.83rem;color:var(--muted)">Ticket volume peaks on Mondays (~40% above daily average). Password reset guidance alone accounts for 16.8% of all tickets.</p>
+        </div>
+      </div>
+
+      <!-- Report 2 -->
+      <div class="rpt r2h">
+        <div class="rpt-head"><span class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><div class="rt"><div class="rn">Report 2 · 4-Week Average per Analyst</div><div class="rl">Analyst Workload Summary</div></div></div>
+        <div class="rpt-body">
+          <div class="metrics">
+            <div class="met"><div class="mv">42</div><div class="ml">Tickets / Week</div></div>
+            <div class="met"><div class="mv">18</div><div class="ml">Doc Tasks / Week</div></div>
+            <div class="met"><div class="mv">12</div><div class="ml">Reports / Week</div></div>
+            <div class="met"><div class="mv">14.2h</div><div class="ml">Repetitive / Week</div></div>
+          </div>
+          <table class="dtable"><thead><tr><th>Task Type</th><th>Time / Task</th><th>Tasks / Week</th><th>Burden</th></tr></thead>
+          <tbody>
+            <tr><td>Documentation updates</td><td>2.4h</td><td>18</td><td><span class="badge-sm hi">High</span></td></tr>
+            <tr><td>Report generation</td><td>1.8h</td><td>12</td><td><span class="badge-sm hi">High</span></td></tr>
+            <tr><td>Ticket resolution</td><td>2.8h avg</td><td>42</td><td><span class="badge-sm med">Medium</span></td></tr>
+            <tr><td>Admin &amp; other</td><td>0.5h</td><td>8</td><td><span class="badge-sm low">Low</span></td></tr>
+          </tbody></table>
+          <p style="margin-top:9px;font-size:.83rem;color:var(--muted)">Documentation and report tasks account for 60% of total work time. Monday workloads run ~40% higher. Analyst count is steady while ticket volume has grown 22% month-over-month.</p>
+        </div>
+      </div>
+
+      <!-- Report 3 -->
+      <div class="rpt r3h">
+        <div class="rpt-head"><span class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></svg></span><div class="rt"><div class="rn">Report 3 · Last 90 Days</div><div class="rl">Documentation Request Report</div></div></div>
+        <div class="rpt-body">
+          <div class="metrics">
+            <div class="met"><div class="mv">203</div><div class="ml">Total Requests</div></div>
+            <div class="met"><div class="mv">5</div><div class="ml">Top Types</div></div>
+            <div class="met"><div class="mv">63%</div><div class="ml">From Top 5</div></div>
+            <div class="met"><div class="mv">14</div><div class="ml">Updated 3×+</div></div>
+          </div>
+          <table class="dtable"><thead><tr><th>Top Documentation Request</th><th>Count (90 days)</th><th>% of Total</th></tr></thead>
+          <tbody>
+            <tr><td>Password reset process</td><td>37</td><td>18%</td></tr>
+            <tr><td>Monthly performance report template</td><td>29</td><td>14%</td></tr>
+            <tr><td>Shift handoff format</td><td>24</td><td>12%</td></tr>
+            <tr><td>New employee onboarding checklist</td><td>21</td><td>10%</td></tr>
+            <tr><td>System access request form</td><td>18</td><td>9%</td></tr>
+          </tbody></table>
+          <p style="margin-top:9px;font-size:.83rem;color:var(--muted)">14 documents updated more than three times in 90 days. Password reset process alone has been requested or updated 37 times.</p>
+        </div>
+      </div>
+
+      <!-- Report 4 -->
+      <div class="rpt r4h">
+        <div class="rpt-head"><span class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><div class="rt"><div class="rn">Report 4 · Last 6 Months</div><div class="rl">Operations Dashboard Snapshot</div></div></div>
+        <div class="rpt-body">
+          <div class="gauge-row">
+            <div class="gauge"><div class="gl">Repetitive Task Share</div><div class="gv">58%</div><div class="gsub">Up from 47% six months ago</div></div>
+            <div class="gauge"><div class="gl">Repetitive Hours / Week</div><div class="gv">14.2h</div><div class="gsub">Of ~38h working week</div></div>
+            <div class="gauge"><div class="gl">Tasks With SOPs</div><div class="gv">34%</div><div class="gsub">66% have no existing guide</div></div>
+            <div class="gauge"><div class="gl">Highest Repetitive Team</div><div class="gv">Support</div><div class="gsub">68% of work repetitive</div></div>
+          </div>
+          <table class="dtable"><thead><tr><th>Team</th><th>Repetitive Task %</th><th>Has SOPs/Templates</th><th>Trend</th></tr></thead>
+          <tbody>
+            <tr><td>Support &amp; Helpdesk</td><td>68%</td><td>41%</td><td>↑ Growing</td></tr>
+            <tr><td>Knowledge Operations</td><td>61%</td><td>38%</td><td>↑ Growing</td></tr>
+            <tr><td>Technical Analysis</td><td>44%</td><td>29%</td><td>→ Stable</td></tr>
+            <tr><td>Client Onboarding</td><td>71%</td><td>22%</td><td>↑ Growing</td></tr>
+            <tr><td>Operations Planning</td><td>39%</td><td>52%</td><td>→ Stable</td></tr>
+          </tbody></table>
+          <p style="margin-top:9px;font-size:.83rem;color:var(--muted)">Client Onboarding has the highest repetitive rate (71%) and the lowest template coverage (22%). Repetitive task share has grown 11 percentage points over six months.</p>
+        </div>
+      </div>
+    </div>
+    <div class="sc-foot">
+      <span class="skip-note">Read all four reports — then continue</span>
+      <button class="continue-btn" onclick="advance(2)">Classify the data — Step 3 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+
+  <!-- ── STEP 3: Classify the data ── -->
+  <div class="step-card s3 hidden" id="sc3">
+    <div class="sc-head">
+      <span class="sc-num">3</span>
+      <div class="sc-title"><div class="st">Classify the data</div><div class="ss">Identify what each report is — and why it matters</div></div>
+      <span class="sc-status pending" id="ss3">Pending</span>
+    </div>
+    <div class="sc-body">
+      <h2>Before you analyze data, understand what kind of data it is.</h2>
+      <p class="lead">For each report, select the data type that best describes it, then answer two short questions. This builds your understanding of how Sentinel's operational data is structured — and who relies on it.</p>
+
+      <div class="task-block cr1">
+        <div class="tb-head"><span class="tbi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/></svg></span><span class="tbt">Report 1 — Support Ticket Activity</span></div>
+        <div class="dtype-btns">
+          <button class="dtbtn" data-rpt="r1">Operational Data</button><button class="dtbtn" data-rpt="r1">Workflow Data</button><button class="dtbtn" data-rpt="r1">User Activity Data</button><button class="dtbtn" data-rpt="r1">Performance Data</button><button class="dtbtn" data-rpt="r1">Documentation Data</button>
+        </div>
+        <span class="csmall">Why would Sentinel collect this?</span>
+        <textarea id="c1a" placeholder="Sentinel might collect this to understand..."></textarea>
+        <span class="csmall">Who would find this most useful?</span>
+        <textarea id="c1b" style="min-height:50px" placeholder="This would be most useful to..."></textarea>
+      </div>
+
+      <div class="task-block cr2">
+        <div class="tb-head"><span class="tbi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></span><span class="tbt">Report 2 — Analyst Workload Summary</span></div>
+        <div class="dtype-btns">
+          <button class="dtbtn" data-rpt="r2">Operational Data</button><button class="dtbtn" data-rpt="r2">Workflow Data</button><button class="dtbtn" data-rpt="r2">User Activity Data</button><button class="dtbtn" data-rpt="r2">Performance Data</button><button class="dtbtn" data-rpt="r2">Documentation Data</button>
+        </div>
+        <span class="csmall">Why would Sentinel collect this?</span>
+        <textarea id="c2a" placeholder="Sentinel might collect this to understand..."></textarea>
+        <span class="csmall">Who would find this most useful?</span>
+        <textarea id="c2b" style="min-height:50px" placeholder="This would be most useful to..."></textarea>
+      </div>
+
+      <div class="task-block cr3">
+        <div class="tb-head"><span class="tbi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></span><span class="tbt">Report 3 — Documentation Request Report</span></div>
+        <div class="dtype-btns">
+          <button class="dtbtn" data-rpt="r3">Operational Data</button><button class="dtbtn" data-rpt="r3">Workflow Data</button><button class="dtbtn" data-rpt="r3">User Activity Data</button><button class="dtbtn" data-rpt="r3">Performance Data</button><button class="dtbtn" data-rpt="r3">Documentation Data</button>
+        </div>
+        <span class="csmall">Why would Sentinel collect this?</span>
+        <textarea id="c3a" placeholder="Sentinel might collect this to understand..."></textarea>
+        <span class="csmall">Who would find this most useful?</span>
+        <textarea id="c3b" style="min-height:50px" placeholder="This would be most useful to..."></textarea>
+      </div>
+
+      <div class="task-block cr4">
+        <div class="tb-head"><span class="tbi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"/></svg></span><span class="tbt">Report 4 — Operations Dashboard Snapshot</span></div>
+        <div class="dtype-btns">
+          <button class="dtbtn" data-rpt="r4">Operational Data</button><button class="dtbtn" data-rpt="r4">Workflow Data</button><button class="dtbtn" data-rpt="r4">User Activity Data</button><button class="dtbtn" data-rpt="r4">Performance Data</button><button class="dtbtn" data-rpt="r4">Documentation Data</button>
+        </div>
+        <span class="csmall">Why would Sentinel collect this?</span>
+        <textarea id="c4a" placeholder="Sentinel might collect this to understand..."></textarea>
+        <span class="csmall">Who would find this most useful?</span>
+        <textarea id="c4b" style="min-height:50px" placeholder="This would be most useful to..."></textarea>
+      </div>
+    </div>
+    <div class="sc-foot">
+      <span class="skip-note">Classify all four reports — then continue</span>
+      <button class="continue-btn" onclick="advance(3)">Find patterns — Step 4 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+
+  <!-- ── STEP 4: Find patterns ── -->
+  <div class="step-card s4 hidden" id="sc4">
+    <div class="sc-head">
+      <span class="sc-num">4</span>
+      <div class="sc-title"><div class="st">Find patterns</div><div class="ss">Look across all four reports — what is the data telling you?</div></div>
+      <span class="sc-status pending" id="ss4">Pending</span>
+    </div>
+    <div class="sc-body">
+      <h2>Good analysis starts with noticing what repeats.</h2>
+      <p class="lead">Look across all four reports together now. What is growing? What appears over and over? What surprises you? Write your observations in plain language — the way you'd describe it to a colleague.</p>
+
+      <div class="pattern-field">
+        <div class="pf-label trend"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 7-7"/></svg> Trends — what is growing, declining, or changing over time?</div>
+        <textarea id="p-trends" placeholder="Ticket volume has increased 22% month-over-month while the analyst team has stayed the same size... Repetitive task share has grown from 47% to 58% over six months..."></textarea>
+      </div>
+
+      <div class="pattern-field">
+        <div class="pf-label repeat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 22l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3"/></svg> Repetitive tasks — what work appears to happen again and again?</div>
+        <textarea id="p-repeat" placeholder="Password reset guidance accounts for 16.8% of all tickets — that's the same question asked 142 times in 30 days... Monthly report format help is the second most common request..."></textarea>
+      </div>
+
+      <div class="pattern-field">
+        <div class="pf-label unusual"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg> Unusual findings — what surprised you in the data?</div>
+        <textarea id="p-unusual" placeholder="Client Onboarding has the highest repetitive task rate (71%) but the lowest template coverage — only 22% of its work has a documented process... Monday ticket volume spikes 40%..."></textarea>
+      </div>
+    </div>
+    <div class="sc-foot">
+      <span class="skip-note">Complete all three fields — then continue</span>
+      <button class="continue-btn" onclick="advance(4)">Investigate workflows — Step 5 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+
+  <!-- ── STEP 5: Investigate workflows ── -->
+  <div class="step-card s5 hidden" id="sc5">
+    <div class="sc-head">
+      <span class="sc-num">5</span>
+      <div class="sc-title"><div class="st">Investigate workflows</div><div class="ss">Rate four key workflows and log your three biggest observations</div></div>
+      <span class="sc-status pending" id="ss5">Pending</span>
+    </div>
+    <div class="sc-body">
+      <h2>Some tasks deserve a closer look.</h2>
+      <p class="lead">Four workflows appear repeatedly in the reports. Rate each one on frequency, repetitiveness, and effort — then write a brief note about why it stands out. After that, document your three most significant observations.</p>
+
+      <p style="font-weight:700;color:var(--ink);font-size:.92rem;margin-bottom:10px">Workflow assessment</p>
+
+      <div class="wf-row">
+        <div class="wf-name">Password Reset Guidance <span class="wf-freq">142 tickets / 30 days</span></div>
+        <div class="wf-toggles">
+          <div class="wft"><div class="wfl">How often?</div><div class="wft-btns"><button class="wfbtn" data-wf="w1" data-k="freq">Daily</button><button class="wfbtn" data-wf="w1" data-k="freq">Weekly</button><button class="wfbtn" data-wf="w1" data-k="freq">Monthly</button></div></div>
+          <div class="wft"><div class="wfl">Appears repetitive?</div><div class="wft-btns"><button class="wfbtn" data-wf="w1" data-k="rep">Very much so</button><button class="wfbtn" data-wf="w1" data-k="rep">Somewhat</button><button class="wfbtn" data-wf="w1" data-k="rep">Not really</button></div></div>
+          <div class="wft"><div class="wfl">Human effort?</div><div class="wft-btns"><button class="wfbtn" data-wf="w1" data-k="eff">High</button><button class="wfbtn" data-wf="w1" data-k="eff">Medium</button><button class="wfbtn" data-wf="w1" data-k="eff">Low</button></div></div>
+        </div>
+        <label class="fl">Why does this workflow stand out?</label>
+        <textarea id="wn1" placeholder="This one stands out because the same question is being answered individually 142 times per month..."></textarea>
+      </div>
+
+      <div class="wf-row">
+        <div class="wf-name">Monthly Report Generation <span class="wf-freq">96 tickets / 30 days · 1.8h avg</span></div>
+        <div class="wf-toggles">
+          <div class="wft"><div class="wfl">How often?</div><div class="wft-btns"><button class="wfbtn" data-wf="w2" data-k="freq">Daily</button><button class="wfbtn" data-wf="w2" data-k="freq">Weekly</button><button class="wfbtn" data-wf="w2" data-k="freq">Monthly</button></div></div>
+          <div class="wft"><div class="wfl">Appears repetitive?</div><div class="wft-btns"><button class="wfbtn" data-wf="w2" data-k="rep">Very much so</button><button class="wfbtn" data-wf="w2" data-k="rep">Somewhat</button><button class="wfbtn" data-wf="w2" data-k="rep">Not really</button></div></div>
+          <div class="wft"><div class="wfl">Human effort?</div><div class="wft-btns"><button class="wfbtn" data-wf="w2" data-k="eff">High</button><button class="wfbtn" data-wf="w2" data-k="eff">Medium</button><button class="wfbtn" data-wf="w2" data-k="eff">Low</button></div></div>
+        </div>
+        <label class="fl">Why does this workflow stand out?</label>
+        <textarea id="wn2" placeholder="Report generation takes 1.8h on average and happens 12 times per analyst per week..."></textarea>
+      </div>
+
+      <div class="wf-row">
+        <div class="wf-name">Documentation Updates <span class="wf-freq">14 docs updated 3×+ in 90 days · 2.4h avg</span></div>
+        <div class="wf-toggles">
+          <div class="wft"><div class="wfl">How often?</div><div class="wft-btns"><button class="wfbtn" data-wf="w3" data-k="freq">Daily</button><button class="wfbtn" data-wf="w3" data-k="freq">Weekly</button><button class="wfbtn" data-wf="w3" data-k="freq">Monthly</button></div></div>
+          <div class="wft"><div class="wfl">Appears repetitive?</div><div class="wft-btns"><button class="wfbtn" data-wf="w3" data-k="rep">Very much so</button><button class="wfbtn" data-wf="w3" data-k="rep">Somewhat</button><button class="wfbtn" data-wf="w3" data-k="rep">Not really</button></div></div>
+          <div class="wft"><div class="wfl">Human effort?</div><div class="wft-btns"><button class="wfbtn" data-wf="w3" data-k="eff">High</button><button class="wfbtn" data-wf="w3" data-k="eff">Medium</button><button class="wfbtn" data-wf="w3" data-k="eff">Low</button></div></div>
+        </div>
+        <label class="fl">Why does this workflow stand out?</label>
+        <textarea id="wn3" placeholder="The same 14 documents keep being updated repeatedly..."></textarea>
+      </div>
+
+      <div class="wf-row">
+        <div class="wf-name">New Employee Onboarding <span class="wf-freq">71% repetitive · 22% template coverage</span></div>
+        <div class="wf-toggles">
+          <div class="wft"><div class="wfl">How often?</div><div class="wft-btns"><button class="wfbtn" data-wf="w4" data-k="freq">Daily</button><button class="wfbtn" data-wf="w4" data-k="freq">Weekly</button><button class="wfbtn" data-wf="w4" data-k="freq">Monthly</button></div></div>
+          <div class="wft"><div class="wfl">Appears repetitive?</div><div class="wft-btns"><button class="wfbtn" data-wf="w4" data-k="rep">Very much so</button><button class="wfbtn" data-wf="w4" data-k="rep">Somewhat</button><button class="wfbtn" data-wf="w4" data-k="rep">Not really</button></div></div>
+          <div class="wft"><div class="wfl">Human effort?</div><div class="wft-btns"><button class="wfbtn" data-wf="w4" data-k="eff">High</button><button class="wfbtn" data-wf="w4" data-k="eff">Medium</button><button class="wfbtn" data-wf="w4" data-k="eff">Low</button></div></div>
+        </div>
+        <label class="fl">Why does this workflow stand out?</label>
+        <textarea id="wn4" placeholder="71% of onboarding work is repetitive but only 22% has any documented process..."></textarea>
+      </div>
+
+      <p style="font-weight:700;color:var(--ink);font-size:.92rem;margin:20px 0 10px">Observation log — your three most significant findings</p>
+
+      <div class="obs"><div class="oh"><span class="on">1</span><span class="ot">Observation</span></div>
+        <label class="fl">Pattern identified</label><textarea id="ob1a" placeholder="Name the pattern you observed..."></textarea>
+        <label class="fl">Supporting evidence</label><textarea id="ob1b" placeholder="Which report showed this? What specific numbers support it?"></textarea>
+        <label class="fl">Operational concern</label><textarea id="ob1c" placeholder="What problem does this create for Sentinel?"></textarea>
+        <label class="fl">Why it matters</label><textarea id="ob1d" placeholder="Why should leadership pay attention to this?"></textarea>
+      </div>
+
+      <div class="obs"><div class="oh"><span class="on">2</span><span class="ot">Observation</span></div>
+        <label class="fl">Pattern identified</label><textarea id="ob2a" placeholder="Name the pattern you observed..."></textarea>
+        <label class="fl">Supporting evidence</label><textarea id="ob2b" placeholder="Which report showed this?"></textarea>
+        <label class="fl">Operational concern</label><textarea id="ob2c" placeholder="What problem does this create?"></textarea>
+        <label class="fl">Why it matters</label><textarea id="ob2d" placeholder="Why should leadership pay attention?"></textarea>
+      </div>
+
+      <div class="obs"><div class="oh"><span class="on">3</span><span class="ot">Observation</span></div>
+        <label class="fl">Pattern identified</label><textarea id="ob3a" placeholder="Name the pattern you observed..."></textarea>
+        <label class="fl">Supporting evidence</label><textarea id="ob3b" placeholder="Which report showed this?"></textarea>
+        <label class="fl">Operational concern</label><textarea id="ob3c" placeholder="What problem does this create?"></textarea>
+        <label class="fl">Why it matters</label><textarea id="ob3d" placeholder="Why should leadership pay attention?"></textarea>
+      </div>
+    </div>
+    <div class="sc-foot">
+      <span class="skip-note">Rate workflows and complete observations — then finalize</span>
+      <button class="continue-btn" onclick="advance(5)">Build your report — Step 6 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+
+  <!-- ── STEP 6: Final report ── -->
+  <div class="step-card s6 hidden" id="sc6">
+    <div class="sc-head">
+      <span class="sc-num">6</span>
+      <div class="sc-title"><div class="st">Build your final report</div><div class="ss">Six thinking questions + your Sentinel Operations Findings Report</div></div>
+      <span class="sc-status pending" id="ss6">Pending</span>
+    </div>
+    <div class="sc-body">
+      <h2>Pull everything together — then hand it to leadership.</h2>
+      <p class="lead">Answer six analyst thinking questions, then complete the four-part findings report. This is what you'd present to the operations leadership team before any decisions are made.</p>
+
+      <p style="font-weight:700;color:var(--ink);font-size:.92rem;margin-bottom:10px">Analyst thinking questions</p>
+
+      <div class="tq-item"><div class="tql"><span class="tqn">1</span><span class="tqq">Which activities appear to consume the most analyst time — and is that time well spent?</span></div><textarea id="tq1" placeholder="Looking at Report 2, the tasks taking the most collective time appear to be..."></textarea></div>
+      <div class="tq-item"><div class="tql"><span class="tqn">2</span><span class="tqq">Which workflows appear so repetitive that they almost seem like they could follow a fixed process every time?</span></div><textarea id="tq2" placeholder="The workflows that seem most structured and predictable are..."></textarea></div>
+      <div class="tq-item"><div class="tql"><span class="tqn">3</span><span class="tqq">Which trends in the data would leadership be most concerned about — and why?</span></div><textarea id="tq3" placeholder="Leadership would likely be most concerned about... because it directly affects..."></textarea></div>
+      <div class="tq-item"><div class="tql"><span class="tqn">4</span><span class="tqq">Which report gave you the most useful insight — and what made it useful?</span></div><textarea id="tq4" placeholder="The most useful report was... because it showed..."></textarea></div>
+      <div class="tq-item"><div class="tql"><span class="tqn">5</span><span class="tqq">Where do you see a clear mismatch between workload and available support?</span></div><textarea id="tq5" placeholder="The biggest mismatch between workload and available support appears to be..."></textarea></div>
+      <div class="tq-item"><div class="tql"><span class="tqn">6</span><span class="tqq">If you had to name the single biggest operational challenge Sentinel is facing, what would it be?</span></div><textarea id="tq6" placeholder="Based on all four reports, the single most pressing challenge seems to be..."></textarea></div>
+
+      <p style="font-weight:700;color:var(--ink);font-size:.92rem;margin:20px 0 10px">Sentinel Operations Findings Report</p>
+
+      <div class="deliv"><div class="dh"><span class="dn">1</span><h3>Key patterns identified</h3></div><div class="dsub">The 2–3 most significant patterns you found across all four reports.</div><textarea id="d-patterns" placeholder="The most significant patterns identified in this review are..."></textarea></div>
+      <div class="deliv"><div class="dh"><span class="dn">2</span><h3>Repetitive workflows observed</h3></div><div class="dsub">Specific workflows that are candidates for further investigation or process improvement.</div><textarea id="d-workflows" placeholder="The following workflows appear highly repetitive and worth investigating further..."></textarea></div>
+      <div class="deliv"><div class="dh"><span class="dn">3</span><h3>Operational concerns</h3></div><div class="dsub">What problems or risks do these patterns create if left unaddressed?</div><textarea id="d-concerns" placeholder="If these patterns continue without intervention, Sentinel may face..."></textarea></div>
+      <div class="deliv"><div class="dh"><span class="dn">4</span><h3>Recommendations for further analysis</h3></div><div class="dsub">What should be investigated more deeply before any decisions are made?</div><textarea id="d-recs" placeholder="Before any decisions are made, the following areas need deeper analysis..."></textarea></div>
+
+      <div class="exportbar">
+        <button class="ebtn primary" id="dlTxt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download findings report (.txt)</button>
+        <button class="ebtn ghost" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg> Save as PDF</button>
+      </div>
+      <div class="saved" id="saved"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Findings report saved.</div>
+    </div>
+    <div class="sc-foot">
+      <span class="done-note"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Phase A complete</span>
+      <button class="continue-btn" onclick="advance(6)" style="background:var(--green)">Complete Phase A <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+
+  <!-- Closing -->
+  <div class="closing-wrap hidden" id="closingBlock">
+    <h2>You've completed your human review of Sentinel's operations.</h2>
+    <p>You read the reports, classified the data, spotted patterns, investigated workflows, documented your observations, and built a findings report — all without AI. That's the analytical foundation that makes Phase B meaningful.</p>
+    <p class="big">Next, you will upload these same reports into an AI system to compare your findings, uncover additional patterns, and evaluate potential automation opportunities.</p>
+    <span class="shift-note"><span class="sdot"></span>Phase B — AI Operations Analysis begins next</span>
+  </div>
+
+</div>
+
+<script>
+  const stepNames=['','Briefing','Read reports','Classify data','Find patterns','Investigate workflows','Final report'];
+  let currentStep=1;
+  const wfState={};
+
+  function advance(from){
+    const card=document.getElementById('sc'+from);
+    card.classList.add('done-card');
+    document.getElementById('ss'+from).textContent='✓ Done';
+    document.getElementById('ss'+from).className='sc-status done';
+    document.getElementById('pn'+from).classList.remove('active');
+    document.getElementById('pn'+from).classList.add('done');
+    if(from<6) document.getElementById('pl'+from).classList.add('done');
+    const next=from+1;
+    if(next<=6){
+      const nc=document.getElementById('sc'+next);
+      nc.classList.remove('hidden');
+      document.getElementById('ss'+next).className='sc-status active';
+      document.getElementById('ss'+next).textContent='Active';
+      document.getElementById('pn'+next).classList.add('active');
+      currentStep=next;
+      document.getElementById('progressChip').textContent='Step '+next+' of 6';
+      document.getElementById('progressLabel').textContent='Step '+next+' of 6 — '+stepNames[next];
+      setTimeout(()=>nc.scrollIntoView({behavior:'smooth',block:'start'}),80);
+    } else {
+      document.getElementById('closingBlock').classList.remove('hidden');
+      document.getElementById('progressChip').textContent='Complete ✓';
+      document.getElementById('progressLabel').textContent='All steps complete';
+      document.getElementById('pn6').classList.add('done');
+      document.getElementById('pn6').classList.remove('active');
+      setTimeout(()=>document.getElementById('closingBlock').scrollIntoView({behavior:'smooth',block:'start'}),80);
+    }
+  }
+
+  document.querySelectorAll('.dtbtn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      b.closest('.dtype-btns').querySelectorAll('.dtbtn').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+    });
+  });
+
+  document.querySelectorAll('.wfbtn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const key=b.dataset.wf+'_'+b.dataset.k;
+      wfState[key]=b.textContent;
+      b.closest('.wft-btns').querySelectorAll('.wfbtn').forEach(x=>x.classList.remove('on-y','on-m','on-h'));
+      const t=b.textContent.toLowerCase();
+      const cls=t.includes('daily')||t.includes('high')||t.includes('very')?'on-h':
+                t.includes('weekly')||t.includes('medium')||t.includes('somewhat')?'on-m':'on-y';
+      b.classList.add(cls);
+    });
+  });
+
+  function val(id){const el=document.getElementById(id);return el?el.value.trim():'';}
+  function dtypeFor(rpt){const sel=document.querySelector('.task-block.cr'+rpt.slice(1)+' .dtbtn.on');return sel?sel.textContent:'(not classified)';}
+  function wfSummary(id){return 'Frequency: '+(wfState[id+'_freq']||'(not set)')+' | Repetitive: '+(wfState[id+'_rep']||'(not set)')+' | Effort: '+(wfState[id+'_eff']||'(not set)');}
+
+  function buildReport(){
+    let out='SENTINEL OPERATIONS IMPROVEMENT TEAM\nOperations Findings Report — Phase A\nGenerated: '+new Date().toLocaleString()+'\n';
+    out+='\n=== DATA CLASSIFICATION ===\n';
+    [['Report 1','r1','c1a','c1b'],['Report 2','r2','c2a','c2b'],['Report 3','r3','c3a','c3b'],['Report 4','r4','c4a','c4b']].forEach(([label,rpt,a,b])=>{
+      out+='\n'+label+'\nType: '+dtypeFor(rpt)+'\nWhy collected: '+(val(a)||'(not answered)')+'\nWho uses it: '+(val(b)||'(not answered)')+'\n';
+    });
+    out+='\n=== PATTERN DETECTION ===\nTrends:\n'+(val('p-trends')||'(not answered)')+'\nRepetitive tasks:\n'+(val('p-repeat')||'(not answered)')+'\nUnusual findings:\n'+(val('p-unusual')||'(not answered)')+'\n';
+    out+='\n=== WORKFLOW INVESTIGATION ===\n';
+    [['Password Reset Guidance','w1','wn1'],['Monthly Report Generation','w2','wn2'],['Documentation Updates','w3','wn3'],['New Employee Onboarding','w4','wn4']].forEach(([label,wf,n])=>{
+      out+='\n'+label+'\n'+wfSummary(wf)+'\nNotes: '+(val(n)||'(not answered)')+'\n';
+    });
+    out+='\n=== OBSERVATION LOG ===\n';
+    [1,2,3].forEach(i=>{out+='\nObservation '+i+':\nPattern: '+(val('ob'+i+'a')||'(not answered)')+'\nEvidence: '+(val('ob'+i+'b')||'(not answered)')+'\nConcern: '+(val('ob'+i+'c')||'(not answered)')+'\nWhy it matters: '+(val('ob'+i+'d')||'(not answered)')+'\n';});
+    out+='\n=== THINKING QUESTIONS ===\n';
+    [['Q1','tq1'],['Q2','tq2'],['Q3','tq3'],['Q4','tq4'],['Q5','tq5'],['Q6','tq6']].forEach(([q,id])=>{out+='\n'+q+':\n'+(val(id)||'(not answered)')+'\n';});
+    out+='\n=== OPERATIONS FINDINGS REPORT ===\nKey patterns:\n'+(val('d-patterns')||'(not answered)')+'\nRepetitive workflows:\n'+(val('d-workflows')||'(not answered)')+'\nOperational concerns:\n'+(val('d-concerns')||'(not answered)')+'\nRecommendations:\n'+(val('d-recs')||'(not answered)')+'\n— End of Phase A —\n';
+    return out;
+  }
+
+  document.getElementById('dlTxt').addEventListener('click',()=>{
+    const blob=new Blob([buildReport()],{type:'text/plain'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');a.href=url;a.download='sentinel-m4-phase-a-findings.txt';
+    document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+    const s=document.getElementById('saved');s.classList.add('show');
+    setTimeout(()=>s.classList.remove('show'),4000);
+  });
+</script>
+</body>
+</html>
