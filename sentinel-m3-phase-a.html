@@ -29,7 +29,6 @@
   }
   .wrap{max-width:880px;margin:0 auto}
 
-  /* ── Ops bar ── */
   .opsbar{max-width:880px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:16px 4px;border-bottom:1px solid var(--line)}
   .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:.95rem}
   .shield{width:30px;height:30px;display:grid;place-items:center;border-radius:8px;background:linear-gradient(150deg,var(--purple),var(--purple-deep));color:#fff;box-shadow:0 4px 12px rgba(91,31,146,.28)}
@@ -39,13 +38,11 @@
   .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(46,125,87,.16);animation:pulse 3s ease-in-out infinite}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 
-  /* ── Hero ── */
   .hero{padding:54px 0 12px}
   .kicker{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--purple-deep);background:var(--purple-soft);border:1px solid var(--purple-line);padding:6px 13px;border-radius:999px;margin-bottom:22px}
   h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.1rem,5.2vw,3.2rem);line-height:1.06;letter-spacing:-.5px;margin-bottom:16px}
   .lede{font-size:1.15rem;color:var(--slate);max-width:58ch}
 
-  /* ── Sections ── */
   section{padding:46px 0;border-top:1px solid var(--line)}
   section:first-of-type{border-top:none}
   .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:16px}
@@ -57,13 +54,11 @@
   p strong{color:var(--ink);font-weight:600}
   .lead-line{font-size:1.08rem;color:var(--ink);font-weight:500;margin-bottom:16px}
 
-  /* ── Principle ── */
   .principle{margin:26px 0 0;padding:28px 30px;border-radius:18px;background:linear-gradient(135deg,#2A1840,#4A1E78);color:#fff;position:relative;overflow:hidden}
   .principle::after{content:"";position:absolute;right:-50px;top:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%)}
   .principle .qm{font-family:'Fraunces',serif;font-size:2.4rem;line-height:.5;color:#C9A8EC;display:block;margin-bottom:6px}
   .principle p{font-family:'Fraunces',serif;font-weight:500;font-size:1.26rem;line-height:1.35;color:#fff;margin:0;position:relative}
 
-  /* ── Role panels ── */
   .duo{display:flex;flex-wrap:wrap;gap:16px;margin-top:8px}
   .panel{flex:1 1 300px;border-radius:16px;padding:22px;background:var(--card);border:1px solid var(--line);box-shadow:0 1px 2px rgba(31,26,38,.04)}
   .panel .ph{display:flex;align-items:center;gap:10px;margin-bottom:14px}
@@ -77,7 +72,6 @@
   .panel .item .mk{flex:0 0 auto;margin-top:1px;font-weight:700;color:var(--green)}
   .panel.no .item .mk{color:var(--muted)}
 
-  /* ── Documentation principles ── */
   .docprinciples{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
   .dp{flex:1 1 200px;border-radius:16px;padding:20px;background:var(--card);border:1px solid var(--line);box-shadow:0 1px 2px rgba(31,26,38,.04)}
   .dp .dpi{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;margin-bottom:13px}
@@ -89,9 +83,36 @@
   .dp p{font-size:.94rem;margin:0;line-height:1.5}
   .dp .dq{font-size:.83rem;font-style:italic;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}
 
+  /* ── Warm-up quiz ── */
+  .quiz{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-top:16px;box-shadow:0 2px 6px rgba(31,26,38,.05)}
+  .quiz-head{padding:16px 22px;background:#1F1830;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+  .quiz-head .qi{width:34px;height:34px;border-radius:9px;background:rgba(123,47,190,.35);display:grid;place-items:center;flex:0 0 auto}
+  .quiz-head .qi svg{width:17px;height:17px;color:#C9A8EC}
+  .quiz-head .qt{font-family:'Fraunces',serif;font-weight:600;font-size:1.05rem;color:#fff;flex:1 1 auto}
+  .quiz-head .qpts{font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:999px;background:rgba(123,47,190,.35);color:#C9A8EC;border:1px solid rgba(123,47,190,.3)}
+  .quiz-body{padding:20px 22px}
+  .quiz-scenario{background:#FAF8FC;border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:.95rem;color:var(--slate);margin-bottom:18px}
+  .quiz-scenario strong{color:var(--ink)}
+  .qopt{display:block;width:100%;text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:14px;padding:16px 18px;margin-bottom:10px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .16s;position:relative}
+  .qopt:hover:not(.locked){border-color:var(--purple-line);transform:translateY(-1px)}
+  .qopt .qtag{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--purple-deep);background:var(--purple-soft);border-radius:6px;padding:2px 8px;margin-bottom:8px}
+  .qopt .qtext{font-size:.95rem;color:var(--slate);line-height:1.55}
+  .qopt.correct{border-color:var(--green);background:var(--green-soft)}
+  .qopt.wrong{border-color:var(--red);background:var(--red-soft)}
+  .qopt.locked{cursor:default}
+  .qverdict{display:none;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:.9rem;line-height:1.55}
+  .qverdict.show{display:block}
+  .qverdict .vl{font-weight:700;margin-bottom:2px}
+  .qopt.correct .qverdict .vl{color:var(--green)}
+  .qopt.wrong .qverdict .vl{color:var(--red)}
+  .qopt.neutral .qverdict .vl{color:var(--amber)}
+  .quiz-result{display:none;margin-top:6px;padding:14px 16px;border-radius:12px;font-size:.95rem;font-weight:600;align-items:center;gap:9px}
+  .quiz-result.show{display:flex}
+  .quiz-result.win{background:var(--green-soft);color:var(--green);border:1px solid var(--green-line)}
+  .quiz-result.lose{background:var(--amber-soft);color:var(--amber);border:1px solid #EED9B0}
+
   /* ── Document cards ── */
   .doc{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-top:18px;box-shadow:0 2px 6px rgba(31,26,38,.05)}
-
   .doc-head{padding:18px 24px 16px;border-bottom:1px solid var(--line);position:relative}
   .doc-head::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:20px 0 0 0}
   .d1 .doc-head::before{background:var(--calm)}
@@ -106,9 +127,8 @@
   .doc-context{display:flex;gap:10px;align-items:flex-start;font-size:.92rem;color:var(--slate);background:#FAF8FC;border-radius:10px;padding:11px 13px;margin-top:2px}
   .doc-context svg{width:14px;height:14px;color:var(--muted);flex:0 0 auto;margin-top:2px}
 
-  /* documentation fields */
   .doc-body{padding:20px 24px 24px}
-  .doc-field{margin-bottom:20px}
+  .doc-field{margin-bottom:22px}
   .doc-field:last-of-type{margin-bottom:0}
   .field-head{display:flex;align-items:center;gap:9px;margin-bottom:8px}
   .field-num{width:24px;height:24px;border-radius:7px;background:var(--purple-soft);color:var(--purple-deep);font-weight:700;font-size:.82rem;display:grid;place-items:center;flex:0 0 auto}
@@ -119,25 +139,81 @@
   textarea::placeholder{color:#B5AFC0}
   textarea.short{min-height:62px}
 
-  /* clarity check */
-  .clarity{display:flex;flex-wrap:wrap;gap:8px;padding:14px 24px;background:var(--green-soft);border-top:1px solid var(--green-line);align-items:center}
-  .clarity .cq{font-size:.92rem;font-weight:600;color:var(--ink);flex:1 1 auto}
-  .clarity .cq span{color:var(--green)}
-  .cbtn-g{border:1.5px solid var(--line);background:#fff;border-radius:9px;padding:7px 13px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.86rem;color:var(--slate);cursor:pointer;transition:all .15s}
-  .cbtn-g:hover{border-color:var(--green)}
-  .cbtn-g[data-c="yes"].on{background:var(--green-soft);border-color:var(--green);color:var(--green)}
-  .cbtn-g[data-c="needs"].on{background:var(--amber-soft);border-color:var(--amber);color:var(--amber)}
+  /* lint bar under each field */
+  .lint{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:7px;min-height:24px}
+  .lint .wc{font-size:.78rem;font-weight:700;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted);background:#fff}
+  .lint .wc.ok{background:var(--green-soft);border-color:var(--green-line);color:var(--green)}
+  .lint .wc.long{background:var(--amber-soft);border-color:#EED9B0;color:var(--amber)}
+  .lint .jargon{font-size:.78rem;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--amber-soft);border:1px solid #EED9B0;color:var(--amber)}
 
-  /* ── Final deliverable ── */
+  /* fact checklist per incident */
+  .factbox{margin:0 24px;margin-bottom:0;background:#FAF8FC;border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .factbox .fh{display:flex;align-items:center;gap:9px;margin-bottom:10px}
+  .factbox .fh svg{width:16px;height:16px;color:var(--purple-deep)}
+  .factbox .ft{font-weight:700;font-size:.9rem;color:var(--ink)}
+  .factbox .fscore{margin-left:auto;font-weight:700;font-size:.85rem;color:var(--purple-deep)}
+  .fact{display:flex;gap:9px;align-items:flex-start;padding:6px 0;font-size:.9rem;color:var(--slate);border-top:1px solid var(--line)}
+  .fact:first-of-type{border-top:none}
+  .fact .fi{flex:0 0 auto;width:19px;height:19px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;margin-top:2px;transition:all .25s;font-size:.65rem;font-weight:700;color:#fff}
+  .fact.hit .fi{background:var(--green);border-color:var(--green)}
+  .fact.hit{color:var(--ink)}
+  .factnote{font-size:.8rem;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);line-height:1.5}
+
+  /* compare to model */
+  .compareBar{padding:16px 24px 20px;display:flex;flex-direction:column;gap:0}
+  .cmpBig{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;border:1.5px solid var(--purple);background:#fff;color:var(--purple-deep);border-radius:12px;padding:12px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;transition:all .16s;opacity:.45;pointer-events:none}
+  .cmpBig.ready{opacity:1;pointer-events:auto}
+  .cmpBig.ready:hover{background:var(--purple-soft)}
+  .cmpBig svg{width:16px;height:16px}
+  .modelDoc{display:none;margin-top:14px;border:1px solid var(--purple-line);border-radius:14px;overflow:hidden}
+  .modelDoc.show{display:block}
+  .modelDoc .mh{background:var(--purple-soft);padding:11px 16px;font-size:.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--purple-deep);border-bottom:1px solid var(--purple-line)}
+  .modelDoc .mrow{padding:13px 16px;border-top:1px solid var(--purple-line)}
+  .modelDoc .mrow:first-of-type{border-top:none}
+  .modelDoc .mlab{font-size:.78rem;font-weight:700;color:var(--purple-deep);margin-bottom:3px}
+  .modelDoc .mtxt{font-size:.93rem;color:var(--ink);line-height:1.55}
+
+  /* clarity check (upgraded to rubric self-score) */
+  .clarity{padding:16px 24px;background:var(--green-soft);border-top:1px solid var(--green-line)}
+  .clarity .cq{font-size:.92rem;font-weight:600;color:var(--ink);margin-bottom:10px}
+  .rubricRow{display:flex;flex-wrap:wrap;gap:8px}
+  .rubItem{flex:1 1 150px;background:#fff;border:1px solid var(--green-line);border-radius:11px;padding:11px 13px}
+  .rubItem .rl{font-size:.78rem;font-weight:700;color:var(--ink);margin-bottom:7px}
+  .rubBtns{display:flex;gap:6px}
+  .rubBtn{flex:1;border:1.5px solid var(--line);background:#fff;border-radius:8px;padding:6px 4px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.78rem;color:var(--slate);cursor:pointer;transition:all .15s}
+  .rubBtn[data-v="1"].on{background:var(--green-soft);border-color:var(--green);color:var(--green)}
+  .rubBtn[data-v="0"].on{background:var(--amber-soft);border-color:var(--amber);color:var(--amber)}
+  .rubBtn:hover{border-color:var(--purple-line)}
+
+  /* score summary */
+  .scoreCard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin-top:16px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .scoreHead{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+  .scoreTotal{font-family:'Fraunces',serif;font-weight:600;font-size:1.9rem;color:var(--purple-deep)}
+  .scoreTotal span{font-size:1rem;font-weight:500;color:var(--muted)}
+  .checkBtn{background:var(--purple);color:#fff;border:none;border-radius:11px;padding:13px 22px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;transition:transform .16s,box-shadow .16s}
+  .checkBtn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(123,47,190,.3)}
+  .scoreRows{display:flex;flex-direction:column;gap:9px;margin-top:18px}
+  .srow{display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+  .srow .stitle{font-weight:700;color:var(--ink);font-size:.94rem}
+  .srow .snote{font-size:.87rem;color:var(--slate)}
+  .srow .spts{margin-left:auto;font-weight:700;font-size:.88rem;color:var(--purple-deep);white-space:nowrap;padding-left:10px}
+  .scoreNote{font-size:.88rem;color:var(--muted);margin-top:16px;line-height:1.5;border-top:1px solid var(--line);padding-top:14px}
+
   .deliv{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;margin-top:16px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
   .deliv .dh{display:flex;align-items:center;gap:12px;margin-bottom:6px}
   .deliv .dn{flex:0 0 auto;width:32px;height:32px;border-radius:9px;background:var(--purple-soft);color:var(--purple-deep);font-family:'Fraunces',serif;font-weight:600;display:grid;place-items:center}
   .deliv h3{font-size:1.06rem;font-weight:700;color:var(--ink)}
   .deliv .dsub{font-size:.96rem;color:var(--muted);margin-bottom:14px}
-  label.fl{display:block;font-weight:600;color:var(--ink);font-size:.95rem;margin-bottom:7px}
-  label.fl.mt{margin-top:14px}
+  .compareRow{display:flex;justify-content:flex-end;margin-top:6px}
+  .cmpBtn{background:none;border:none;color:var(--purple-deep);font-family:'DM Sans',sans-serif;font-weight:700;font-size:.83rem;cursor:pointer;padding:5px 3px;display:inline-flex;align-items:center;gap:5px;opacity:.4;pointer-events:none;transition:opacity .15s}
+  .cmpBtn.ready{opacity:1;pointer-events:auto}
+  .cmpBtn:hover.ready{text-decoration:underline}
+  .cmpBtn svg{width:12px;height:12px}
+  .modelBox{display:none;margin-top:8px;background:var(--purple-soft);border:1px solid var(--purple-line);border-radius:12px;padding:13px 15px}
+  .modelBox.show{display:block}
+  .modelBox .ml{font-size:.68rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--purple-deep);margin-bottom:5px}
+  .modelBox p{font-size:.93rem;color:var(--ink);margin:0}
 
-  /* ── Export ── */
   .exportbar{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
   .ebtn{flex:1 1 200px;display:flex;align-items:center;justify-content:center;gap:9px;padding:15px 18px;border-radius:13px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;border:1.5px solid var(--purple);transition:transform .16s,box-shadow .16s}
   .ebtn svg{width:18px;height:18px}
@@ -148,7 +224,6 @@
   .saved{font-size:.9rem;color:var(--green);font-weight:600;margin-top:10px;display:none;align-items:center;gap:7px}
   .saved.show{display:flex}
 
-  /* ── Closing ── */
   .closing{margin-top:8px;background:linear-gradient(155deg,#241834,#3A1C5C 55%,#5B1F92);color:#fff;border-radius:22px;padding:46px 42px;position:relative;overflow:hidden}
   .closing::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%)}
   .closing .eyebrow .num{background:rgba(255,255,255,.16)}
@@ -162,8 +237,8 @@
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
   .reveal.in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.dot{animation:none}}
-  @media(max-width:600px){body{padding:0 16px 70px}.closing{padding:34px 26px}.chips{width:100%;margin-left:0}.doc-body{padding:16px 18px 20px}.doc-head{padding:14px 18px 13px}.clarity{padding:12px 18px}}
-  @media print{.opsbar,.exportbar,.closing{display:none!important}body{background:#fff}.reveal{opacity:1;transform:none}}
+  @media(max-width:600px){body{padding:0 16px 70px}.closing{padding:34px 26px}.chips{width:100%;margin-left:0}.doc-body{padding:16px 18px 20px}.doc-head{padding:14px 18px 13px}.clarity{padding:14px 18px}.factbox{margin:0 18px}.compareBar{padding:14px 18px 18px}.scoreHead{flex-direction:column;align-items:flex-start}}
+  @media print{.opsbar,.exportbar,.closing,.checkBtn,.cmpBig,.cmpBtn,.quiz{display:none!important}body{background:#fff}.reveal{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -243,14 +318,52 @@
     </div>
   </section>
 
+  <!-- WARM-UP QUIZ -->
+  <section class="reveal">
+    <div class="eyebrow"><span class="num">2</span><span class="lab">Warm-up · Graded</span></div>
+    <h2>Spot the good documentation</h2>
+    <p class="lead-line">Before you write your own, calibrate your eye. Below are three versions of the same incident summary. Only one follows all three principles. <strong>Pick the best one.</strong></p>
+
+    <div class="quiz">
+      <div class="quiz-head">
+        <span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span>
+        <span class="qt">Which summary would actually help the next analyst?</span>
+        <span class="qpts">10 pts</span>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-scenario"><strong>The incident:</strong> A printer server in an office went offline for about an hour after a scheduled update. Print jobs queued up but nothing printed. It came back on its own when the update finished. No one confirmed whether the update was the cause.</div>
+
+        <button class="qopt" data-q="a">
+          <span class="qtag">Version A</span>
+          <span class="qtext">At approximately 10:02 AM the print spooler service experienced an anomalous interruption subsequent to the initiation of scheduled maintenance procedures. End-users attempting to leverage printing functionality encountered degraded service availability. Job queuing mechanisms remained operational; however, output generation was suspended. Following the culmination of the maintenance window, normal operational parameters were restored autonomously. Root cause analysis was not formally conducted, though preliminary indications suggest potential correlation with the aforementioned maintenance activities.</span>
+          <span class="qverdict" id="qv-a"><span class="vl">Not this one — it fails "Be clear."</span>Every fact is here, but it's buried under jargon: "anomalous interruption," "leverage printing functionality," "operational parameters." A new analyst has to translate every sentence. Documentation that needs decoding doesn't get read.</span>
+        </button>
+
+        <button class="qopt" data-q="b">
+          <span class="qtag">Version B</span>
+          <span class="qtext">The printer server went down for about an hour this morning during a scheduled update. Print jobs queued but nothing printed until it came back on its own when the update finished. The update is the likely cause, but this wasn't confirmed. If it happens after the next update, that would confirm the pattern.</span>
+          <span class="qverdict" id="qv-b"><span class="vl">Correct — this is the one.</span>It's plain language (clear), four sentences (brief), states what happened, is honest that the cause wasn't confirmed, and tells the reader what to watch for next (useful). This is the standard to aim for in your own writing below.</span>
+        </button>
+
+        <button class="qopt" data-q="c">
+          <span class="qtag">Version C</span>
+          <span class="qtext">Printer had some issues this morning but it's working now. Probably the update or something.</span>
+          <span class="qverdict" id="qv-c"><span class="vl">Not this one — it fails "Be useful."</span>It's certainly brief, but too brief to act on. Which printer? How long? What did users see? "Probably the update or something" states uncertainty carelessly instead of honestly. The next analyst learns nothing they can use.</span>
+        </button>
+
+        <div class="quiz-result" id="quizResult"></div>
+      </div>
+    </div>
+  </section>
+
   <!-- The three incidents -->
   <section class="reveal">
-    <div class="eyebrow"><span class="num">2</span><span class="lab">Document each incident</span></div>
+    <div class="eyebrow"><span class="num">3</span><span class="lab">Document each incident</span></div>
     <h2>Three incidents to document</h2>
-    <p class="lead-line">Work through each one in order. For every incident, you'll complete five documentation fields. There's a clarity check at the end of each — a moment to ask whether your notes would actually help someone else.</p>
+    <p class="lead-line">Now write your own. As you type, the <strong>fact tracker</strong> under each incident lights up when your writing covers an essential fact, and each field shows a live word-count and plain-language check. When an incident is done, compare your version to a model write-up and score yourself on the three principles.</p>
 
     <!-- INCIDENT 1 -->
-    <div class="doc d1">
+    <div class="doc d1" data-doc="d1">
       <div class="doc-head">
         <div class="dh-top">
           <span class="doc-num">1</span>
@@ -263,34 +376,64 @@
       <div class="doc-body">
         <div class="doc-field">
           <div class="field-head"><span class="field-num">1</span><div><div class="field-label">Incident Summary — what happened?</div><div class="field-sub">2–3 sentences. Write it as if you're telling a colleague who was out that day.</div></div></div>
-          <textarea id="i1s1" placeholder="During the morning of [date], the Government Services Portal slowed significantly for users trying to load pages and access dashboards..."></textarea>
+          <textarea id="i1s1" data-doc="d1" data-min="15" data-max="70" placeholder="During the morning of [date], the Government Services Portal slowed significantly for users trying to load pages and access dashboards..."></textarea>
+          <div class="lint" id="lint-i1s1"></div>
         </div>
         <div class="doc-field">
           <div class="field-head"><span class="field-num">2</span><div><div class="field-label">Observed behavior — what did users see or experience?</div><div class="field-sub">Focus on what was visible, not what was happening behind the scenes.</div></div></div>
-          <textarea id="i1s2" class="short" placeholder="Pages took over a minute to load. Dashboard updates stopped appearing. Buttons responded but very slowly..."></textarea>
+          <textarea id="i1s2" class="short" data-doc="d1" data-min="10" data-max="55" placeholder="Pages took over a minute to load. Dashboard updates stopped appearing. Buttons responded but very slowly..."></textarea>
+          <div class="lint" id="lint-i1s2"></div>
         </div>
         <div class="doc-field">
           <div class="field-head"><span class="field-num">3</span><div><div class="field-label">Impact — who was affected, and how much?</div><div class="field-sub">How disruptive was this — minor, moderate, or significant? Who noticed?</div></div></div>
-          <textarea id="i1s3" class="short" placeholder="All active users on the portal experienced delays. The timing coincided with the monthly reporting deadline, when the system had unusually high traffic..."></textarea>
+          <textarea id="i1s3" class="short" data-doc="d1" data-min="10" data-max="55" placeholder="All active users on the portal experienced delays. The timing coincided with the monthly reporting deadline, when the system had unusually high traffic..."></textarea>
+          <div class="lint" id="lint-i1s3"></div>
         </div>
         <div class="doc-field">
           <div class="field-head"><span class="field-num">4</span><div><div class="field-label">Resolution — how did it end?</div><div class="field-sub">Did someone intervene, or did it resolve on its own? Be honest about what's still uncertain.</div></div></div>
-          <textarea id="i1s4" class="short" placeholder="The system returned to normal performance within approximately 30 minutes. No action was taken — it resolved on its own. The root cause was not confirmed..."></textarea>
+          <textarea id="i1s4" class="short" data-doc="d1" data-min="10" data-max="55" placeholder="The system returned to normal performance within approximately 30 minutes. No action was taken — it resolved on its own. The root cause was not confirmed..."></textarea>
+          <div class="lint" id="lint-i1s4"></div>
         </div>
         <div class="doc-field">
           <div class="field-head"><span class="field-num">5</span><div><div class="field-label">Key takeaway — what should Sentinel remember?</div><div class="field-sub">One or two sentences. What should be monitored or done differently next time?</div></div></div>
-          <textarea id="i1s5" class="short" placeholder="During high-traffic reporting periods, the system may be at risk of slowdowns. Monitoring user counts before known deadline dates could help the team prepare..."></textarea>
+          <textarea id="i1s5" class="short" data-doc="d1" data-min="8" data-max="45" placeholder="During high-traffic reporting periods, the system may be at risk of slowdowns. Monitoring user counts before known deadline dates could help the team prepare..."></textarea>
+          <div class="lint" id="lint-i1s5"></div>
         </div>
       </div>
-      <div class="clarity">
-        <span class="cq">Clarity check: Could another analyst understand this incident from your notes alone — <span>without seeing the original report?</span></span>
-        <button class="cbtn-g" data-doc="d1" data-c="yes">Yes, it's clear</button>
-        <button class="cbtn-g" data-doc="d1" data-c="needs">Needs more detail</button>
+
+      <div class="factbox" id="facts-d1">
+        <div class="fh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="ft">Essential facts covered</span><span class="fscore" id="fscore-d1">0 / 5</span></div>
+        <div class="fact" data-fact="0"><span class="fi">✓</span><span>The system slowed down / pages were slow to load</span></div>
+        <div class="fact" data-fact="1"><span class="fi">✓</span><span>It happened during the monthly reporting deadline / high-traffic period</span></div>
+        <div class="fact" data-fact="2"><span class="fi">✓</span><span>More users than normal were logged in (60+ vs. ~40)</span></div>
+        <div class="fact" data-fact="3"><span class="fi">✓</span><span>It recovered on its own — no one intervened</span></div>
+        <div class="fact" data-fact="4"><span class="fi">✓</span><span>The cause was never confirmed — the doc is honest about uncertainty</span></div>
+        <div class="factnote">The tracker looks for the idea, not exact words — but it can miss creative phrasing. If you're confident a fact is covered, trust your writing; your instructor reads the words, not the checkboxes.</div>
+      </div>
+
+      <div class="compareBar">
+        <button class="cmpBig" id="cmp-d1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg> Compare to a model write-up</button>
+        <div class="modelDoc" id="model-d1">
+          <div class="mh">Model documentation — INC-0241</div>
+          <div class="mrow"><div class="mlab">Incident Summary</div><div class="mtxt">On the morning of the monthly reporting deadline, the Government Services Portal slowed significantly for all users. Pages that normally load in seconds took a minute or more. The system recovered on its own and no data was lost.</div></div>
+          <div class="mrow"><div class="mlab">Observed Behavior</div><div class="mtxt">Pages loaded very slowly, dashboard updates stopped appearing for some users, and menus responded sluggishly. There were no error messages and no crash — everything worked, just slowly.</div></div>
+          <div class="mrow"><div class="mlab">Impact</div><div class="mtxt">All active users were affected during the slowdown. Because it was the end-of-month deadline, over 60 users were logged in at once — well above the usual 40 — so more people than usual felt the delay.</div></div>
+          <div class="mrow"><div class="mlab">Resolution</div><div class="mtxt">The system returned to normal on its own with no intervention. Heavy user load is the likely cause, but this was never confirmed.</div></div>
+          <div class="mrow"><div class="mlab">Key Takeaway</div><div class="mtxt">Watch user counts ahead of known reporting deadlines. If the slowdown repeats next month under the same conditions, that confirms a capacity pattern worth planning for.</div></div>
+        </div>
+        <div class="clarity">
+          <div class="cq">Now that you've seen the model — score your own version honestly, one point each:</div>
+          <div class="rubricRow">
+            <div class="rubItem"><div class="rl">Clear — plain language throughout?</div><div class="rubBtns"><button class="rubBtn" data-doc="d1" data-crit="clear" data-v="1">Yes</button><button class="rubBtn" data-doc="d1" data-crit="clear" data-v="0">Not yet</button></div></div>
+            <div class="rubItem"><div class="rl">Brief — no wasted sentences?</div><div class="rubBtns"><button class="rubBtn" data-doc="d1" data-crit="brief" data-v="1">Yes</button><button class="rubBtn" data-doc="d1" data-crit="brief" data-v="0">Not yet</button></div></div>
+            <div class="rubItem"><div class="rl">Useful — tells the reader what to do?</div><div class="rubBtns"><button class="rubBtn" data-doc="d1" data-crit="useful" data-v="1">Yes</button><button class="rubBtn" data-doc="d1" data-crit="useful" data-v="0">Not yet</button></div></div>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- INCIDENT 2 -->
-    <div class="doc d2">
+    <div class="doc d2" data-doc="d2">
       <div class="doc-head">
         <div class="dh-top">
           <span class="doc-num">2</span>
@@ -303,34 +446,64 @@
       <div class="doc-body">
         <div class="doc-field">
           <div class="field-head"><span class="field-num">1</span><div><div class="field-label">Incident Summary — what happened?</div><div class="field-sub">Describe the issue briefly. Mention the setting — hospital records — because context matters for future readers.</div></div></div>
-          <textarea id="i2s1" placeholder="Members of the hospital records team reported being unable to log in on the first attempt. Three users were affected. One account required five attempts before access was granted..."></textarea>
+          <textarea id="i2s1" data-doc="d2" data-min="15" data-max="70" placeholder="Members of the hospital records team reported being unable to log in on the first attempt. Three users were affected. One account required five attempts before access was granted..."></textarea>
+          <div class="lint" id="lint-i2s1"></div>
         </div>
         <div class="doc-field">
           <div class="field-head"><span class="field-num">2</span><div><div class="field-label">Observed behavior — what did users see or experience?</div><div class="field-sub">What happened on screen? What did users report to support?</div></div></div>
-          <textarea id="i2s2" class="short" placeholder="Passwords were rejected even though users hadn't changed them. One user received repeated 'invalid password' messages before eventually getting in..."></textarea>
+          <textarea id="i2s2" class="short" data-doc="d2" data-min="10" data-max="55" placeholder="Passwords were rejected even though users hadn't changed them. One user received repeated 'invalid password' messages before eventually getting in..."></textarea>
+          <div class="lint" id="lint-i2s2"></div>
         </div>
         <div class="doc-field">
           <div class="field-head"><span class="field-num">3</span><div><div class="field-label">Impact — how disruptive was this?</div><div class="field-sub">Did it affect patient records access? Were users locked out completely or just delayed?</div></div></div>
-          <textarea id="i2s3" class="short" placeholder="Three users were delayed in accessing patient records. One was unable to log in without contacting the support desk. The rest of the system remained fully functional for unaffected users..."></textarea>
+          <textarea id="i2s3" class="short" data-doc="d2" data-min="10" data-max="55" placeholder="Three users were delayed in accessing patient records. One was unable to log in without contacting the support desk. The rest of the system remained fully functional for unaffected users..."></textarea>
+          <div class="lint" id="lint-i2s3"></div>
         </div>
         <div class="doc-field">
           <div class="field-head"><span class="field-num">4</span><div><div class="field-label">Resolution — how did it end?</div><div class="field-sub">Were users able to regain access? Was a root cause confirmed?</div></div></div>
-          <textarea id="i2s4" class="short" placeholder="Most affected users eventually gained access after multiple attempts. The issue is believed to be related to the password rule change introduced the previous week, though this was not formally confirmed..."></textarea>
+          <textarea id="i2s4" class="short" data-doc="d2" data-min="10" data-max="55" placeholder="Most affected users eventually gained access after multiple attempts. The issue is believed to be related to the password rule change introduced the previous week, though this was not formally confirmed..."></textarea>
+          <div class="lint" id="lint-i2s4"></div>
         </div>
         <div class="doc-field">
           <div class="field-head"><span class="field-num">5</span><div><div class="field-label">Key takeaway — what should Sentinel remember?</div><div class="field-sub">What process change or monitoring approach might prevent this next time?</div></div></div>
-          <textarea id="i2s5" class="short" placeholder="When password rules are updated, all affected users should receive clear notification with instructions for updating their credentials before the change takes effect..."></textarea>
+          <textarea id="i2s5" class="short" data-doc="d2" data-min="8" data-max="45" placeholder="When password rules are updated, all affected users should receive clear notification with instructions for updating their credentials before the change takes effect..."></textarea>
+          <div class="lint" id="lint-i2s5"></div>
         </div>
       </div>
-      <div class="clarity">
-        <span class="cq">Clarity check: Would the next analyst understand why users couldn't log in — and what the likely cause was — <span>just from your notes?</span></span>
-        <button class="cbtn-g" data-doc="d2" data-c="yes">Yes, it's clear</button>
-        <button class="cbtn-g" data-doc="d2" data-c="needs">Needs more detail</button>
+
+      <div class="factbox" id="facts-d2">
+        <div class="fh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="ft">Essential facts covered</span><span class="fscore" id="fscore-d2">0 / 5</span></div>
+        <div class="fact" data-fact="0"><span class="fi">✓</span><span>Users couldn't log in / passwords were rejected</span></div>
+        <div class="fact" data-fact="1"><span class="fi">✓</span><span>It affected hospital records staff — the setting is named</span></div>
+        <div class="fact" data-fact="2"><span class="fi">✓</span><span>Only a few users were affected; the system worked for everyone else</span></div>
+        <div class="fact" data-fact="3"><span class="fi">✓</span><span>The likely cause: the new password rules weren't communicated to everyone</span></div>
+        <div class="fact" data-fact="4"><span class="fi">✓</span><span>Prevention idea: notify users clearly before policy changes take effect</span></div>
+        <div class="factnote">The tracker looks for the idea, not exact words — but it can miss creative phrasing. If you're confident a fact is covered, trust your writing; your instructor reads the words, not the checkboxes.</div>
+      </div>
+
+      <div class="compareBar">
+        <button class="cmpBig" id="cmp-d2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg> Compare to a model write-up</button>
+        <div class="modelDoc" id="model-d2">
+          <div class="mh">Model documentation — INC-0242</div>
+          <div class="mrow"><div class="mlab">Incident Summary</div><div class="mtxt">Three members of the hospital records team could not log in on their first attempts. One account needed five tries before access was granted. The rest of the system worked normally for everyone else.</div></div>
+          <div class="mrow"><div class="mlab">Observed Behavior</div><div class="mtxt">Users saw their passwords rejected even though they hadn't changed them. One user got repeated "invalid password" messages before finally getting in; another gave up and waited for support.</div></div>
+          <div class="mrow"><div class="mlab">Impact</div><div class="mtxt">Three staff were delayed in reaching patient records, and one was fully blocked until helped. Because this is a hospital system, even short access delays matter more than usual.</div></div>
+          <div class="mrow"><div class="mlab">Resolution</div><div class="mtxt">Affected users regained access after resets and retries. The likely cause is the password rule change from the previous week that not all staff knew about — this was never formally confirmed.</div></div>
+          <div class="mrow"><div class="mlab">Key Takeaway</div><div class="mtxt">Before any future password policy change, notify every affected user through more than one channel and give them time to update credentials first. A missed email caused most of today's disruption.</div></div>
+        </div>
+        <div class="clarity">
+          <div class="cq">Now that you've seen the model — score your own version honestly, one point each:</div>
+          <div class="rubricRow">
+            <div class="rubItem"><div class="rl">Clear — plain language throughout?</div><div class="rubBtns"><button class="rubBtn" data-doc="d2" data-crit="clear" data-v="1">Yes</button><button class="rubBtn" data-doc="d2" data-crit="clear" data-v="0">Not yet</button></div></div>
+            <div class="rubItem"><div class="rl">Brief — no wasted sentences?</div><div class="rubBtns"><button class="rubBtn" data-doc="d2" data-crit="brief" data-v="1">Yes</button><button class="rubBtn" data-doc="d2" data-crit="brief" data-v="0">Not yet</button></div></div>
+            <div class="rubItem"><div class="rl">Useful — tells the reader what to do?</div><div class="rubBtns"><button class="rubBtn" data-doc="d2" data-crit="useful" data-v="1">Yes</button><button class="rubBtn" data-doc="d2" data-crit="useful" data-v="0">Not yet</button></div></div>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- INCIDENT 3 -->
-    <div class="doc d3">
+    <div class="doc d3" data-doc="d3">
       <div class="doc-head">
         <div class="dh-top">
           <span class="doc-num">3</span>
@@ -343,36 +516,80 @@
       <div class="doc-body">
         <div class="doc-field">
           <div class="field-head"><span class="field-num">1</span><div><div class="field-label">Incident Summary — what happened?</div><div class="field-sub">This one is messier — be honest about the uncertainty. Good documentation admits what wasn't known.</div></div></div>
-          <textarea id="i3s1" placeholder="A subset of school district users began seeing an error message when saving files. The error appeared inconsistently — sometimes the same action would work moments later..."></textarea>
+          <textarea id="i3s1" data-doc="d3" data-min="15" data-max="70" placeholder="A subset of school district users began seeing an error message when saving files. The error appeared inconsistently — sometimes the same action would work moments later..."></textarea>
+          <div class="lint" id="lint-i3s1"></div>
         </div>
         <div class="doc-field">
           <div class="field-head"><span class="field-num">2</span><div><div class="field-label">Observed behavior — what stood out as unusual?</div><div class="field-sub">The inconsistency is the key detail here — describe it clearly.</div></div></div>
-          <textarea id="i3s2" class="short" placeholder="Users would attempt to save a file and receive an 'Action could not be completed' error. Retrying the same action a minute later sometimes worked. Other users in the same area saw no error at all..."></textarea>
+          <textarea id="i3s2" class="short" data-doc="d3" data-min="10" data-max="55" placeholder="Users would attempt to save a file and receive an 'Action could not be completed' error. Retrying the same action a minute later sometimes worked. Other users in the same area saw no error at all..."></textarea>
+          <div class="lint" id="lint-i3s2"></div>
         </div>
         <div class="doc-field">
           <div class="field-head"><span class="field-num">3</span><div><div class="field-label">Impact — how much did this affect users?</div><div class="field-sub">Inconsistent issues are often harder for users to report and harder for support to track.</div></div></div>
-          <textarea id="i3s3" class="short" placeholder="Some users were unable to reliably save their work. Because the error was inconsistent, some users may not have reported it at all, which means the actual number of affected accounts may be higher than recorded..."></textarea>
+          <textarea id="i3s3" class="short" data-doc="d3" data-min="10" data-max="55" placeholder="Some users were unable to reliably save their work. Because the error was inconsistent, some users may not have reported it at all, which means the actual number of affected accounts may be higher than recorded..."></textarea>
+          <div class="lint" id="lint-i3s3"></div>
         </div>
         <div class="doc-field">
           <div class="field-head"><span class="field-num">4</span><div><div class="field-label">Resolution — how did it end?</div><div class="field-sub">Be transparent about unresolved questions — it matters for future reference.</div></div></div>
-          <textarea id="i3s4" class="short" placeholder="The error rate appeared to reduce on its own later in the afternoon. No confirmed fix was applied. The folder reorganization from two days earlier remains a possible explanation — not yet confirmed or ruled out..."></textarea>
+          <textarea id="i3s4" class="short" data-doc="d3" data-min="10" data-max="55" placeholder="The error rate appeared to reduce on its own later in the afternoon. No confirmed fix was applied. The folder reorganization from two days earlier remains a possible explanation — not yet confirmed or ruled out..."></textarea>
+          <div class="lint" id="lint-i3s4"></div>
         </div>
         <div class="doc-field">
           <div class="field-head"><span class="field-num">5</span><div><div class="field-label">Key takeaway — what should Sentinel flag for the future?</div><div class="field-sub">Especially for cases like this where the cause is unclear, what should be checked or monitored going forward?</div></div></div>
-          <textarea id="i3s5" class="short" placeholder="After any system reorganization affecting file or folder locations, all user accounts should be reviewed to confirm they still have the correct access. Intermittent errors like this are easy to miss until they grow..."></textarea>
+          <textarea id="i3s5" class="short" data-doc="d3" data-min="8" data-max="45" placeholder="After any system reorganization affecting file or folder locations, all user accounts should be reviewed to confirm they still have the correct access. Intermittent errors like this are easy to miss until they grow..."></textarea>
+          <div class="lint" id="lint-i3s5"></div>
         </div>
       </div>
-      <div class="clarity">
-        <span class="cq">Clarity check: Is the uncertainty clearly stated — so future readers know this wasn't fully resolved <span>and still needs attention?</span></span>
-        <button class="cbtn-g" data-doc="d3" data-c="yes">Yes, it's clear</button>
-        <button class="cbtn-g" data-doc="d3" data-c="needs">Needs more detail</button>
+
+      <div class="factbox" id="facts-d3">
+        <div class="fh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="ft">Essential facts covered</span><span class="fscore" id="fscore-d3">0 / 5</span></div>
+        <div class="fact" data-fact="0"><span class="fi">✓</span><span>Users got an error when saving files</span></div>
+        <div class="fact" data-fact="1"><span class="fi">✓</span><span>The error was inconsistent — some users, sometimes, retries worked</span></div>
+        <div class="fact" data-fact="2"><span class="fi">✓</span><span>A folder reorganization two days earlier is the suspected cause</span></div>
+        <div class="fact" data-fact="3"><span class="fi">✓</span><span>The doc is honest that this was never confirmed / isn't fully resolved</span></div>
+        <div class="fact" data-fact="4"><span class="fi">✓</span><span>Prevention idea: check account access after any reorganization</span></div>
+        <div class="factnote">The tracker looks for the idea, not exact words — but it can miss creative phrasing. If you're confident a fact is covered, trust your writing; your instructor reads the words, not the checkboxes.</div>
       </div>
+
+      <div class="compareBar">
+        <button class="cmpBig" id="cmp-d3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg> Compare to a model write-up</button>
+        <div class="modelDoc" id="model-d3">
+          <div class="mh">Model documentation — INC-0243</div>
+          <div class="mrow"><div class="mlab">Incident Summary</div><div class="mtxt">Some school district users began getting an error when saving files, starting sometime in the afternoon. The error was inconsistent — the same action would sometimes work a minute later, and other users doing the same tasks never saw it at all.</div></div>
+          <div class="mrow"><div class="mlab">Observed Behavior</div><div class="mtxt">The message read "Action could not be completed." Retrying often worked. Who was affected didn't follow an obvious pattern, which made the problem hard for users to describe and hard for support to track.</div></div>
+          <div class="mrow"><div class="mlab">Impact</div><div class="mtxt">Affected users couldn't reliably save their work. Because the error came and went, some people likely never reported it — the true number affected may be higher than recorded.</div></div>
+          <div class="mrow"><div class="mlab">Resolution</div><div class="mtxt">The errors faded on their own later in the day. No fix was applied. The folder reorganization from two days earlier is the suspected cause — some accounts may not have access to the new folder locations — but this was never confirmed or ruled out. This one isn't fully closed.</div></div>
+          <div class="mrow"><div class="mlab">Key Takeaway</div><div class="mtxt">After any reorganization that moves folders or files, review every account's access before calling the work done. Intermittent errors like this are easy to miss until they grow.</div></div>
+        </div>
+        <div class="clarity">
+          <div class="cq">Now that you've seen the model — score your own version honestly, one point each:</div>
+          <div class="rubricRow">
+            <div class="rubItem"><div class="rl">Clear — plain language throughout?</div><div class="rubBtns"><button class="rubBtn" data-doc="d3" data-crit="clear" data-v="1">Yes</button><button class="rubBtn" data-doc="d3" data-crit="clear" data-v="0">Not yet</button></div></div>
+            <div class="rubItem"><div class="rl">Brief — no wasted sentences?</div><div class="rubBtns"><button class="rubBtn" data-doc="d3" data-crit="brief" data-v="1">Yes</button><button class="rubBtn" data-doc="d3" data-crit="brief" data-v="0">Not yet</button></div></div>
+            <div class="rubItem"><div class="rl">Useful — tells the reader what to do?</div><div class="rubBtns"><button class="rubBtn" data-doc="d3" data-crit="useful" data-v="1">Yes</button><button class="rubBtn" data-doc="d3" data-crit="useful" data-v="0">Not yet</button></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Score summary -->
+    <div class="scoreCard">
+      <div class="scoreHead">
+        <div>
+          <div style="font-weight:700;font-size:1.1rem;margin-bottom:2px">Your documentation scorecard</div>
+          <div style="font-size:.9rem;color:var(--muted)">Warm-up + facts covered + your honest self-scores, all in one place.</div>
+        </div>
+        <button class="checkBtn" id="tallyBtn">Tally My Score</button>
+      </div>
+      <div class="scoreRows" id="scoreRows" style="display:none"></div>
+      <div class="scoreTotal" id="scoreTotal" style="display:none;margin-top:16px">0<span> / 34 points</span></div>
+      <div class="scoreNote">Fact tracking is a helpful signal, not a perfect judge — creative phrasing can slip past it. Your instructor grades the writing itself; this scorecard is here to help you improve it before they see it.</div>
     </div>
   </section>
 
   <!-- Final deliverable -->
   <section class="reveal">
-    <div class="eyebrow"><span class="num">3</span><span class="lab">Finish strong</span></div>
+    <div class="eyebrow"><span class="num">4</span><span class="lab">Finish strong</span></div>
     <h2>Sentinel Incident Documentation Report</h2>
     <p class="lead-line">Three documents written — now pull the bigger picture together before you finalize your report.</p>
 
@@ -380,12 +597,16 @@
       <div class="dh"><span class="dn">→</span><h3>Key learnings across all three incidents</h3></div>
       <div class="dsub">Looking at the three incidents together, what patterns or lessons stand out? What do they have in common — and what does that tell the organization?</div>
       <textarea id="d-learnings" placeholder="Across all three incidents, the common thread seems to be... In each case, communication gaps played a role in... The most important thing Sentinel should take from this shift is..."></textarea>
+      <div class="compareRow"><button class="cmpBtn" data-target="mLearnings">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+      <div class="modelBox" id="mLearnings"><div class="ml">Model answer</div><p>All three incidents trace back to changes or conditions the team knew about in advance — a reporting deadline, a password policy update, a folder reorganization. None were mysteries; they were predictable side effects of planned events that nobody connected ahead of time. The lesson for Sentinel is that known upcoming changes should trigger proactive checks and communication before they cause tickets, not after.</p></div>
     </div>
 
     <div class="deliv">
       <div class="dh"><span class="dn">→</span><h3>One suggestion for improving future documentation</h3></div>
       <div class="dsub">Based on what you noticed while writing these three summaries — what would make this documentation process easier, clearer, or more useful next time?</div>
       <textarea id="d-suggestion" placeholder="One thing that would improve how we document incidents in the future is... This would help because..."></textarea>
+      <div class="compareRow"><button class="cmpBtn" data-target="mSuggestion">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+      <div class="modelBox" id="mSuggestion"><div class="ml">Model answer</div><p>A simple shared template with the same five fields for every incident would make documentation faster to write and much faster to read — everyone would know exactly where to find the impact or the takeaway. Adding a required "what's still unconfirmed" line would also make honesty about uncertainty the default rather than something each writer has to remember.</p></div>
     </div>
 
     <div class="exportbar">
@@ -409,67 +630,242 @@
 </div>
 
 <script>
-  const clarityState = {d1:'',d2:'',d3:''};
+  /* ───────────── State ───────────── */
+  let quizScore = null;          // null until answered; then 10 or 0
+  const rubric = {               // self-scores per doc, per criterion
+    d1:{clear:null,brief:null,useful:null},
+    d2:{clear:null,brief:null,useful:null},
+    d3:{clear:null,brief:null,useful:null}
+  };
+  const factHits = {d1:[false,false,false,false,false], d2:[false,false,false,false,false], d3:[false,false,false,false,false]};
 
-  document.querySelectorAll('.cbtn-g').forEach(b=>{
+  function val(id){ const el=document.getElementById(id); return el?el.value.trim():''; }
+
+  /* ───────────── Warm-up quiz ───────────── */
+  document.querySelectorAll('.qopt').forEach(opt=>{
+    opt.addEventListener('click',()=>{
+      if(quizScore!==null) return; // one attempt
+      const pick = opt.dataset.q;
+      quizScore = (pick==='b') ? 10 : 0;
+      document.querySelectorAll('.qopt').forEach(o=>{
+        o.classList.add('locked');
+        const v=o.querySelector('.qverdict');
+        if(o.dataset.q==='b'){ o.classList.add('correct'); }
+        else if(o.dataset.q===pick){ o.classList.add('wrong'); }
+        v.classList.add('show');
+      });
+      const res=document.getElementById('quizResult');
+      if(pick==='b'){
+        res.className='quiz-result show win';
+        res.textContent='✓ 10/10 — Version B is clear, brief, honest about uncertainty, and tells the reader what to watch for. Aim for that below.';
+      } else {
+        res.className='quiz-result show lose';
+        res.textContent='0/10 this time — read the notes on each version to see why B is the standard, then aim for it in your own writing below.';
+      }
+    });
+  });
+
+  /* ───────────── Lint: word count + jargon ───────────── */
+  const JARGON = [
+    ['utilize','use'],['utilized','used'],['utilizing','using'],
+    ['leverage','use'],['leveraged','used'],['leveraging','using'],
+    ['remediate','fix'],['remediated','fixed'],['remediation','a fix'],
+    ['anomalous','unusual'],['anomaly','something unusual'],
+    ['facilitate','help'],['facilitated','helped'],
+    ['commence','start'],['commenced','started'],
+    ['terminate','end'],['terminated','ended'],
+    ['aforementioned','that'],['subsequent to','after'],['prior to','before'],
+    ['functionality','feature'],['operational parameters','normal behavior'],
+    ['end-user','user'],['end-users','users'],
+    ['degraded','slowed or reduced'],['interface with','talk to']
+  ];
+
+  function wordCount(t){ return t.trim() ? t.trim().split(/\s+/).length : 0; }
+
+  function lintField(ta){
+    const bar = document.getElementById('lint-'+ta.id);
+    if(!bar) return;
+    const text = ta.value;
+    const wc = wordCount(text);
+    const min = parseInt(ta.dataset.min||'10',10);
+    const max = parseInt(ta.dataset.max||'60',10);
+    let html='';
+    if(wc>0){
+      let cls='', note='';
+      if(wc>=min && wc<=max){ cls='ok'; note=wc+' words — in range'; }
+      else if(wc<min){ cls=''; note=wc+' words — aim for '+min+'–'+max; }
+      else { cls='long'; note=wc+' words — getting long, aim for under '+max; }
+      html += '<span class="wc '+cls+'">'+note+'</span>';
+      const lower = ' '+text.toLowerCase()+' ';
+      const found=[];
+      JARGON.forEach(([bad,good])=>{
+        if(lower.includes(bad.toLowerCase()) && found.length<3){
+          found.push('"'+bad+'" → try "'+good+'"');
+        }
+      });
+      found.forEach(f=>{ html+='<span class="jargon">'+f+'</span>'; });
+    }
+    bar.innerHTML=html;
+  }
+
+  /* ───────────── Fact tracker ─────────────
+     Each fact = array of regex patterns; ANY match across ALL fields of that incident = covered. */
+  const FACTS = {
+    d1: [
+      [/slow/i, /sluggish/i, /took (a |over a )?minute/i, /delay/i, /lag/i],
+      [/deadline/i, /end.of.month/i, /reporting period/i, /monthly report/i, /busy (period|time|morning)/i, /high.traffic/i, /peak/i],
+      [/60/, /sixty/i, /more users than (usual|normal)/i, /unusually (high|many)/i, /too many (users|people)/i, /twice|extra users|above (the )?(usual|normal)/i, /heavy (user )?load/i],
+      [/on its own/i, /by itself/i, /self.resolved/i, /without (any )?(intervention|action|help)/i, /no (action|intervention|one intervened|fix)/i, /recovered? (on its own|naturally|automatically)/i, /returned to normal/i],
+      [/not (been )?confirmed/i, /never confirmed/i, /unconfirmed/i, /uncertain/i, /not verified/i, /likely cause/i, /probable cause/i, /suspected/i, /believed to be/i, /wasn.?t confirmed/i, /no(t| formal) root cause/i]
+    ],
+    d2: [
+      [/could(n.?t| not) log ?in/i, /log.?in (issue|problem|failure)/i, /password(s)? (were |was |being )?rejected/i, /unable to (log|sign)/i, /locked out/i, /sign.?in (fail|issue|problem)/i, /invalid password/i],
+      [/hospital/i, /patient record/i, /medical record/i],
+      [/three (users|employees|staff|people|accounts)/i, /3 (users|employees|staff|people|accounts)/i, /only (a few|some|certain)/i, /few (users|staff|accounts)/i, /(other|rest of the|remaining) users? (were|was|working|logged|unaffected|fine)/i, /isolated/i, /small number/i, /everyone else/i],
+      [/password (rule|polic|requirement|change|update)/i, /new (password )?rules/i, /not (all|everyone).{0,40}(email|announcement|notif|aware|know)/i, /did(n.?t| not) (open|read|see|receive).{0,25}(email|announcement|notice)/i, /communicat/i, /wasn.?t (told|informed|aware)/i],
+      [/notif/i, /communicat/i, /announce/i, /inform/i, /before (the|any) (change|update|polic)/i, /multiple channels/i, /in advance/i, /ahead of/i, /tell (users|staff|everyone)/i, /let (users|staff|people) know/i]
+    ],
+    d3: [
+      [/sav(e|ing) (files?|work|documents?)/i, /error (when|while|message)/i, /could not be completed/i, /fail(ed|ing|ure)? to save/i, /save (error|fail|issue|problem)/i],
+      [/inconsisten/i, /intermittent/i, /some (users|people|accounts).{0,60}(others|not)/i, /sometimes work/i, /(retry|trying again|a minute later).{0,30}(work|fine|succeed)/i, /on and off/i, /came and went/i, /unpredictab/i, /no (clear|obvious) pattern/i],
+      [/folder (re)?organiz/i, /reorganiz/i, /folders? (were |was )?moved/i, /new (folder )?locations?/i, /file (storage|system).{0,30}(change|moved|reorganiz)/i, /permission/i, /access.{0,30}(folder|new location)/i],
+      [/not (been )?confirmed/i, /never confirmed/i, /unconfirmed/i, /not (fully )?resolved/i, /uncertain/i, /suspected/i, /possible (cause|explanation)/i, /may (have|be)/i, /not.{0,15}ruled out/i, /still (open|unclear|unknown|needs)/i, /wasn.?t confirmed/i, /no (confirmed )?fix/i],
+      [/after (any|a|every).{0,30}(reorganiz|change|move)/i, /review (all |every |user )?accounts?/i, /check.{0,40}(access|permission)/i, /confirm.{0,30}access/i, /verify.{0,30}(access|permission|account)/i, /audit/i]
+    ]
+  };
+
+  function scanFacts(docId){
+    // combine all field text for this incident
+    const prefix = 'i'+docId.slice(1)+'s'; // d1 -> i1s
+    let combined='';
+    for(let f=1;f<=5;f++){ combined += ' ' + val(prefix+f); }
+    const facts = FACTS[docId];
+    let hits=0;
+    facts.forEach((patterns,idx)=>{
+      const hit = patterns.some(rx=>rx.test(combined));
+      factHits[docId][idx]=hit;
+      const el=document.querySelector('#facts-'+docId+' .fact[data-fact="'+idx+'"]');
+      if(el){ el.classList.toggle('hit',hit); }
+      if(hit) hits++;
+    });
+    const sc=document.getElementById('fscore-'+docId);
+    if(sc) sc.textContent=hits+' / 5';
+    // enable compare button when all 5 fields have real content
+    let allFilled=true;
+    for(let f=1;f<=5;f++){ if(val(prefix+f).length<15){ allFilled=false; break; } }
+    const btn=document.getElementById('cmp-'+docId);
+    if(btn){ btn.classList.toggle('ready',allFilled); if(!allFilled){ document.getElementById('model-'+docId).classList.remove('show'); } }
+  }
+
+  /* wire all incident textareas */
+  document.querySelectorAll('textarea[data-doc]').forEach(ta=>{
+    ta.addEventListener('input',()=>{
+      lintField(ta);
+      scanFacts(ta.dataset.doc);
+    });
+  });
+
+  /* compare buttons */
+  ['d1','d2','d3'].forEach(d=>{
+    document.getElementById('cmp-'+d).addEventListener('click',(e)=>{
+      if(!e.currentTarget.classList.contains('ready')) return;
+      document.getElementById('model-'+d).classList.toggle('show');
+    });
+  });
+
+  /* rubric self-score buttons */
+  document.querySelectorAll('.rubBtn').forEach(b=>{
     b.addEventListener('click',()=>{
-      clarityState[b.dataset.doc]=b.dataset.c;
-      b.parentElement.querySelectorAll('.cbtn-g').forEach(x=>x.classList.remove('on'));
+      rubric[b.dataset.doc][b.dataset.crit]=parseInt(b.dataset.v,10);
+      b.parentElement.querySelectorAll('.rubBtn').forEach(x=>x.classList.remove('on'));
       b.classList.add('on');
     });
   });
 
-  function val(id){ const el=document.getElementById(id); return el?el.value.trim():''; }
-
-  const incidents=[
-    {
-      label:'INCIDENT 1 — System Performance Slowdown (INC-0241)',
-      doc:'d1',
-      fields:[
-        ['Incident Summary',  'i1s1'],
-        ['Observed Behavior', 'i1s2'],
-        ['Impact Overview',   'i1s3'],
-        ['Resolution Status', 'i1s4'],
-        ['Key Takeaway',      'i1s5']
-      ]
-    },
-    {
-      label:'INCIDENT 2 — Login & Access Issues (INC-0242)',
-      doc:'d2',
-      fields:[
-        ['Incident Summary',  'i2s1'],
-        ['Observed Behavior', 'i2s2'],
-        ['Impact Overview',   'i2s3'],
-        ['Resolution Status', 'i2s4'],
-        ['Key Takeaway',      'i2s5']
-      ]
-    },
-    {
-      label:'INCIDENT 3 — Unexpected System Behavior (INC-0243)',
-      doc:'d3',
-      fields:[
-        ['Incident Summary',  'i3s1'],
-        ['Observed Behavior', 'i3s2'],
-        ['Impact Overview',   'i3s3'],
-        ['Resolution Status', 'i3s4'],
-        ['Key Takeaway',      'i3s5']
-      ]
+  /* final-report compare buttons (small style) */
+  document.querySelectorAll('.cmpBtn').forEach(btn=>{
+    const box=document.getElementById(btn.dataset.target);
+    let ta=null, c=btn.parentElement.previousElementSibling;
+    while(c){ if(c.tagName==='TEXTAREA'){ ta=c; break; } c=c.previousElementSibling; }
+    function refresh(){
+      if(ta && ta.value.trim().length>=15){ btn.classList.add('ready'); }
+      else { btn.classList.remove('ready'); box.classList.remove('show'); }
     }
+    if(ta){ ta.addEventListener('input',refresh); refresh(); }
+    btn.addEventListener('click',()=>{
+      if(!btn.classList.contains('ready')) return;
+      box.classList.toggle('show');
+    });
+  });
+
+  /* ───────────── Scorecard ─────────────
+     10 (warm-up) + 5 facts × 3 incidents (15) + 3 rubric × 3 incidents (9) = 34 */
+  function computeScores(){
+    const rows=[];
+    let total=0;
+    const q = quizScore===null?0:quizScore;
+    rows.push({t:'Warm-up: Spot the good documentation', n: quizScore===null?'Not attempted yet':'One attempt, graded', p:q+' / 10'});
+    total+=q;
+    const names={d1:'Incident 1 — Performance Slowdown',d2:'Incident 2 — Login & Access',d3:'Incident 3 — Unexpected Behavior'};
+    ['d1','d2','d3'].forEach(d=>{
+      const f=factHits[d].filter(Boolean).length;
+      total+=f;
+      const r=rubric[d];
+      const rDone=(r.clear!==null&&r.brief!==null&&r.useful!==null);
+      const rScore=rDone?(r.clear+r.brief+r.useful):0;
+      total+=rScore;
+      rows.push({t:names[d], n:'Facts covered: '+f+'/5 · Self-score (Clear/Brief/Useful): '+(rDone?rScore+'/3':'not scored yet'), p:(f+rScore)+' / 8'});
+    });
+    return {rows,total};
+  }
+
+  document.getElementById('tallyBtn').addEventListener('click',()=>{
+    const {rows,total}=computeScores();
+    const rowsEl=document.getElementById('scoreRows');
+    rowsEl.innerHTML='';
+    rows.forEach(r=>{
+      const div=document.createElement('div');
+      div.className='srow';
+      div.innerHTML='<div style="flex:1"><div class="stitle">'+r.t+'</div><div class="snote">'+r.n+'</div></div><div class="spts">'+r.p+'</div>';
+      rowsEl.appendChild(div);
+    });
+    rowsEl.style.display='flex';
+    const totalEl=document.getElementById('scoreTotal');
+    totalEl.style.display='block';
+    totalEl.innerHTML=total+'<span> / 34 points</span>';
+  });
+
+  /* ───────────── Report export ───────────── */
+  const incidents=[
+    {label:'INCIDENT 1 — System Performance Slowdown (INC-0241)',doc:'d1',
+     fields:[['Incident Summary','i1s1'],['Observed Behavior','i1s2'],['Impact Overview','i1s3'],['Resolution Status','i1s4'],['Key Takeaway','i1s5']]},
+    {label:'INCIDENT 2 — Login & Access Issues (INC-0242)',doc:'d2',
+     fields:[['Incident Summary','i2s1'],['Observed Behavior','i2s2'],['Impact Overview','i2s3'],['Resolution Status','i2s4'],['Key Takeaway','i2s5']]},
+    {label:'INCIDENT 3 — Unexpected System Behavior (INC-0243)',doc:'d3',
+     fields:[['Incident Summary','i3s1'],['Observed Behavior','i3s2'],['Impact Overview','i3s3'],['Resolution Status','i3s4'],['Key Takeaway','i3s5']]}
   ];
 
   function buildReport(){
+    const {total}=computeScores();
     let out='SENTINEL KNOWLEDGE OPERATIONS\n';
     out+='Incident Documentation Report — Phase A\n';
     out+='Level 1 IT Support Analyst\n';
     out+='Generated: '+new Date().toLocaleString()+'\n';
+    out+='\nWarm-up quiz: '+(quizScore===null?'(not attempted)':quizScore+' / 10')+'\n';
     incidents.forEach(inc=>{
       out+='\n========================================\n'+inc.label+'\n========================================\n';
       inc.fields.forEach(([label,id])=>{
         out+='\n'+label+':\n'+(val(id)||'(not answered)')+'\n';
       });
-      const c=clarityState[inc.doc];
-      out+='\nClarity Check: '+(c==='yes'?'Clear — another analyst could understand this':(c==='needs'?'Needs more detail':'(not answered)'  ))+'\n';
+      const f=factHits[inc.doc].filter(Boolean).length;
+      out+='\nEssential facts covered (auto-detected): '+f+' / 5\n';
+      const r=rubric[inc.doc];
+      const rDone=(r.clear!==null&&r.brief!==null&&r.useful!==null);
+      out+='Self-score — Clear: '+(r.clear===null?'—':r.clear)+' · Brief: '+(r.brief===null?'—':r.brief)+' · Useful: '+(r.useful===null?'—':r.useful)+(rDone?(' ('+(r.clear+r.brief+r.useful)+'/3)'):'')+'\n';
     });
+    out+='\n========================================\nTOTAL SCORE\n========================================\n';
+    out+=total+' / 34\n';
+    out+='(Fact detection is automated and approximate; the writing itself is what your instructor grades.)\n';
     out+='\n========================================\nKEY LEARNINGS ACROSS ALL INCIDENTS\n========================================\n';
     out+=(val('d-learnings')||'(not answered)')+'\n';
     out+='\n========================================\nSUGGESTION FOR IMPROVING FUTURE DOCUMENTATION\n========================================\n';
