@@ -59,7 +59,6 @@
   .principle .qm{font-family:'Fraunces',serif;font-size:2.4rem;line-height:.5;color:#C9A8EC;display:block;margin-bottom:6px}
   .principle p{font-family:'Fraunces',serif;font-weight:500;font-size:1.26rem;line-height:1.35;color:#fff;margin:0;position:relative}
 
-  /* Briefing panels */
   .briefing{display:flex;flex-wrap:wrap;gap:16px;margin-top:6px}
   .bpanel{flex:1 1 320px;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 1px 2px rgba(31,26,38,.04)}
   .bpanel .bh{padding:14px 18px;font-weight:700;font-size:.92rem;display:flex;align-items:center;gap:9px}
@@ -71,7 +70,6 @@
   .bitem .bi{flex:0 0 auto;margin-top:2px;font-weight:700}
   .bpanel.human .bi{color:var(--green)} .bpanel.ai .bi{color:var(--calm)}
 
-  /* Decision reference cards */
   .dref{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
   .drc{flex:1 1 190px;border-radius:14px;padding:18px 18px 16px;border:1px solid var(--line);background:var(--card);position:relative;overflow:hidden}
   .drc::before{content:"";position:absolute;top:0;left:0;right:0;height:4px}
@@ -82,12 +80,12 @@
   .drc.ig .dl{color:var(--green)} .drc.mo .dl{color:var(--calm)} .drc.es .dl{color:var(--red)}
   .drc p{font-size:.91rem;margin:0;line-height:1.5}
 
-  /* Event decision blocks */
   .eblock{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:16px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
   .eblock .eh{display:flex;align-items:center;gap:12px;padding:16px 22px;background:#FAF8FC;border-bottom:1px solid var(--line)}
   .eblock .enum{font-family:'Fraunces',serif;font-weight:600;font-size:1rem;color:#fff;background:var(--purple);width:30px;height:30px;border-radius:8px;display:grid;place-items:center;flex:0 0 auto}
   .eblock .etitle{font-weight:700;color:var(--ink);font-size:1.05rem}
   .eblock .etime{font-size:.75rem;font-weight:700;color:var(--purple-deep);background:var(--purple-soft);border-radius:6px;padding:3px 8px;margin-left:auto}
+  .eblock .epts{font-size:.75rem;font-weight:700;color:var(--calm);background:var(--calm-soft);border-radius:6px;padding:3px 8px;margin-left:8px}
   .eblock .eb{padding:18px 22px}
   .context{background:#F9F7FC;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:16px;display:flex;flex-direction:column;gap:10px}
   .ctx{display:flex;gap:10px;align-items:flex-start;font-size:.95rem;color:var(--slate)}
@@ -107,7 +105,16 @@
   label.fl{display:block;font-weight:600;color:var(--ink);font-size:.96rem;margin:14px 0 7px}
   label.fl:first-of-type{margin-top:0}
 
-  /* Tradeoff questions */
+  .compareRow{display:flex;justify-content:flex-end;margin-top:8px}
+  .cmpBtn{background:none;border:none;color:var(--purple-deep);font-family:'DM Sans',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer;padding:6px 4px;display:inline-flex;align-items:center;gap:5px;opacity:.4;pointer-events:none;transition:opacity .15s}
+  .cmpBtn.ready{opacity:1;pointer-events:auto}
+  .cmpBtn:hover.ready{text-decoration:underline}
+  .cmpBtn svg{width:13px;height:13px}
+  .modelBox{display:none;margin-top:10px;background:var(--purple-soft);border:1px solid var(--purple-line);border-radius:12px;padding:14px 16px}
+  .modelBox.show{display:block}
+  .modelBox .ml{font-size:.7rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--purple-deep);margin-bottom:6px}
+  .modelBox p{font-size:.95rem;color:var(--ink);margin:0}
+
   .tradeoffs{display:flex;flex-direction:column;gap:10px;margin:16px 0}
   .tq{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
   .tq .tc{flex:0 0 auto;width:32px;height:32px;border-radius:9px;display:grid;place-items:center}
@@ -118,14 +125,12 @@
   .tq .ttext{font-size:1rem;color:var(--ink);font-weight:500;line-height:1.5}
   .tq .tsub{font-size:.92rem;color:var(--muted);margin-top:2px}
 
-  /* Final deliverable */
   .deliv{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin-top:16px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
   .deliv .dh{display:flex;align-items:center;gap:12px;margin-bottom:6px}
   .deliv .dn{flex:0 0 auto;width:32px;height:32px;border-radius:9px;background:var(--purple-soft);color:var(--purple-deep);font-family:'Fraunces',serif;font-weight:600;display:grid;place-items:center}
   .deliv h3{font-size:1.1rem;font-weight:700;color:var(--ink)}
   .deliv .dsub{font-size:.97rem;color:var(--muted);margin-bottom:14px}
 
-  /* Risk level selector */
   .riskrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
   .rbtn{flex:1 1 120px;border-radius:12px;padding:16px 12px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;border:1.5px solid var(--line);background:#fff;color:var(--slate);transition:all .16s;text-align:center}
   .rbtn[data-r="low"].on{background:var(--green-soft);border-color:var(--green);color:var(--green)}
@@ -145,7 +150,24 @@
   .saved{font-size:.9rem;color:var(--green);font-weight:600;margin-top:10px;display:none;align-items:center;gap:7px}
   .saved.show{display:flex}
 
-  /* Closing / completion */
+  .scoreCard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin-top:16px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .scoreHead{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;margin-bottom:4px}
+  .scoreTotal{font-family:'Fraunces',serif;font-weight:600;font-size:1.9rem;color:var(--purple-deep)}
+  .scoreTotal span{font-size:1rem;font-weight:500;color:var(--muted)}
+  .checkBtn{background:var(--purple);color:#fff;border:none;border-radius:11px;padding:13px 22px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;transition:transform .16s,box-shadow .16s}
+  .checkBtn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(123,47,190,.3)}
+  .checkBtn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+  .scoreRows{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+  .srow{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:13px 16px}
+  .srow .sic{flex:0 0 auto;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:.8rem;color:#fff;margin-top:1px}
+  .srow.full .sic{background:var(--green)}
+  .srow.part .sic{background:var(--amber)}
+  .srow.none .sic{background:var(--red)}
+  .srow .stitle{font-weight:700;color:var(--ink);font-size:.96rem;margin-bottom:3px}
+  .srow .snote{font-size:.9rem;color:var(--slate);line-height:1.5}
+  .srow .spts{margin-left:auto;font-weight:700;font-size:.85rem;color:var(--muted);white-space:nowrap;padding-left:10px}
+  .scoreNote{font-size:.88rem;color:var(--muted);margin-top:16px;line-height:1.5;border-top:1px solid var(--line);padding-top:14px}
+
   .closing{margin-top:8px;background:linear-gradient(155deg,#241834,#3A1C5C 55%,#5B1F92);color:#fff;border-radius:22px;padding:48px 42px;position:relative;overflow:hidden}
   .closing::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%)}
   .badge{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:14px;padding:12px 18px;margin-bottom:24px;position:relative}
@@ -163,8 +185,8 @@
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
   .reveal.in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.dot{animation:none}}
-  @media(max-width:600px){body{padding:0 16px 70px}.closing{padding:34px 26px}.chips{width:100%;margin-left:0}.eblock .eh{flex-wrap:wrap}.eblock .etime{margin-left:0}}
-  @media print{.opsbar,.exportbar,.closing,.dot{display:none!important}body{background:#fff}.reveal{opacity:1;transform:none}.decide,.rbtn{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+  @media(max-width:600px){body{padding:0 16px 70px}.closing{padding:34px 26px}.chips{width:100%;margin-left:0}.eblock .eh{flex-wrap:wrap}.eblock .etime{margin-left:0}.scoreHead{flex-direction:column;align-items:flex-start}}
+  @media print{.opsbar,.exportbar,.closing,.dot,.checkBtn,.cmpBtn{display:none!important}body{background:#fff}.reveal{opacity:1;transform:none}.decide,.rbtn{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 </style>
 </head>
 <body>
@@ -189,7 +211,6 @@
       <p class="lede">You are now responsible for final operational judgment. Review the full picture, weigh both human and AI findings, and make the call.</p>
     </header>
 
-    <!-- 1. Your role -->
     <section class="reveal">
       <div class="eyebrow"><span class="num">C</span><span class="lab">Your responsibility</span></div>
       <h2>You are the analyst on record</h2>
@@ -201,7 +222,6 @@
       </div>
     </section>
 
-    <!-- 2. Summary of findings -->
     <section class="reveal">
       <div class="eyebrow"><span class="num">1</span><span class="lab">The full picture</span></div>
       <h2>Summary of findings</h2>
@@ -224,7 +244,6 @@
       </div>
     </section>
 
-    <!-- 3. Decision framework -->
     <section class="reveal">
       <div class="eyebrow"><span class="num">2</span><span class="lab">Your tools</span></div>
       <h2>The decision framework</h2>
@@ -236,15 +255,13 @@
       </div>
     </section>
 
-    <!-- 4. Event decisions -->
     <section class="reveal">
       <div class="eyebrow"><span class="num">3</span><span class="lab">Your decisions</span></div>
       <h2>Evaluate each event</h2>
-      <p class="lead-line">For each event, choose an action and explain your reasoning. There is no single correct answer — your justification is what counts.</p>
+      <p class="lead-line">For each event, choose an action and explain your reasoning. Each event has a recommended call worth 10 points, with partial credit for a reasonable alternate — but your justification is what your instructor will weigh most.</p>
 
-      <!-- Event 1 -->
       <div class="eblock">
-        <div class="eh"><span class="enum">1</span><span class="etitle">Sign-in from a new location</span><span class="etime">9:14 AM</span></div>
+        <div class="eh"><span class="enum">1</span><span class="etitle">Sign-in from a new location</span><span class="etime">9:14 AM</span><span class="epts">10 pts</span></div>
         <div class="eb">
           <div class="context">
             <div class="ctx what"><span class="ct">What happened</span><span>Account U-331 signed in successfully from Denver — a city never seen before on this account.</span></div>
@@ -257,12 +274,13 @@
             <button class="dbtn" data-ev="e1" data-v="escalate">Escalate</button>
           </div>
           <textarea id="r1" placeholder="Why did you choose this? Could there be an innocent explanation? What would make you change your mind?"></textarea>
+          <div class="compareRow"><button class="cmpBtn" data-target="m1">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+          <div class="modelBox" id="m1"><div class="ml">Model answer</div><p>A brand-new city on this account is worth watching, but on its own it isn't proof of compromise — remote work, travel, or a VPN could explain it. I'd monitor rather than escalate immediately, and I'd want to see if this location repeats or pairs with other unusual activity (like the repeated sign-in attempts) before treating it as a real problem.</p></div>
         </div>
       </div>
 
-      <!-- Event 2 -->
       <div class="eblock">
-        <div class="eh"><span class="enum">2</span><span class="etitle">System slowdown</span><span class="etime">2:14 PM</span></div>
+        <div class="eh"><span class="enum">2</span><span class="etitle">System slowdown</span><span class="etime">2:14 PM</span><span class="epts">10 pts</span></div>
         <div class="eb">
           <div class="context">
             <div class="ctx what"><span class="ct">What happened</span><span>The hospital records system ran slower than usual for 6 minutes. No cause was identified. It then returned to normal on its own.</span></div>
@@ -275,12 +293,13 @@
             <button class="dbtn" data-ev="e2" data-v="escalate">Escalate</button>
           </div>
           <textarea id="r2" placeholder="Does the hospital setting change how you think about this? What would a second slowdown tomorrow mean?"></textarea>
+          <div class="compareRow"><button class="cmpBtn" data-target="m2">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+          <div class="modelBox" id="m2"><div class="ml">Model answer</div><p>The AI is right that slowdowns often have routine causes, but I wouldn't fully ignore this given it happened on a hospital records system. I'd monitor it and note the time — if it happens again tomorrow around the same time, that pattern would push me toward escalating.</p></div>
         </div>
       </div>
 
-      <!-- Event 3 -->
       <div class="eblock">
-        <div class="eh"><span class="enum">3</span><span class="etitle">Repeated sign-in attempts</span><span class="etime">3:40 PM</span></div>
+        <div class="eh"><span class="enum">3</span><span class="etitle">Repeated sign-in attempts</span><span class="etime">3:40 PM</span><span class="epts">10 pts</span></div>
         <div class="eb">
           <div class="context">
             <div class="ctx what"><span class="ct">What happened</span><span>Account U-118 had 5 failed sign-in tries in a row, then successfully signed in. The account is based in Chicago.</span></div>
@@ -293,12 +312,13 @@
             <button class="dbtn" data-ev="e3" data-v="escalate">Escalate</button>
           </div>
           <textarea id="r3" placeholder="Could this be someone who simply forgot their password? What other possibilities are there? Does it matter that the location is normal?"></textarea>
+          <div class="compareRow"><button class="cmpBtn" data-target="m3">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+          <div class="modelBox" id="m3"><div class="ml">Model answer</div><p>Multiple failed logins followed by a success is one of the clearest warning signs here — it could be a forgotten password, but it's also a classic pattern for a guessed or stolen credential being tried repeatedly. Even though the account's location is normal, the pattern itself is what matters. I'd escalate this one so someone can verify with the account holder directly.</p></div>
         </div>
       </div>
 
-      <!-- Event 4 -->
       <div class="eblock">
-        <div class="eh"><span class="enum">4</span><span class="etitle">After-hours file access</span><span class="etime">6:12 PM</span></div>
+        <div class="eh"><span class="enum">4</span><span class="etitle">After-hours file access</span><span class="etime">6:12 PM</span><span class="epts">10 pts</span></div>
         <div class="eb">
           <div class="context">
             <div class="ctx what"><span class="ct">What happened</span><span>Account U-450 accessed files at 6:12 PM from a remote location — outside of the normal working window. The system allowed it.</span></div>
@@ -311,11 +331,25 @@
             <button class="dbtn" data-ev="e4" data-v="escalate">Escalate</button>
           </div>
           <textarea id="r4" placeholder="Is remote after-hours work common for this kind of organization? What more would you want to know before escalating?"></textarea>
+          <div class="compareRow"><button class="cmpBtn" data-target="m4">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+          <div class="modelBox" id="m4"><div class="ml">Model answer</div><p>Remote after-hours access is common enough on its own that I wouldn't escalate immediately, especially since the system allowed it. I'd monitor it and check whether this is a normal pattern for this specific user, or a one-time event worth asking about.</p></div>
         </div>
+      </div>
+
+      <div class="scoreCard">
+        <div class="scoreHead">
+          <div>
+            <div class="stitle" style="font-size:1.1rem;margin-bottom:2px">Check your decisions</div>
+            <div class="snote" style="color:var(--muted)">Choose all four events above, then check your score against the recommended calls.</div>
+          </div>
+          <button class="checkBtn" id="checkDecisions" disabled>Check My Decisions</button>
+        </div>
+        <div class="scoreRows" id="scoreRows" style="display:none"></div>
+        <div class="scoreTotal" id="scoreTotal" style="display:none;margin-top:16px">0<span> / 40 points</span></div>
+        <div class="scoreNote">Scoring reflects a recommended call, not the only defensible one — a well-reasoned alternate still earns partial credit. Your written reasoning is graded separately by your instructor.</div>
       </div>
     </section>
 
-    <!-- 5. Tradeoff thinking -->
     <section class="reveal">
       <div class="eyebrow"><span class="num">4</span><span class="lab">Think it through</span></div>
       <h2>The tradeoffs of every decision</h2>
@@ -326,22 +360,24 @@
         <div class="tq t3"><div class="tc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/></svg></div><div><div class="ttext">How do you stay careful without overreacting to everything?</div><div class="tsub">What does good judgment look like when you're not sure?</div></div></div>
       </div>
       <textarea id="tradeoff" placeholder="Write your thoughts on the tradeoffs here — there's no pressure to have it all figured out..."></textarea>
+      <div class="compareRow"><button class="cmpBtn" data-target="mTradeoff">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+      <div class="modelBox" id="mTradeoff"><div class="ml">Model answer</div><p>Ignoring something real means the damage happens before anyone reacts — in a hospital system, that could mean patient data exposure. Escalating something normal wastes senior analysts' time and can cause "alert fatigue," where real threats get missed later because everything looks urgent. Good judgment means using context — like whether a pattern repeats, or whether the system involved is high-stakes — rather than reacting to every flag the same way.</p></div>
       <div class="principle" style="margin-top:22px">
         <span class="qm">"</span>
         <p>Good analysts are careful — not alarmist.</p>
       </div>
     </section>
 
-    <!-- 6. Final synthesis -->
     <section class="reveal">
       <div class="eyebrow"><span class="num">5</span><span class="lab">Big picture</span></div>
       <h2>If this system were yours</h2>
       <p class="lead-line">One last question before you submit your report.</p>
       <p>If you were responsible for the Sentinel Monitoring Center tomorrow, what would you pay the most attention to — and why?</p>
       <textarea id="synthesis" style="margin-top:14px;min-height:110px" placeholder="Tomorrow I'd focus on... because..."></textarea>
+      <div class="compareRow"><button class="cmpBtn" data-target="mSynthesis">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+      <div class="modelBox" id="mSynthesis"><div class="ml">Model answer</div><p>Tomorrow I'd focus on whether the new-location login and the failed sign-in pattern repeat, or connect to the same account. A one-time anomaly is far less concerning than a recurring one, and connecting dots across separate events is usually where real risk shows up first.</p></div>
     </section>
 
-    <!-- 7. Final deliverable -->
     <section class="reveal">
       <div class="eyebrow"><span class="num">6</span><span class="lab">Your report</span></div>
       <h2>Sentinel Operational Decision Report</h2>
@@ -351,12 +387,16 @@
         <div class="dh"><span class="dn">1</span><h3>Phase A — key observations in your own words</h3></div>
         <div class="dsub">What stood out to you during the human investigation? Summarize it as if you're handing off to the next shift.</div>
         <textarea id="paObs" placeholder="From my own review of the data, the things that stood out were..."></textarea>
+        <div class="compareRow"><button class="cmpBtn" data-target="mPaObs">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+        <div class="modelBox" id="mPaObs"><div class="ml">Model answer</div><p>From my own review, the sign-in from a new location and the repeated failed attempts stood out the most — both involve account access, which is the area most likely to indicate a real problem. The slowdown and after-hours access felt more like context to keep in mind than immediate red flags.</p></div>
       </div>
 
       <div class="deliv">
         <div class="dh"><span class="dn">2</span><h3>Phase B — AI insights in your own words</h3></div>
         <div class="dsub">What did the AI add, change, or miss compared to your own thinking?</div>
         <textarea id="pbSummary" placeholder="The AI analysis helped me see... but I disagreed with it on..."></textarea>
+        <div class="compareRow"><button class="cmpBtn" data-target="mPbSummary">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+        <div class="modelBox" id="mPbSummary"><div class="ml">Model answer</div><p>The AI helped me see that the slowdown probably isn't linked to the other events, which I hadn't weighed as clearly on my own. I disagreed with it slightly on the after-hours access — the AI treated it as routine, and while I agree it isn't urgent, I still think it's worth a closer look given the timing.</p></div>
       </div>
 
       <div class="deliv">
@@ -373,6 +413,8 @@
         <div class="dh"><span class="dn">4</span><h3>Tomorrow's monitoring focus</h3></div>
         <div class="dsub">One thing you'd tell the next analyst to watch closely when their shift starts.</div>
         <textarea id="tomorrow" placeholder="First thing tomorrow, watch for..."></textarea>
+        <div class="compareRow"><button class="cmpBtn" data-target="mTomorrow">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+        <div class="modelBox" id="mTomorrow"><div class="ml">Model answer</div><p>First thing tomorrow, watch account U-118 and U-331 for repeat activity. If either shows another anomaly, that's a stronger signal to escalate rather than just monitor.</p></div>
       </div>
 
       <div class="exportbar">
@@ -382,7 +424,6 @@
       <div class="saved" id="saved"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Your Operational Decision Report has been saved.</div>
     </section>
 
-    <!-- Module 1 Complete / Transition -->
     <section class="reveal">
       <div class="closing">
         <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg><div><div class="bt">Module 1 Complete</div><div class="bs">Sentinel Monitoring Center · Level 1 Analyst</div></div></div>
@@ -400,23 +441,16 @@
   const evDecisions = {e1:'',e2:'',e3:'',e4:''};
   let riskLevel = '';
 
-  // Event decision toggles
-  document.querySelectorAll('.decide .dbtn').forEach(b=>{
-    b.addEventListener('click',()=>{
-      evDecisions[b.dataset.ev]=b.dataset.v;
-      b.parentElement.querySelectorAll('.dbtn').forEach(x=>x.classList.remove('on'));
-      b.classList.add('on');
-    });
-  });
-
-  // Risk level buttons
-  document.querySelectorAll('.rbtn').forEach(b=>{
-    b.addEventListener('click',()=>{
-      riskLevel=b.dataset.r;
-      document.querySelectorAll('.rbtn').forEach(x=>x.classList.remove('on'));
-      b.classList.add('on');
-    });
-  });
+  const recommended = {
+    e1: { best:'monitor', partial:['escalate'],
+      why:"Recommended: Monitor. A brand-new login location is worth watching closely, but on its own isn't proof of compromise. Escalating earns partial credit as a reasonably cautious call; ignoring it does not." },
+    e2: { best:'monitor', partial:['ignore'],
+      why:"Recommended: Monitor. The AI's read (low concern, no clear cause) is reasonable, so ignoring earns partial credit — but the hospital setting justifies keeping an eye on it rather than dropping it entirely." },
+    e3: { best:'escalate', partial:['monitor'],
+      why:"Recommended: Escalate. Repeated failures followed by a success is the clearest warning pattern in this set. Monitoring earns partial credit as a defensible first step; ignoring it does not." },
+    e4: { best:'monitor', partial:['ignore'],
+      why:"Recommended: Monitor. Remote after-hours access is common and the system allowed it, so ignoring earns partial credit — but the unusual timing is still worth a closer look before dropping it." }
+  };
 
   const events=[
     {id:'e1',time:'9:14 AM',title:'Sign-in from a new location',ra:'r1'},
@@ -425,7 +459,83 @@
     {id:'e4',time:'6:12 PM',title:'After-hours file access',ra:'r4'}
   ];
 
+  const checkBtn = document.getElementById('checkDecisions');
+
+  function allChosen(){ return events.every(ev => evDecisions[ev.id]); }
+  function updateCheckBtn(){ checkBtn.disabled = !allChosen(); }
+
+  document.querySelectorAll('.decide .dbtn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      evDecisions[b.dataset.ev]=b.dataset.v;
+      b.parentElement.querySelectorAll('.dbtn').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+      updateCheckBtn();
+    });
+  });
+
+  checkBtn.addEventListener('click', ()=>{
+    const rowsEl = document.getElementById('scoreRows');
+    const totalEl = document.getElementById('scoreTotal');
+    rowsEl.innerHTML='';
+    let total = 0;
+    events.forEach(ev=>{
+      const chosen = evDecisions[ev.id];
+      const rec = recommended[ev.id];
+      let pts, cls, icon;
+      if(chosen === rec.best){ pts=10; cls='full'; icon='✓'; }
+      else if(rec.partial.includes(chosen)){ pts=5; cls='part'; icon='½'; }
+      else { pts=0; cls='none'; icon='✕'; }
+      total += pts;
+      const row = document.createElement('div');
+      row.className = 'srow '+cls;
+      row.innerHTML = '<div class="sic">'+icon+'</div><div style="flex:1"><div class="stitle">'+ev.title+' — you chose '+chosen.toUpperCase()+'</div><div class="snote">'+rec.why+'</div></div><div class="spts">'+pts+' / 10</div>';
+      rowsEl.appendChild(row);
+    });
+    rowsEl.style.display='flex';
+    totalEl.style.display='block';
+    totalEl.innerHTML = total+'<span> / 40 points</span>';
+  });
+
+  document.querySelectorAll('.cmpBtn').forEach(btn=>{
+    const targetId = btn.dataset.target;
+    const box = document.getElementById(targetId);
+    const eblock = btn.closest('.eb') || btn.closest('section');
+    const ta = eblock ? eblock.querySelector('textarea') : null;
+    function refresh(){
+      if(ta && ta.value.trim().length >= 15){ btn.classList.add('ready'); }
+      else { btn.classList.remove('ready'); box.classList.remove('show'); }
+    }
+    if(ta){ ta.addEventListener('input', refresh); refresh(); }
+    btn.addEventListener('click', ()=>{
+      if(!btn.classList.contains('ready')) return;
+      box.classList.toggle('show');
+    });
+  });
+
+  document.querySelectorAll('.rbtn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      riskLevel=b.dataset.r;
+      document.querySelectorAll('.rbtn').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+    });
+  });
+
   function val(id){const el=document.getElementById(id); return el?el.value.trim():'';}
+
+  function scoreSummaryText(){
+    let out='';
+    let total=0;
+    events.forEach(ev=>{
+      const chosen = evDecisions[ev.id];
+      const rec = recommended[ev.id];
+      let pts=0;
+      if(chosen===rec.best) pts=10; else if(rec.partial.includes(chosen)) pts=5;
+      total+=pts;
+      out += ev.title+': chose '+(chosen?chosen.toUpperCase():'(not chosen)')+' — '+pts+'/10 pts\n';
+    });
+    out += 'Decision score: '+total+' / 40\n';
+    return out;
+  }
 
   function buildReport(){
     let out='SENTINEL MONITORING CENTER\nOperational Decision Report\nLevel 1 Security Monitoring Analyst — Phase C\n';
@@ -434,13 +544,14 @@
     out+=(val('paObs')||'(not answered)')+'\n';
     out+='\n========================================\nPHASE B — AI INSIGHTS SUMMARY\n========================================\n';
     out+=(val('pbSummary')||'(not answered)')+'\n';
-    out+='\n========================================\nFINAL EVENT DECISIONS\n========================================\n';
+    out+='\n========================================\nFINAL EVENT DECISIONS & SCORING\n========================================\n';
     events.forEach((ev,i)=>{
       const d=evDecisions[ev.id];
       out+='\n['+(i+1)+'] '+ev.time+' — '+ev.title+'\n';
       out+='Decision: '+(d?d.toUpperCase():'(not chosen)')+'\n';
       out+='Reasoning: '+(val(ev.ra)||'(not written)')+'\n';
     });
+    out+='\n'+scoreSummaryText();
     out+='\n========================================\nTRADEOFF REFLECTION\n========================================\n';
     out+=(val('tradeoff')||'(not answered)')+'\n';
     out+='\n========================================\nFINAL SYNTHESIS — WHAT TO FOCUS ON TOMORROW\n========================================\n';
