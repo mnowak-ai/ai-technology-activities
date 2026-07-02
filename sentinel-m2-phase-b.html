@@ -59,7 +59,6 @@
   .principle .qm{font-family:'Fraunces',serif;font-size:2.4rem;line-height:.5;color:#C9A8EC;display:block;margin-bottom:6px}
   .principle p{font-family:'Fraunces',serif;font-weight:500;font-size:1.26rem;line-height:1.35;color:#fff;margin:0;position:relative}
 
-  /* case copy cards */
   .ccase{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:14px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
   .ccase .ch{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px;flex-wrap:wrap;gap:8px}
   .case1 .ch{background:#1A2733;border-bottom:1px solid rgba(58,107,138,.3)}
@@ -80,8 +79,25 @@
   .copyall:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(123,47,190,.3)}
   .copyall svg{width:17px;height:17px}
 
-  /* workflow steps */
-  .flow{display:flex;flex-direction:column;gap:0;margin-top:8px}
+  /* AI tool launcher */
+  .toolrow{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+  .toolcard{flex:1 1 220px;display:flex;align-items:center;gap:13px;border-radius:15px;padding:16px 18px;text-decoration:none;border:1.5px solid var(--line);background:var(--card);transition:transform .16s,box-shadow .16s,border-color .16s;box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .toolcard:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(31,26,38,.09)}
+  .toolcard .tic{flex:0 0 auto;width:42px;height:42px;border-radius:11px;display:grid;place-items:center;color:#fff;font-family:'Fraunces',serif;font-weight:600;font-size:1.1rem}
+  .toolcard.gpt{border-color:#D7E3E8}
+  .toolcard.gpt .tic{background:linear-gradient(150deg,#10A37F,#0C7C61)}
+  .toolcard.claude{border-color:var(--purple-line)}
+  .toolcard.claude .tic{background:linear-gradient(150deg,var(--purple),var(--purple-deep))}
+  .toolcard.copilot{border-color:#CFE0F5}
+  .toolcard.copilot .tic{background:linear-gradient(150deg,#2E7BCE,#1E5A9E)}
+  .toolcard .tt{flex:1 1 auto}
+  .toolcard .tname{font-weight:700;color:var(--ink);font-size:.98rem;margin-bottom:1px}
+  .toolcard .tsub{font-size:.82rem;color:var(--muted)}
+  .toolcard .tgo{flex:0 0 auto;color:var(--muted)}
+  .toolcard .tgo svg{width:16px;height:16px}
+  .toolnote{font-size:.88rem;color:var(--muted);margin-top:10px}
+
+  .flow{display:flex;flex-direction:column;gap:0;margin-top:24px}
   .step{display:flex;gap:18px;position:relative;padding-bottom:22px}
   .step:last-child{padding-bottom:0}
   .step .rail{flex:0 0 auto;display:flex;flex-direction:column;align-items:center}
@@ -92,7 +108,6 @@
   .step h3{font-size:1.06rem;font-weight:700;color:var(--ink);margin-bottom:3px}
   .step p{font-size:1rem;margin:0}
 
-  /* prompt box */
   .promptbox{background:#FAF6FD;border:1px solid var(--purple-line);border-radius:14px;padding:18px 20px;margin-top:14px}
   .promptbox .pl{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
   .promptbox .pl .tag{font-size:.7rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--purple-deep)}
@@ -104,7 +119,6 @@
   .follow{display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:12px 14px;font-size:.98rem;color:var(--slate)}
   .follow svg{width:16px;height:16px;color:var(--purple);flex:0 0 auto;margin-top:3px}
 
-  /* AI panels */
   .duo{display:flex;flex-wrap:wrap;gap:16px;margin-top:8px}
   .panel{flex:1 1 320px;border-radius:16px;padding:22px;background:var(--card);border:1px solid var(--line);box-shadow:0 1px 2px rgba(31,26,38,.04)}
   .panel .ph{display:flex;align-items:center;gap:10px;margin-bottom:14px}
@@ -118,7 +132,6 @@
   .panel .item .mk{flex:0 0 auto;margin-top:1px;font-weight:700;color:var(--green)}
   .panel.no .item .mk{color:var(--amber)}
 
-  /* per-case comparison blocks */
   .cblock{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:16px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
   .cblock .bh{display:flex;align-items:center;gap:12px;padding:15px 20px;border-bottom:1px solid var(--line)}
   .case1 .bh{background:#EAF2F7}
@@ -136,6 +149,16 @@
   textarea:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 3px rgba(123,47,190,.12)}
   textarea::placeholder{color:#B5AFC0}
 
+  .compareRow{display:flex;justify-content:flex-end;margin-top:6px}
+  .cmpBtn{background:none;border:none;color:var(--purple-deep);font-family:'DM Sans',sans-serif;font-weight:700;font-size:.83rem;cursor:pointer;padding:5px 3px;display:inline-flex;align-items:center;gap:5px;opacity:.4;pointer-events:none;transition:opacity .15s}
+  .cmpBtn.ready{opacity:1;pointer-events:auto}
+  .cmpBtn:hover.ready{text-decoration:underline}
+  .cmpBtn svg{width:12px;height:12px}
+  .modelBox{display:none;margin-top:8px;background:var(--purple-soft);border:1px solid var(--purple-line);border-radius:12px;padding:13px 15px}
+  .modelBox.show{display:block}
+  .modelBox .ml{font-size:.68rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--purple-deep);margin-bottom:5px}
+  .modelBox p{font-size:.93rem;color:var(--ink);margin:0}
+
   .sev-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
   .sevbtn{flex:1 1 80px;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:9px 8px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.88rem;color:var(--slate);cursor:pointer;transition:all .16s;text-align:center}
   .sevbtn:hover{border-color:var(--purple-line)}
@@ -143,7 +166,6 @@
   .sevbtn[data-s="medium"].on{background:var(--amber-soft);border-color:var(--amber);color:var(--amber)}
   .sevbtn[data-s="high"].on{background:var(--red-soft);border-color:var(--red);color:var(--red)}
 
-  /* overall deliverable */
   .deliv{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin-top:16px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
   .deliv .dh{display:flex;align-items:center;gap:12px;margin-bottom:6px}
   .deliv .dn{flex:0 0 auto;width:32px;height:32px;border-radius:9px;background:var(--purple-soft);color:var(--purple-deep);font-family:'Fraunces',serif;font-weight:600;display:grid;place-items:center}
@@ -174,7 +196,7 @@
   .reveal.in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.dot{animation:none}}
   @media(max-width:600px){body{padding:0 16px 70px}.closing{padding:34px 26px}.chips{width:100%;margin-left:0}}
-  @media print{.opsbar,.exportbar,.closing,.copybtn,.copyall,.pcopy{display:none!important}body{background:#fff}.reveal{opacity:1;transform:none}}
+  @media print{.opsbar,.exportbar,.closing,.copybtn,.copyall,.pcopy,.toolrow,.cmpBtn{display:none!important}body{background:#fff}.reveal{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -199,7 +221,6 @@
     <p class="lede">Use AI to analyze the same three incidents from Phase A — then verify its recommendations using your own judgment.</p>
   </header>
 
-  <!-- Intro -->
   <section class="reveal">
     <div class="eyebrow"><span class="num">B</span><span class="lab">What shifts now</span></div>
     <h2>A second opinion — from AI</h2>
@@ -211,7 +232,6 @@
     </div>
   </section>
 
-  <!-- The three cases to copy -->
   <section class="reveal">
     <div class="eyebrow"><span class="num">1</span><span class="lab">The cases</span></div>
     <h2>Your three incidents</h2>
@@ -284,11 +304,30 @@ Context:
     <button class="copyall" id="copyAll"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> <span id="copyAllLabel">Copy all three cases</span></button>
   </section>
 
-  <!-- Step 1 — use the AI tool -->
   <section class="reveal">
     <div class="eyebrow"><span class="num">2</span><span class="lab">The workflow</span></div>
     <h2>Run them through an AI tool</h2>
-    <p class="lead-line">Open ChatGPT, Claude, or Microsoft Copilot — then follow these steps.</p>
+    <p class="lead-line">Pick a tool below to open it in a new tab, then follow the steps.</p>
+
+    <div class="toolrow">
+      <a class="toolcard gpt" href="https://chatgpt.com" target="_blank" rel="noopener">
+        <span class="tic">G</span>
+        <span class="tt"><span class="tname">ChatGPT</span><span class="tsub">chatgpt.com</span></span>
+        <span class="tgo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg></span>
+      </a>
+      <a class="toolcard claude" href="https://claude.ai" target="_blank" rel="noopener">
+        <span class="tic">C</span>
+        <span class="tt"><span class="tname">Claude</span><span class="tsub">claude.ai</span></span>
+        <span class="tgo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg></span>
+      </a>
+      <a class="toolcard copilot" href="https://copilot.microsoft.com" target="_blank" rel="noopener">
+        <span class="tic">M</span>
+        <span class="tt"><span class="tname">Microsoft Copilot</span><span class="tsub">copilot.microsoft.com</span></span>
+        <span class="tgo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg></span>
+      </a>
+    </div>
+    <div class="toolnote">Each opens in a new tab — your progress on this page won't be lost.</div>
+
     <div class="flow">
       <div class="step"><div class="rail"><span class="bub">1</span><span class="line"></span></div><div class="body"><h3>Copy the cases</h3><p>Use the "Copy all three cases" button above, or copy each one individually.</p></div></div>
       <div class="step"><div class="rail"><span class="bub">2</span><span class="line"></span></div><div class="body"><h3>Paste them in</h3><p>Drop all three into your AI tool's message box at once.</p></div></div>
@@ -309,7 +348,6 @@ Context:
     </div>
   </section>
 
-  <!-- Step 2 — what AI does -->
   <section class="reveal">
     <div class="eyebrow"><span class="num">3</span><span class="lab">Read it carefully</span></div>
     <h2>What AI may do — well, and not</h2>
@@ -336,22 +374,29 @@ Context:
     </div>
   </section>
 
-  <!-- Step 3+4 — build the report -->
   <section class="reveal">
     <div class="eyebrow"><span class="num">4</span><span class="lab">Build your report</span></div>
     <h2>Compare, correct, and verify</h2>
-    <p class="lead-line">Work through each case. For each one, compare what the AI said to what you found in Phase A — then decide what the corrected version looks like.</p>
+    <p class="lead-line">Work through each case. For each one, compare what the AI said to what you found in Phase A — then decide what the corrected version looks like. Once you've written a response, you can compare it to a model answer.</p>
 
-    <!-- Case 1 comparison -->
     <div class="cblock case1">
       <div class="bh"><span class="bnum">1</span><span class="bt">INC-0241 — System Running Slowly</span></div>
       <div class="bi">
         <label class="fl">What did the AI say about this case? (paste or summarize)</label>
         <textarea id="ai1" placeholder="The AI suggested... It said the likely cause was... It rated severity as..."></textarea>
+        <div class="compareRow"><button class="cmpBtn" data-target="mai1">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+        <div class="modelBox" id="mai1"><div class="ml">Model answer</div><p>A strong AI response typically identifies system load as the most likely cause, pointing to the jump from ~40 to 60+ simultaneous users, and rates this low-to-medium severity since there's no error or crash — just degraded performance under heavier-than-normal use.</p></div>
+
         <label class="fl mt">Where did the AI agree with your Phase A thinking?</label>
         <textarea id="ag1" placeholder="The AI and I both noticed... We agreed that..."></textarea>
+        <div class="compareRow"><button class="cmpBtn" data-target="mag1">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+        <div class="modelBox" id="mag1"><div class="ml">Model answer</div><p>The AI and I agreed the system is under heavier-than-normal load and that this isn't a critical failure — no crash, no data loss, no error messages, just slowness.</p></div>
+
         <label class="fl mt">Where did the AI get it wrong, miss context, or go too far?</label>
         <textarea id="dg1" placeholder="The AI missed the fact that... It overcomplicated things by... It didn't mention the end-of-month deadline context..."></textarea>
+        <div class="compareRow"><button class="cmpBtn" data-target="mdg1">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+        <div class="modelBox" id="mdg1"><div class="ml">Model answer</div><p>If the AI didn't specifically connect the slowdown to the end-of-month reporting deadline, that's a miss — knowing today is a predictable high-traffic day changes how urgent this feels. It's expected capacity strain, not a mystery bug.</p></div>
+
         <label class="fl mt">Updated severity — after seeing AI analysis, what's your call?</label>
         <div class="sev-row">
           <button class="sevbtn" data-case="u1" data-s="low">Low</button>
@@ -361,16 +406,24 @@ Context:
       </div>
     </div>
 
-    <!-- Case 2 comparison -->
     <div class="cblock case2">
       <div class="bh"><span class="bnum">2</span><span class="bt">INC-0242 — Users Cannot Log In Properly</span></div>
       <div class="bi">
         <label class="fl">What did the AI say about this case? (paste or summarize)</label>
         <textarea id="ai2" placeholder="The AI suggested... It said the likely cause was... It rated severity as..."></textarea>
+        <div class="compareRow"><button class="cmpBtn" data-target="mai2">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+        <div class="modelBox" id="mai2"><div class="ml">Model answer</div><p>A strong AI response often flags this as a potential security concern at first, since repeated failed logins can resemble a brute-force attempt — then, once given the password-policy context, should shift toward recommending a reset and clearer communication instead.</p></div>
+
         <label class="fl mt">Where did the AI agree with your Phase A thinking?</label>
         <textarea id="ag2" placeholder="The AI and I both noticed... We agreed that..."></textarea>
+        <div class="compareRow"><button class="cmpBtn" data-target="mag2">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+        <div class="modelBox" id="mag2"><div class="ml">Model answer</div><p>We agreed that only a few accounts are affected and the system itself is healthy — that points away from a system-wide failure.</p></div>
+
         <label class="fl mt">Where did the AI get it wrong, miss context, or go too far?</label>
         <textarea id="dg2" placeholder="The AI jumped straight to a security concern without considering the password policy change... It didn't account for the communication gap..."></textarea>
+        <div class="compareRow"><button class="cmpBtn" data-target="mdg2">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+        <div class="modelBox" id="mdg2"><div class="ml">Model answer</div><p>If the AI leaned toward "possible unauthorized access" without weighing the recent password-policy change and the communication gap, that's overcautious — the context makes a mundane explanation more likely than a security incident.</p></div>
+
         <label class="fl mt">Updated severity — after seeing AI analysis, what's your call?</label>
         <div class="sev-row">
           <button class="sevbtn" data-case="u2" data-s="low">Low</button>
@@ -380,16 +433,24 @@ Context:
       </div>
     </div>
 
-    <!-- Case 3 comparison -->
     <div class="cblock case3">
       <div class="bh"><span class="bnum">3</span><span class="bt">INC-0243 — Strange Behavior, No Clear Cause</span></div>
       <div class="bi">
         <label class="fl">What did the AI say about this case? (paste or summarize)</label>
         <textarea id="ai3" placeholder="The AI suggested... It said the likely cause was... It rated severity as..."></textarea>
+        <div class="compareRow"><button class="cmpBtn" data-target="mai3">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+        <div class="modelBox" id="mai3"><div class="ml">Model answer</div><p>A strong AI response usually offers a few possibilities — caching issues, network problems, or account permissions — and rates this medium severity given the inconsistency and lack of a clear pattern.</p></div>
+
         <label class="fl mt">Where did the AI agree with your Phase A thinking?</label>
         <textarea id="ag3" placeholder="The AI and I both noticed the inconsistency... We agreed that..."></textarea>
+        <div class="compareRow"><button class="cmpBtn" data-target="mag3">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+        <div class="modelBox" id="mag3"><div class="ml">Model answer</div><p>We agreed the pattern — works for some, not others, sometimes resolves on retry — points to something environmental rather than a broken feature.</p></div>
+
         <label class="fl mt">Where did the AI get it wrong, miss context, or go too far?</label>
         <textarea id="dg3" placeholder="The AI didn't connect the folder reorganization to the error... It suggested complex causes when the explanation might be simpler..."></textarea>
+        <div class="compareRow"><button class="cmpBtn" data-target="mdg3">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+        <div class="modelBox" id="mdg3"><div class="ml">Model answer</div><p>If the AI didn't connect the recent folder reorganization to the save errors, that's a real miss — it's the most specific, recent change that explains exactly this kind of inconsistent, account-by-account failure.</p></div>
+
         <label class="fl mt">Updated severity — after seeing AI analysis, what's your call?</label>
         <div class="sev-row">
           <button class="sevbtn" data-case="u3" data-s="low">Low</button>
@@ -399,11 +460,12 @@ Context:
       </div>
     </div>
 
-    <!-- Overall -->
     <div class="deliv" style="margin-top:20px">
       <div class="dh"><span class="dn">+</span><h3>Corrected overall diagnosis</h3></div>
       <div class="dsub">After comparing human and AI analysis across all three cases, write your improved, human-verified summary of what's going on across the system today.</div>
       <textarea id="overall" placeholder="Looking at all three cases together, the most accurate picture is... The AI helped me see... but I'd correct it on... The most important thing to address first is..."></textarea>
+      <div class="compareRow"><button class="cmpBtn" data-target="mOverall">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+      <div class="modelBox" id="mOverall"><div class="ml">Model answer</div><p>Across all three, each incident has a plausible, mundane explanation once you factor in what changed recently — heavier traffic, a password policy update, and a folder reorganization. None of these look like genuine security threats. The AI was useful for generating fast possibilities, but its first instinct leaned more cautious and security-focused than the situation warranted — the workplace context from Phase A was what actually resolved the ambiguity. If prioritizing, I'd address the login lockouts first since it's blocking hospital staff from their accounts, then check the permissions gap behind the school district file errors.</p></div>
     </div>
 
     <div class="exportbar">
@@ -413,7 +475,6 @@ Context:
     <div class="saved" id="saved"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Your troubleshooting review report has been saved.</div>
   </section>
 
-  <!-- Transition -->
   <section class="reveal">
     <div class="closing">
       <div class="eyebrow"><span class="num">→</span><span class="lab">Next: Phase C</span></div>
@@ -457,6 +518,28 @@ Context:
   document.querySelectorAll('.copybtn').forEach(b=>{ b.addEventListener('click',()=>copyText(map[b.dataset.copy],b,'Copied')); });
   document.getElementById('copyAll').addEventListener('click',(e)=>copyText(allCases,e.currentTarget,'All three copied'));
   document.getElementById('copyPrompt').addEventListener('click',(e)=>copyText(promptTxt,e.currentTarget,'Prompt copied'));
+
+  document.querySelectorAll('.cmpBtn').forEach(btn=>{
+    const targetId = btn.dataset.target;
+    const box = document.getElementById(targetId);
+    // the textarea for this compare button is always the element immediately
+    // preceding its compareRow wrapper
+    let ta = null;
+    let candidate = btn.parentElement.previousElementSibling;
+    while(candidate){
+      if(candidate.tagName === 'TEXTAREA'){ ta = candidate; break; }
+      candidate = candidate.previousElementSibling;
+    }
+    function refresh(){
+      if(ta && ta.value.trim().length >= 15){ btn.classList.add('ready'); }
+      else { btn.classList.remove('ready'); box.classList.remove('show'); }
+    }
+    if(ta){ ta.addEventListener('input', refresh); refresh(); }
+    btn.addEventListener('click', ()=>{
+      if(!btn.classList.contains('ready')) return;
+      box.classList.toggle('show');
+    });
+  });
 
   const caseData=[
     {label:'CASE 1 — System Running Slowly (INC-0241)',ai:'ai1',ag:'ag1',dg:'dg1',sev:'u1'},
