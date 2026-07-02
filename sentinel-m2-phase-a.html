@@ -29,7 +29,6 @@
   }
   .wrap{max-width:880px;margin:0 auto}
 
-  /* ── Ops bar ── */
   .opsbar{max-width:880px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:16px 4px;border-bottom:1px solid var(--line)}
   .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:.95rem}
   .shield{width:30px;height:30px;display:grid;place-items:center;border-radius:8px;background:linear-gradient(150deg,var(--purple),var(--purple-deep));color:#fff;box-shadow:0 4px 12px rgba(91,31,146,.28)}
@@ -39,13 +38,11 @@
   .dot{width:7px;height:7px;border-radius:50%;background:var(--purple);box-shadow:0 0 0 3px rgba(123,47,190,.16);animation:pulse 2.2s ease-in-out infinite}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
 
-  /* ── Hero ── */
   .hero{padding:54px 0 12px}
   .kicker{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--purple-deep);background:var(--purple-soft);border:1px solid var(--purple-line);padding:6px 13px;border-radius:999px;margin-bottom:22px}
   h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.1rem,5.2vw,3.2rem);line-height:1.06;letter-spacing:-.5px;margin-bottom:16px}
   .lede{font-size:1.15rem;color:var(--slate);max-width:58ch}
 
-  /* ── Sections ── */
   section{padding:46px 0;border-top:1px solid var(--line)}
   section:first-of-type{border-top:none}
   .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:16px}
@@ -57,20 +54,17 @@
   p strong{color:var(--ink);font-weight:600}
   .lead-line{font-size:1.08rem;color:var(--ink);font-weight:500;margin-bottom:16px}
 
-  /* ── Aside ── */
   .aside{display:flex;gap:16px;background:var(--purple-soft);border:1px solid var(--purple-line);border-radius:16px;padding:20px 22px;margin:22px 0 0}
   .aside .ail{flex:0 0 auto;width:40px;height:40px;border-radius:11px;background:#fff;border:1px solid var(--purple-line);display:grid;place-items:center;color:var(--purple-deep)}
   .aside .ail svg{width:21px;height:21px}
   .aside .tag{font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple-deep);margin-bottom:6px}
   .aside p{margin:0;font-size:.98rem;color:var(--slate)}
 
-  /* ── Principle banner ── */
   .principle{margin:26px 0 0;padding:28px 30px;border-radius:18px;background:linear-gradient(135deg,#2A1840,#4A1E78);color:#fff;position:relative;overflow:hidden}
   .principle::after{content:"";position:absolute;right:-50px;top:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%)}
   .principle .qm{font-family:'Fraunces',serif;font-size:2.4rem;line-height:.5;color:#C9A8EC;display:block;margin-bottom:6px}
   .principle p{font-family:'Fraunces',serif;font-weight:500;font-size:1.26rem;line-height:1.35;color:#fff;margin:0;position:relative}
 
-  /* ── Role panels ── */
   .duo{display:flex;flex-wrap:wrap;gap:16px;margin-top:8px}
   .panel{flex:1 1 320px;border-radius:16px;padding:22px;background:var(--card);border:1px solid var(--line);box-shadow:0 1px 2px rgba(31,26,38,.04)}
   .panel .ph{display:flex;align-items:center;gap:10px;margin-bottom:14px}
@@ -84,11 +78,9 @@
   .panel .item .mk{flex:0 0 auto;margin-top:1px;font-weight:700;color:var(--green)}
   .panel.no .item .mk{color:var(--muted)}
 
-  /* ── Incident ticket card ── */
   .icase{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-top:6px;box-shadow:0 2px 6px rgba(31,26,38,.06)}
   .icase + .icase{margin-top:20px}
 
-  /* ticket header */
   .tic-head{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:16px 22px;background:#1F1830;border-bottom:1px solid rgba(255,255,255,.06)}
   .tic-icon{flex:0 0 auto;width:38px;height:38px;border-radius:10px;display:grid;place-items:center}
   .tic-icon svg{width:20px;height:20px}
@@ -102,8 +94,8 @@
   .ttag{font-size:.7rem;font-weight:700;padding:4px 10px;border-radius:999px;letter-spacing:.2px}
   .ttag.open{background:rgba(46,125,87,.35);color:#7BE3A6;border:1px solid rgba(46,125,87,.3)}
   .ttag.time{background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.12)}
+  .ttag.pts{background:rgba(123,47,190,.35);color:#C9A8EC;border:1px solid rgba(123,47,190,.3)}
 
-  /* reported section */
   .tic-report{padding:18px 22px;border-bottom:1px solid var(--line);background:#FAF8FC}
   .tic-report .rtag{font-size:.68rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:7px}
   .tic-report .rtag::after{content:"";flex:1;height:1px;background:var(--line)}
@@ -111,11 +103,9 @@
   .ri{display:flex;gap:11px;align-items:flex-start;font-size:.97rem;color:var(--slate);line-height:1.5}
   .ri .ric{flex:0 0 auto;margin-top:4px;width:6px;height:6px;border-radius:50%;background:var(--purple);opacity:.6}
 
-  /* context strip */
   .tic-ctx{padding:12px 22px;background:var(--purple-soft);border-bottom:1px solid var(--purple-line);display:flex;align-items:flex-start;gap:10px;font-size:.93rem;color:var(--slate)}
   .tic-ctx svg{width:15px;height:15px;color:var(--purple-deep);flex:0 0 auto;margin-top:2px}
 
-  /* investigation area */
   .tic-invest{padding:20px 22px}
   .invest-label{font-size:.72rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:7px}
   .invest-label::after{content:"";flex:1;height:1px;background:var(--line)}
@@ -132,14 +122,40 @@
   .sevbtn[data-s="medium"].on{background:var(--amber-soft);border-color:var(--amber);color:var(--amber)}
   .sevbtn[data-s="high"].on{background:var(--red-soft);border-color:var(--red);color:var(--red)}
 
-  /* ── Deliverable form ── */
+  .compareRow{display:flex;justify-content:flex-end;margin-top:6px}
+  .cmpBtn{background:none;border:none;color:var(--purple-deep);font-family:'DM Sans',sans-serif;font-weight:700;font-size:.83rem;cursor:pointer;padding:5px 3px;display:inline-flex;align-items:center;gap:5px;opacity:.4;pointer-events:none;transition:opacity .15s}
+  .cmpBtn.ready{opacity:1;pointer-events:auto}
+  .cmpBtn:hover.ready{text-decoration:underline}
+  .cmpBtn svg{width:12px;height:12px}
+  .modelBox{display:none;margin-top:8px;background:var(--purple-soft);border:1px solid var(--purple-line);border-radius:12px;padding:13px 15px}
+  .modelBox.show{display:block}
+  .modelBox .ml{font-size:.68rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--purple-deep);margin-bottom:5px}
+  .modelBox p{font-size:.93rem;color:var(--ink);margin:0}
+
   .deliv{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin-top:16px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
   .deliv .dh{display:flex;align-items:center;gap:12px;margin-bottom:6px}
   .deliv .dn{flex:0 0 auto;width:32px;height:32px;border-radius:9px;background:var(--purple-soft);color:var(--purple-deep);font-family:'Fraunces',serif;font-weight:600;display:grid;place-items:center}
   .deliv h3{font-size:1.08rem;font-weight:700;color:var(--ink)}
   .deliv .dsub{font-size:.96rem;color:var(--muted);margin-bottom:14px}
 
-  /* ── Export bar ── */
+  .scoreCard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin-top:16px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .scoreHead{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;margin-bottom:4px}
+  .scoreTotal{font-family:'Fraunces',serif;font-weight:600;font-size:1.9rem;color:var(--purple-deep)}
+  .scoreTotal span{font-size:1rem;font-weight:500;color:var(--muted)}
+  .checkBtn{background:var(--purple);color:#fff;border:none;border-radius:11px;padding:13px 22px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;transition:transform .16s,box-shadow .16s}
+  .checkBtn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(123,47,190,.3)}
+  .checkBtn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+  .scoreRows{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+  .srow{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:13px 16px}
+  .srow .sic{flex:0 0 auto;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:.8rem;color:#fff;margin-top:1px}
+  .srow.full .sic{background:var(--green)}
+  .srow.part .sic{background:var(--amber)}
+  .srow.none .sic{background:var(--red)}
+  .srow .stitle{font-weight:700;color:var(--ink);font-size:.96rem;margin-bottom:3px}
+  .srow .snote{font-size:.9rem;color:var(--slate);line-height:1.5}
+  .srow .spts{margin-left:auto;font-weight:700;font-size:.85rem;color:var(--muted);white-space:nowrap;padding-left:10px}
+  .scoreNote{font-size:.88rem;color:var(--muted);margin-top:16px;line-height:1.5;border-top:1px solid var(--line);padding-top:14px}
+
   .exportbar{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
   .ebtn{flex:1 1 200px;display:flex;align-items:center;justify-content:center;gap:9px;padding:15px 18px;border-radius:13px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;border:1.5px solid var(--purple);transition:transform .16s,box-shadow .16s}
   .ebtn svg{width:18px;height:18px}
@@ -150,7 +166,6 @@
   .saved{font-size:.9rem;color:var(--green);font-weight:600;margin-top:10px;display:none;align-items:center;gap:7px}
   .saved.show{display:flex}
 
-  /* ── Closing ── */
   .closing{margin-top:8px;background:linear-gradient(155deg,#241834,#3A1C5C 55%,#5B1F92);color:#fff;border-radius:22px;padding:46px 42px;position:relative;overflow:hidden}
   .closing::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%)}
   .closing .eyebrow .num{background:rgba(255,255,255,.16)}
@@ -164,8 +179,8 @@
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
   .reveal.in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.dot{animation:none}}
-  @media(max-width:600px){body{padding:0 16px 70px}.closing{padding:34px 26px}.chips{width:100%;margin-left:0}.tic-head{gap:8px}.tic-tags{margin-left:0;width:100%}}
-  @media print{.opsbar,.exportbar,.closing,.dot{display:none!important}body{background:#fff}.reveal{opacity:1;transform:none}}
+  @media(max-width:600px){body{padding:0 16px 70px}.closing{padding:34px 26px}.chips{width:100%;margin-left:0}.tic-head{gap:8px}.tic-tags{margin-left:0;width:100%}.scoreHead{flex-direction:column;align-items:flex-start}}
+  @media print{.opsbar,.exportbar,.closing,.dot,.checkBtn,.cmpBtn{display:none!important}body{background:#fff}.reveal{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -190,7 +205,6 @@
     <p class="lede">Before AI analysis, diagnose the problem using your own reasoning. Three incidents are open on your queue — start working through them.</p>
   </header>
 
-  <!-- Role -->
   <section class="reveal">
     <div class="eyebrow"><span class="num">A</span><span class="lab">Your role</span></div>
     <h2>You are the analyst on these cases</h2>
@@ -218,13 +232,11 @@
     </div>
   </section>
 
-  <!-- The three incidents -->
   <section class="reveal">
     <div class="eyebrow"><span class="num">1</span><span class="lab">Open Incidents</span></div>
     <h2>Work through each case</h2>
-    <p class="lead-line">Read the report, fill in your investigation, and rate the severity. Take each one at its own pace.</p>
+    <p class="lead-line">Read the report, fill in your investigation, and rate the severity. Each severity call is worth 10 points against a recommended rating, with partial credit for a reasonable alternate — your written reasoning is what your instructor weighs most.</p>
 
-    <!-- CASE 1 — Performance -->
     <div class="icase case1">
       <div class="tic-head">
         <span class="tic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></span>
@@ -235,6 +247,7 @@
         <div class="tic-tags">
           <span class="ttag open">Open</span>
           <span class="ttag time">Opened 9:22 AM</span>
+          <span class="ttag pts">10 pts</span>
         </div>
       </div>
       <div class="tic-report">
@@ -263,19 +276,24 @@
         <div class="field-group">
           <label class="fl">What symptoms do you notice?</label>
           <textarea id="c1-symptoms" placeholder="Describe what's actually happening based on the report — what are users experiencing?"></textarea>
+          <div class="compareRow"><button class="cmpBtn" data-target="mc1s">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+          <div class="modelBox" id="mc1s"><div class="ml">Model answer</div><p>Pages that normally load in seconds now take up to a minute, dashboard updates aren't refreshing for some users, and menus feel sluggish. There are no error messages and the system hasn't crashed — everything still works, just slowly.</p></div>
         </div>
         <div class="field-group">
           <label class="fl">What might be causing this?</label>
           <textarea id="c1-causes" placeholder="What could explain slow performance? Think about what changed, what's different today, what might be putting pressure on the system..."></textarea>
+          <div class="compareRow"><button class="cmpBtn" data-target="mc1c">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+          <div class="modelBox" id="mc1c"><div class="ml">Model answer</div><p>This looks like a capacity issue rather than a bug. It's the last day of the reporting period, and the system has about 60 users logged in instead of its normal 40 — 50% more load than usual. More people doing more work at once likely explains the slowdown.</p></div>
         </div>
         <div class="field-group">
           <label class="fl">What else would help you understand this better?</label>
           <textarea id="c1-missing" placeholder="What information don't you have yet? What would you want to check or ask about before going further?"></textarea>
+          <div class="compareRow"><button class="cmpBtn" data-target="mc1m">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+          <div class="modelBox" id="mc1m"><div class="ml">Model answer</div><p>I'd want to know if the slowdown affects every user equally or worse for some, whether it clears up once the reporting deadline passes, and whether this happens every month-end or if today is unusual even for a high-traffic day.</p></div>
         </div>
       </div>
     </div>
 
-    <!-- CASE 2 — Login -->
     <div class="icase case2">
       <div class="tic-head">
         <span class="tic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
@@ -286,6 +304,7 @@
         <div class="tic-tags">
           <span class="ttag open">Open</span>
           <span class="ttag time">Opened 11:47 AM</span>
+          <span class="ttag pts">10 pts</span>
         </div>
       </div>
       <div class="tic-report">
@@ -314,19 +333,24 @@
         <div class="field-group">
           <label class="fl">What patterns do you notice?</label>
           <textarea id="c2-symptoms" placeholder="Who is affected? Who isn't? Is this happening to everyone or just some users? What's the pattern here?"></textarea>
+          <div class="compareRow"><button class="cmpBtn" data-target="mc2s">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+          <div class="modelBox" id="mc2s"><div class="ml">Model answer</div><p>Only three users are affected, and only on their first login attempt — the system itself is working fine for everyone else. One user needed five tries before getting in, and one gave up entirely. This looks isolated to specific accounts, not a system-wide outage.</p></div>
         </div>
         <div class="field-group">
           <label class="fl">What might explain this — user error, system issue, or something else?</label>
           <textarea id="c2-causes" placeholder="Could this be users not knowing about the new password rules? A system bug? A security concern? Walk through the possible explanations..."></textarea>
+          <div class="compareRow"><button class="cmpBtn" data-target="mc2c">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+          <div class="modelBox" id="mc2c"><div class="ml">Model answer</div><p>The most likely explanation is the new password rules that went live last week. If these three users didn't see or act on the email announcement, their old passwords may no longer meet the new requirements, causing rejected attempts. It doesn't look like a system bug since other users are logging in normally.</p></div>
         </div>
         <div class="field-group">
           <label class="fl">What else would help you understand this better?</label>
           <textarea id="c2-missing" placeholder="What would you want to check? Who would you talk to? What information is missing from this report?"></textarea>
+          <div class="compareRow"><button class="cmpBtn" data-target="mc2m">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+          <div class="modelBox" id="mc2m"><div class="ml">Model answer</div><p>I'd want to confirm whether these three users actually read the password-policy email, check if their passwords meet the new rules, and see if a password reset resolves it — that would confirm or rule out the policy change as the cause.</p></div>
         </div>
       </div>
     </div>
 
-    <!-- CASE 3 — Unknown -->
     <div class="icase case3">
       <div class="tic-head">
         <span class="tic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg></span>
@@ -337,6 +361,7 @@
         <div class="tic-tags">
           <span class="ttag open">Open</span>
           <span class="ttag time">Opened 2:35 PM</span>
+          <span class="ttag pts">10 pts</span>
         </div>
       </div>
       <div class="tic-report">
@@ -365,20 +390,38 @@
         <div class="field-group">
           <label class="fl">What stands out as unusual about this case?</label>
           <textarea id="c3-symptoms" placeholder="What's strange here? Why does it affect some users but not others? Why does it sometimes work and sometimes not?"></textarea>
+          <div class="compareRow"><button class="cmpBtn" data-target="mc3s">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+          <div class="modelBox" id="mc3s"><div class="ml">Model answer</div><p>The error is inconsistent — it happens to some users and not others doing the same task, and even for affected users it sometimes works on a retry. That on-and-off pattern usually points to something environmental, like permissions or configuration, rather than a broken feature.</p></div>
         </div>
         <div class="field-group">
           <label class="fl">What are your possible explanations?</label>
           <textarea id="c3-causes" placeholder="What could cause an inconsistent error like this? Think about what changed recently. Why might some accounts be affected and others not?"></textarea>
+          <div class="compareRow"><button class="cmpBtn" data-target="mc3c">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+          <div class="modelBox" id="mc3c"><div class="ml">Model answer</div><p>The folder reorganization two days ago is the most likely trigger. If some user accounts haven't had their permissions updated to the new folder locations yet, they'd get save errors — while accounts already updated would work fine. That would explain why it's inconsistent between users.</p></div>
         </div>
         <div class="field-group">
           <label class="fl">What information is missing — and what would you need to figure this out?</label>
           <textarea id="c3-missing" placeholder="This case is messier than the others. What do you still not know? What would help you narrow down the cause?"></textarea>
+          <div class="compareRow"><button class="cmpBtn" data-target="mc3m">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+          <div class="modelBox" id="mc3m"><div class="ml">Model answer</div><p>I'd want a list of which accounts have and haven't been updated with new folder permissions, and whether the affected users all use the same folder that moved. That would help confirm whether this is a permissions rollout gap rather than something else.</p></div>
         </div>
       </div>
     </div>
+
+    <div class="scoreCard">
+      <div class="scoreHead">
+        <div>
+          <div class="stitle" style="font-size:1.1rem;margin-bottom:2px">Check your severity ratings</div>
+          <div class="snote" style="color:var(--muted)">Rate all three cases above, then check your score against the recommended severity for each.</div>
+        </div>
+        <button class="checkBtn" id="checkSev" disabled>Check My Ratings</button>
+      </div>
+      <div class="scoreRows" id="scoreRows" style="display:none"></div>
+      <div class="scoreTotal" id="scoreTotal" style="display:none;margin-top:16px">0<span> / 30 points</span></div>
+      <div class="scoreNote">Scoring reflects a recommended severity, not the only defensible one — a well-reasoned alternate still earns partial credit. Your written reasoning is graded separately by your instructor.</div>
+    </div>
   </section>
 
-  <!-- Deliverable -->
   <section class="reveal">
     <div class="eyebrow"><span class="num">2</span><span class="lab">Your report</span></div>
     <h2>Initial System Diagnosis Report</h2>
@@ -388,18 +431,24 @@
       <div class="dh"><span class="dn">→</span><h3>Overall: which case concerns you the most — and why?</h3></div>
       <div class="dsub">Looking at all three together, which one feels most urgent or hardest to explain?</div>
       <textarea id="d-priority" placeholder="Out of the three cases, the one I'd focus on first is... because..."></textarea>
+      <div class="compareRow"><button class="cmpBtn" data-target="mPriority">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+      <div class="modelBox" id="mPriority"><div class="ml">Model answer</div><p>Case 2 concerns me the most right now, even though it's affecting the fewest people, because it involves account access — if it turns out not to be the password policy, that's the kind of issue that could grow quickly. Case 3 is the hardest to explain, but the likely cause (folder permissions) feels more contained.</p></div>
     </div>
 
     <div class="deliv">
       <div class="dh"><span class="dn">→</span><h3>Is anything connecting these three cases?</h3></div>
       <div class="dsub">Could any of them be related — or are they separate issues? Explain your thinking.</div>
       <textarea id="d-connection" placeholder="These cases seem connected / unrelated because... If they are related, the link might be..."></textarea>
+      <div class="compareRow"><button class="cmpBtn" data-target="mConnection">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+      <div class="modelBox" id="mConnection"><div class="ml">Model answer</div><p>These three look unrelated — they involve different systems (a government portal, hospital records logins, and a school district's file storage) and have different likely causes (capacity, password policy, and permissions). I don't see a shared root cause; they just happened to open on the same day.</p></div>
     </div>
 
     <div class="deliv">
       <div class="dh"><span class="dn">→</span><h3>What would you want to check first before resolving any of these?</h3></div>
       <div class="dsub">If you had five minutes before the end of your shift, where would you look?</div>
       <textarea id="d-next" placeholder="Before doing anything else, I'd want to check..."></textarea>
+      <div class="compareRow"><button class="cmpBtn" data-target="mNext">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+      <div class="modelBox" id="mNext"><div class="ml">Model answer</div><p>Before anything else, I'd check whether the three login-locked users in Case 2 actually got the password policy email, and check the permission list for Case 3 to see which accounts still need updating. Both are quick checks that could confirm or rule out my leading explanation.</p></div>
     </div>
 
     <div class="exportbar">
@@ -409,7 +458,6 @@
     <div class="saved" id="saved"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Your diagnosis report has been saved.</div>
   </section>
 
-  <!-- Transition to Phase B -->
   <section class="reveal">
     <div class="closing">
       <div class="eyebrow"><span class="num">→</span><span class="lab">Next: Phase B</span></div>
@@ -425,17 +473,76 @@
 <script>
   const sevState = {c1:'',c2:'',c3:''};
 
+  const recommended = {
+    c1: { best:'medium', partial:['low'],
+      why:"Recommended: Medium. This is explainable by predictable load (60 users vs. a normal 40 on reporting-deadline day), so Low earns partial credit — but it's still affecting everyone's ability to work today and shouldn't be waved off entirely." },
+    c2: { best:'medium', partial:['low'],
+      why:"Recommended: Medium. A likely known cause (the new password policy) makes Low a defensible partial-credit call — but three staff locked out of hospital records systems is still worth prompt attention, not a shrug." },
+    c3: { best:'medium', partial:['high'],
+      why:"Recommended: Medium. The likely cause (an incomplete permissions rollout) is mundane, but failed saves risk real lost work, so treating it as High earns partial credit — Low would understate the risk." }
+  };
+
+  const cases=[
+    {id:'c1',title:'Case 1 — System Running Slowly'},
+    {id:'c2',title:'Case 2 — Users Cannot Log In Properly'},
+    {id:'c3',title:'Case 3 — Strange Behavior, No Clear Cause'}
+  ];
+
+  const checkBtn = document.getElementById('checkSev');
+  function allChosen(){ return cases.every(c => sevState[c.id]); }
+  function updateCheckBtn(){ checkBtn.disabled = !allChosen(); }
+
   document.querySelectorAll('.sevbtn').forEach(b=>{
     b.addEventListener('click',()=>{
       sevState[b.dataset.case]=b.dataset.s;
       b.closest('.sev-row').querySelectorAll('.sevbtn').forEach(x=>x.classList.remove('on'));
       b.classList.add('on');
+      updateCheckBtn();
+    });
+  });
+
+  checkBtn.addEventListener('click', ()=>{
+    const rowsEl = document.getElementById('scoreRows');
+    const totalEl = document.getElementById('scoreTotal');
+    rowsEl.innerHTML='';
+    let total = 0;
+    cases.forEach(c=>{
+      const chosen = sevState[c.id];
+      const rec = recommended[c.id];
+      let pts, cls, icon;
+      if(chosen === rec.best){ pts=10; cls='full'; icon='✓'; }
+      else if(rec.partial.includes(chosen)){ pts=5; cls='part'; icon='½'; }
+      else { pts=0; cls='none'; icon='✕'; }
+      total += pts;
+      const row = document.createElement('div');
+      row.className = 'srow '+cls;
+      row.innerHTML = '<div class="sic">'+icon+'</div><div style="flex:1"><div class="stitle">'+c.title+' — you chose '+chosen.toUpperCase()+'</div><div class="snote">'+rec.why+'</div></div><div class="spts">'+pts+' / 10</div>';
+      rowsEl.appendChild(row);
+    });
+    rowsEl.style.display='flex';
+    totalEl.style.display='block';
+    totalEl.innerHTML = total+'<span> / 30 points</span>';
+  });
+
+  document.querySelectorAll('.cmpBtn').forEach(btn=>{
+    const targetId = btn.dataset.target;
+    const box = document.getElementById(targetId);
+    const scope = btn.closest('.field-group') || btn.closest('.deliv');
+    const ta = scope ? scope.querySelector('textarea') : null;
+    function refresh(){
+      if(ta && ta.value.trim().length >= 15){ btn.classList.add('ready'); }
+      else { btn.classList.remove('ready'); box.classList.remove('show'); }
+    }
+    if(ta){ ta.addEventListener('input', refresh); refresh(); }
+    btn.addEventListener('click', ()=>{
+      if(!btn.classList.contains('ready')) return;
+      box.classList.toggle('show');
     });
   });
 
   function val(id){ const el=document.getElementById(id); return el?el.value.trim():''; }
 
-  const cases=[
+  const caseFields=[
     {id:'c1',label:'Case 1 — System Running Slowly (INC-0241)',
      fields:[['Symptoms noted','c1-symptoms'],['Possible causes','c1-causes'],['Missing information','c1-missing']]},
     {id:'c2',label:'Case 2 — Users Cannot Log In Properly (INC-0242)',
@@ -444,18 +551,35 @@
      fields:[['What stands out','c3-symptoms'],['Possible explanations','c3-causes'],['Missing information','c3-missing']]}
   ];
 
+  function scoreSummaryText(){
+    let out='';
+    let total=0;
+    cases.forEach(c=>{
+      const chosen = sevState[c.id];
+      const rec = recommended[c.id];
+      let pts=0;
+      if(chosen===rec.best) pts=10; else if(rec.partial.includes(chosen)) pts=5;
+      total+=pts;
+      out += c.title+': rated '+(chosen?chosen.toUpperCase():'(not rated)')+' — '+pts+'/10 pts\n';
+    });
+    out += 'Severity score: '+total+' / 30\n';
+    return out;
+  }
+
   function buildReport(){
     let out='SENTINEL TECHNICAL SUPPORT & OPERATIONS CENTER\n';
     out+='Initial System Diagnosis Report — Phase A\n';
     out+='Level 1 IT Support & Systems Analyst\n';
     out+='Generated: '+new Date().toLocaleString()+'\n';
-    cases.forEach(c=>{
+    caseFields.forEach(c=>{
       out+='\n========================================\n'+c.label+'\n========================================\n';
       out+='Severity: '+(sevState[c.id]?sevState[c.id].toUpperCase():'(not selected)')+'\n';
       c.fields.forEach(([label,id])=>{
         out+='\n'+label+':\n'+(val(id)||'(not answered)')+'\n';
       });
     });
+    out+='\n========================================\nSEVERITY SCORING\n========================================\n';
+    out+=scoreSummaryText();
     out+='\n========================================\nSYNTHESIS\n========================================\n';
     out+='\nMost urgent case & reasoning:\n'+(val('d-priority')||'(not answered)')+'\n';
     out+='\nConnections between cases:\n'+(val('d-connection')||'(not answered)')+'\n';
