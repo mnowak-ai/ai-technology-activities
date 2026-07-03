@@ -59,7 +59,6 @@
   .principle .qm{font-family:'Fraunces',serif;font-size:2.4rem;line-height:.5;color:#C9A8EC;display:block;margin-bottom:6px}
   .principle p{font-family:'Fraunces',serif;font-weight:500;font-size:1.26rem;line-height:1.35;color:#fff;margin:0;position:relative}
 
-  /* Decision reference cards */
   .dref{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
   .drc{flex:1 1 200px;border-radius:14px;padding:18px;border:1px solid var(--line);background:var(--card);position:relative;overflow:hidden}
   .drc::before{content:"";position:absolute;top:0;left:0;right:0;height:4px}
@@ -70,7 +69,6 @@
   .drc.ap .dl{color:var(--green)} .drc.rv .dl{color:var(--amber)} .drc.rj .dl{color:var(--red)}
   .drc p{font-size:.9rem;margin:0;line-height:1.5}
 
-  /* Criteria row */
   .criteria{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
   .crit-row{display:flex;align-items:center;gap:10px;background:#FAF8FC;border:1px solid var(--line);border-radius:11px;padding:10px 13px}
   .crit-label{font-weight:600;font-size:.94rem;color:var(--ink);flex:1 1 auto}
@@ -81,7 +79,6 @@
   .critbtn[data-v="good"].on{background:var(--green-soft);border-color:var(--green);color:var(--green)}
   .critbtn[data-v="needs"].on{background:var(--amber-soft);border-color:var(--amber);color:var(--amber)}
 
-  /* Package review cards */
   .pkg{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-top:18px;box-shadow:0 2px 6px rgba(31,26,38,.05);transition:border-color .3s}
   .pkg.decided-approve{border-color:var(--green-line)}
   .pkg.decided-revise{border-color:var(--amber-line)}
@@ -102,7 +99,6 @@
   .pkg-status.rv-done{background:rgba(178,106,0,.35);color:#F5C776;border:1px solid rgba(178,106,0,.3)}
   .pkg-status.rj-done{background:rgba(181,43,39,.35);color:#F5A3A0;border:1px solid rgba(181,43,39,.3)}
 
-  /* package contents strip */
   .pkg-contents{padding:12px 22px;background:#FAF8FC;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px}
   .pct{display:inline-flex;align-items:center;gap:6px;font-size:.82rem;font-weight:600;color:var(--slate);background:#fff;border:1px solid var(--line);border-radius:8px;padding:5px 10px}
   .pct svg{width:13px;height:13px}
@@ -112,7 +108,6 @@
   .eval-label{font-size:.72rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:7px}
   .eval-label::after{content:"";flex:1;height:1px;background:var(--line)}
 
-  /* decision buttons */
   .dec-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
   .decbtn{flex:1 1 100px;border:1.5px solid var(--line);background:#fff;border-radius:11px;padding:11px 8px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.92rem;color:var(--slate);cursor:pointer;transition:all .18s;text-align:center}
   .decbtn:hover{border-color:var(--purple-line)}
@@ -127,7 +122,37 @@
   .revision-field{display:none;margin-top:14px}
   .revision-field.show{display:block}
 
-  /* Reflection questions */
+  .compareRow{display:flex;justify-content:flex-end;margin-top:6px}
+  .cmpBtn{background:none;border:none;color:var(--purple-deep);font-family:'DM Sans',sans-serif;font-weight:700;font-size:.83rem;cursor:pointer;padding:5px 3px;display:inline-flex;align-items:center;gap:5px;opacity:.4;pointer-events:none;transition:opacity .15s}
+  .cmpBtn.ready{opacity:1;pointer-events:auto}
+  .cmpBtn:hover.ready{text-decoration:underline}
+  .cmpBtn svg{width:12px;height:12px}
+  .modelBox{display:none;margin-top:8px;background:var(--purple-soft);border:1px solid var(--purple-line);border-radius:12px;padding:13px 15px}
+  .modelBox.show{display:block}
+  .modelBox .ml{font-size:.68rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--purple-deep);margin-bottom:5px}
+  .modelBox p{font-size:.93rem;color:var(--ink);margin:0}
+
+  /* Auditor's checklist */
+  .audit{margin-top:20px;border-top:1px dashed var(--line);padding-top:18px}
+  .auditToggle{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;border:1.5px solid var(--purple);background:#fff;color:var(--purple-deep);border-radius:12px;padding:12px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.92rem;cursor:pointer;transition:all .16s}
+  .auditToggle:hover:not(:disabled){background:var(--purple-soft)}
+  .auditToggle svg{width:15px;height:15px}
+  .auditToggle:disabled{border-color:var(--line);color:var(--muted);cursor:not-allowed;background:#FAF8FC}
+  .auditLockNote{font-size:.82rem;color:var(--muted);text-align:center;margin-top:8px}
+  .auditPanel{display:none;margin-top:14px}
+  .auditPanel.show{display:block}
+  .auditNote{background:var(--purple-soft);border:1px solid var(--purple-line);border-radius:12px;padding:14px 16px;margin-bottom:14px}
+  .auditNote .al{font-size:.68rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--purple-deep);margin-bottom:6px}
+  .auditNote p{font-size:.92rem;color:var(--ink);margin:0}
+  .auditItem{display:flex;align-items:flex-start;gap:10px;padding:11px 13px;border:1px solid var(--line);border-radius:11px;margin-bottom:8px;background:#fff}
+  .auditItem:last-child{margin-bottom:0}
+  .auditText{flex:1 1 auto;font-size:.92rem;color:var(--slate);line-height:1.5;padding-top:2px}
+  .auditBtns{display:flex;gap:6px;flex:0 0 auto}
+  .abtn{border:1.5px solid var(--line);background:#fff;border-radius:8px;padding:6px 11px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.8rem;color:var(--slate);cursor:pointer;transition:all .15s;white-space:nowrap}
+  .abtn[data-v="caught"].on{background:var(--green-soft);border-color:var(--green);color:var(--green)}
+  .abtn[data-v="missed"].on{background:var(--red-soft);border-color:var(--red);color:var(--red)}
+  .auditScore{font-size:.85rem;font-weight:700;color:var(--purple-deep);margin-top:10px;text-align:right}
+
   .tqs{display:flex;flex-direction:column;gap:10px;margin:16px 0}
   .tq{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 17px}
   .tq .tc{flex:0 0 auto;width:32px;height:32px;border-radius:9px;display:grid;place-items:center}
@@ -139,14 +164,12 @@
   .tq .ttext{font-size:.99rem;color:var(--ink);font-weight:500;line-height:1.5}
   .tq .tsub{font-size:.91rem;color:var(--muted);margin-top:2px}
 
-  /* Deliverable */
   .deliv{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;margin-top:16px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
   .deliv .dh{display:flex;align-items:center;gap:12px;margin-bottom:6px}
   .deliv .dn{flex:0 0 auto;width:32px;height:32px;border-radius:9px;background:var(--purple-soft);color:var(--purple-deep);font-family:'Fraunces',serif;font-weight:600;display:grid;place-items:center}
   .deliv h3{font-size:1.06rem;font-weight:700;color:var(--ink)}
   .deliv .dsub{font-size:.95rem;color:var(--muted);margin-bottom:14px}
 
-  /* approval summary table */
   .approval-summary{background:#FAF8FC;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:6px}
   .as-row{display:flex;align-items:center;gap:12px;padding:13px 16px;border-top:1px solid var(--line)}
   .as-row:first-child{border-top:none}
@@ -159,6 +182,20 @@
   .as-badge.rj{background:var(--red-soft);color:var(--red);border:1px solid var(--red-line)}
   .as-badge.nd{background:#F0EEF6;color:var(--muted);border:1px solid var(--line)}
 
+  /* Reviewer calibration scorecard */
+  .scoreCard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin-top:16px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .scoreHead{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+  .scoreTotal{font-family:'Fraunces',serif;font-weight:600;font-size:1.9rem;color:var(--purple-deep)}
+  .scoreTotal span{font-size:1rem;font-weight:500;color:var(--muted)}
+  .checkBtn{background:var(--purple);color:#fff;border:none;border-radius:11px;padding:13px 22px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;transition:transform .16s,box-shadow .16s}
+  .checkBtn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(123,47,190,.3)}
+  .scoreRows{display:flex;flex-direction:column;gap:9px;margin-top:18px}
+  .srow{display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+  .srow .stitle{font-weight:700;color:var(--ink);font-size:.94rem}
+  .srow .snote{font-size:.87rem;color:var(--slate)}
+  .srow .spts{margin-left:auto;font-weight:700;font-size:.88rem;color:var(--purple-deep);white-space:nowrap;padding-left:10px}
+  .scoreNote{font-size:.88rem;color:var(--muted);margin-top:16px;line-height:1.5;border-top:1px solid var(--line);padding-top:14px}
+
   .exportbar{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
   .ebtn{flex:1 1 200px;display:flex;align-items:center;justify-content:center;gap:9px;padding:15px 18px;border-radius:13px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;border:1.5px solid var(--purple);transition:transform .16s,box-shadow .16s}
   .ebtn svg{width:18px;height:18px}
@@ -169,7 +206,6 @@
   .saved{font-size:.9rem;color:var(--green);font-weight:600;margin-top:10px;display:none;align-items:center;gap:7px}
   .saved.show{display:flex}
 
-  /* Closing */
   .closing{margin-top:8px;background:linear-gradient(155deg,#241834,#3A1C5C 55%,#5B1F92);color:#fff;border-radius:22px;padding:48px 42px;position:relative;overflow:hidden}
   .closing::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%)}
   .badge{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:14px;padding:12px 18px;margin-bottom:24px;position:relative}
@@ -187,8 +223,8 @@
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
   .reveal.in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.dot{animation:none}}
-  @media(max-width:600px){body{padding:0 16px 70px}.closing{padding:34px 26px}.chips{width:100%;margin-left:0}.pkg-head{gap:8px}.pkg-status{margin-left:0;width:100%}.crit-row{flex-wrap:wrap}}
-  @media print{.opsbar,.exportbar,.closing{display:none!important}body{background:#fff}.reveal{opacity:1;transform:none}}
+  @media(max-width:600px){body{padding:0 16px 70px}.closing{padding:34px 26px}.chips{width:100%;margin-left:0}.pkg-head{gap:8px}.pkg-status{margin-left:0;width:100%}.crit-row{flex-wrap:wrap}.scoreHead{flex-direction:column;align-items:flex-start}}
+  @media print{.opsbar,.exportbar,.closing,.cmpBtn,.auditToggle,.checkBtn{display:none!important}body{background:#fff}.reveal{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -213,7 +249,6 @@
     <p class="lede">You are the final gatekeeper. Three documentation packages are waiting for your review. What you approve becomes official company knowledge — used by teams across the organization during real incidents.</p>
   </header>
 
-  <!-- Role -->
   <section class="reveal">
     <div class="eyebrow"><span class="num">C</span><span class="lab">Your responsibility</span></div>
     <h2>You are not writing anymore — you are deciding</h2>
@@ -225,11 +260,10 @@
     </div>
   </section>
 
-  <!-- Decision framework -->
   <section class="reveal">
     <div class="eyebrow"><span class="num">1</span><span class="lab">Your tools</span></div>
     <h2>Three decisions, four criteria</h2>
-    <p class="lead-line">You'll evaluate each documentation package against four criteria, then make one approval decision. Keep both in mind as you review.</p>
+    <p class="lead-line">You'll evaluate each documentation package against four criteria, then make one approval decision. Keep both in mind as you review. After each decision, you can reveal a model reviewer's notes to self-check your work against what an experienced reviewer would look for.</p>
     <div class="dref">
       <div class="drc ap"><div class="dl"><span class="dot2"></span>Approve</div><p>Ready for organization-wide use. Every statement is accurate, uncertainty is honest, and another team can act on it.</p></div>
       <div class="drc rv"><div class="dl"><span class="dot2"></span>Revise</div><p>The right information is there, but something needs fixing — a correction, a clarification, or a removal — before it goes out.</p></div>
@@ -246,11 +280,10 @@
     </div>
   </section>
 
-  <!-- Package reviews -->
   <section class="reveal">
     <div class="eyebrow"><span class="num">2</span><span class="lab">Review each package</span></div>
     <h2>Evaluate and decide</h2>
-    <p class="lead-line">Work through each documentation package. Rate each criterion, make your decision, and explain your reasoning. The package status will update as you decide.</p>
+    <p class="lead-line">Work through each documentation package. Rate each criterion, make your decision, and explain your reasoning. The package status will update as you decide. At the bottom of each package, check your reasoning against a model reviewer's notes.</p>
 
     <!-- Package 1 -->
     <div class="pkg p1" id="pkg1">
@@ -283,9 +316,28 @@
         </div>
         <label class="fl">Explain your decision — what works and what doesn't?</label>
         <textarea id="p1-reason" placeholder="This package is ready / not ready because... The incident report accurately captures the uncertainty around the cause... The SOP could mislead someone because..."></textarea>
+        <div class="compareRow"><button class="cmpBtn" data-target="mP1Reason">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+        <div class="modelBox" id="mP1Reason"><div class="ml">Model answer</div><p>A strong reasoning either approves with a brief note that the cause remains "likely" rather than confirmed, or calls for revision only if the documents state the cause as certain. Given this incident is low-stakes and already resolved on its own, Reject would be an overreaction — the real bar to clear is honesty about uncertainty, not perfection.</p></div>
+
         <div class="revision-field" id="p1-rev">
           <label class="fl mt">What specifically needs to be revised before this can be approved?</label>
           <textarea id="p1-revnotes" placeholder="The SOP Step 3 should be removed because it assumes the cause was confirmed... The knowledge base entry needs to add the word 'possible' before 'overload'..."></textarea>
+          <div class="compareRow"><button class="cmpBtn" data-target="mP1Rev">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+          <div class="modelBox" id="mP1Rev"><div class="ml">Model answer</div><p>If revising, be specific: name the exact sentence or step that overstates certainty, and propose replacement wording — for example, swapping "the update caused the outage" for "the update is the likely cause, unconfirmed."</p></div>
+        </div>
+
+        <div class="audit">
+          <button class="auditToggle" data-pkg="p1" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> Reveal model reviewer's notes &amp; self-audit</button>
+          <div class="auditLockNote" id="auditLock-p1">Make your decision and write your reasoning above to unlock</div>
+          <div class="auditPanel" id="auditPanel-p1">
+            <div class="auditNote"><div class="al">What an experienced reviewer checks for — INC-0241</div><p>This is the lowest-stakes package of the three: a resolved, explainable slowdown. A careful reviewer isn't hunting for danger here — they're checking that the documentation stays honest about what wasn't confirmed, and doesn't drift into false certainty just because AI writes confidently.</p></div>
+            <div class="auditItem" data-item="0"><span class="auditText">Did you check whether the cause is worded as "likely," not "confirmed"?</span><div class="auditBtns"><button class="abtn" data-v="caught">I caught this</button><button class="abtn" data-v="missed">I missed this</button></div></div>
+            <div class="auditItem" data-item="1"><span class="auditText">Did you check that the reporting-deadline context (not just "the system was slow") is preserved?</span><div class="auditBtns"><button class="abtn" data-v="caught">I caught this</button><button class="abtn" data-v="missed">I missed this</button></div></div>
+            <div class="auditItem" data-item="2"><span class="auditText">Did you check for invented details — numbers, names, or specifics not in the original Phase A notes?</span><div class="auditBtns"><button class="abtn" data-v="caught">I caught this</button><button class="abtn" data-v="missed">I missed this</button></div></div>
+            <div class="auditItem" data-item="3"><span class="auditText">Did you check that the SOP doesn't require information nobody actually confirmed?</span><div class="auditBtns"><button class="abtn" data-v="caught">I caught this</button><button class="abtn" data-v="missed">I missed this</button></div></div>
+            <div class="auditItem" data-item="4"><span class="auditText">Did your decision match the real severity — avoiding Reject for a low-risk, already-resolved incident?</span><div class="auditBtns"><button class="abtn" data-v="caught">I caught this</button><button class="abtn" data-v="missed">I missed this</button></div></div>
+            <div class="auditScore" id="auditScore-p1">0 / 5 self-checked</div>
+          </div>
         </div>
       </div>
     </div>
@@ -321,9 +373,28 @@
         </div>
         <label class="fl">Explain your decision — what works and what doesn't?</label>
         <textarea id="p2-reason" placeholder="This package is ready / not ready because... The login SOP is practical and actionable... The incident report may still describe the cause as confirmed when it was only a possibility..."></textarea>
+        <div class="compareRow"><button class="cmpBtn" data-target="mP2Reason">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+        <div class="modelBox" id="mP2Reason"><div class="ml">Model answer</div><p>Because this touches a hospital records system, a strong reasoning checks specifically for language like "security concern" or "breach" stated without qualification — that alone justifies Revise even if everything else is well-written. The underlying cause (a password policy communication gap) is mundane, but overstated risk language here could trigger unnecessary alarm or the wrong response from other teams.</p></div>
+
         <div class="revision-field" id="p2-rev">
           <label class="fl mt">What specifically needs to be revised before this can be approved?</label>
           <textarea id="p2-revnotes" placeholder="The word 'breach' should be removed entirely — there was no confirmed security incident... The knowledge base entry needs to clarify that the cause was likely, not confirmed..."></textarea>
+          <div class="compareRow"><button class="cmpBtn" data-target="mP2Rev">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+          <div class="modelBox" id="mP2Rev"><div class="ml">Model answer</div><p>If revising, name any word implying a confirmed security issue — "breach," "unauthorized access," "attack" — and specify it should be replaced with neutral language reflecting the likely password-policy explanation instead.</p></div>
+        </div>
+
+        <div class="audit">
+          <button class="auditToggle" data-pkg="p2" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> Reveal model reviewer's notes &amp; self-audit</button>
+          <div class="auditLockNote" id="auditLock-p2">Make your decision and write your reasoning above to unlock</div>
+          <div class="auditPanel" id="auditPanel-p2">
+            <div class="auditNote"><div class="al">What an experienced reviewer checks for — INC-0242</div><p>This is the highest-stakes package: a hospital system, and AI's first instinct in Phase B likely leaned toward security-flag language. A careful reviewer's top priority here is making sure no word overstates a confirmed threat that was never actually confirmed.</p></div>
+            <div class="auditItem" data-item="0"><span class="auditText">Did you scan specifically for "breach," "attack," or "unauthorized access" stated as fact?</span><div class="auditBtns"><button class="abtn" data-v="caught">I caught this</button><button class="abtn" data-v="missed">I missed this</button></div></div>
+            <div class="auditItem" data-item="1"><span class="auditText">Did you check that the password-policy explanation is framed as likely, not certain?</span><div class="auditBtns"><button class="abtn" data-v="caught">I caught this</button><button class="abtn" data-v="missed">I missed this</button></div></div>
+            <div class="auditItem" data-item="2"><span class="auditText">Did you check the SOP doesn't default to treating this as a security incident?</span><div class="auditBtns"><button class="abtn" data-v="caught">I caught this</button><button class="abtn" data-v="missed">I missed this</button></div></div>
+            <div class="auditItem" data-item="3"><span class="auditText">Did you weigh the hospital setting specifically — would alarming language here cause outsized harm?</span><div class="auditBtns"><button class="abtn" data-v="caught">I caught this</button><button class="abtn" data-v="missed">I missed this</button></div></div>
+            <div class="auditItem" data-item="4"><span class="auditText">Did you still credit usefulness fairly — real users were blocked, so this needs to stay actionable, not just "safe"?</span><div class="auditBtns"><button class="abtn" data-v="caught">I caught this</button><button class="abtn" data-v="missed">I missed this</button></div></div>
+            <div class="auditScore" id="auditScore-p2">0 / 5 self-checked</div>
+          </div>
         </div>
       </div>
     </div>
@@ -359,15 +430,33 @@
         </div>
         <label class="fl">Explain your decision — what works and what doesn't?</label>
         <textarea id="p3-reason" placeholder="This package is the hardest to approve because the cause was never confirmed... The SOP is risky if it tells teams to take steps based on an unproven explanation... The knowledge base entry must be honest that this is still an open question..."></textarea>
+        <div class="compareRow"><button class="cmpBtn" data-target="mP3Reason">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+        <div class="modelBox" id="mP3Reason"><div class="ml">Model answer</div><p>This package deserves different scrutiny than the other two — the root cause here was genuinely never confirmed, so the bar isn't just "is this accurate," it's "does this admit what it doesn't know." An SOP step that reads like a confirmed fix — such as "restore folder permissions" — needs to be softened into a verification step. This is the package most likely to need Revise, not because the writing is bad, but because the underlying situation is still open.</p></div>
+
         <div class="revision-field" id="p3-rev">
           <label class="fl mt">What specifically needs to be revised before this can be approved?</label>
           <textarea id="p3-revnotes" placeholder="The SOP should not include a step to 'restore folder permissions' as if this is a confirmed fix — it should say 'check whether permissions were affected'..."></textarea>
+          <div class="compareRow"><button class="cmpBtn" data-target="mP3Rev">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+          <div class="modelBox" id="mP3Rev"><div class="ml">Model answer</div><p>If revising, flag any SOP step framed as a fix rather than a check, and note that the incident report and knowledge base entry should both plainly state this issue was stabilized, not resolved, and the cause remains unconfirmed.</p></div>
+        </div>
+
+        <div class="audit">
+          <button class="auditToggle" data-pkg="p3" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> Reveal model reviewer's notes &amp; self-audit</button>
+          <div class="auditLockNote" id="auditLock-p3">Make your decision and write your reasoning above to unlock</div>
+          <div class="auditPanel" id="auditPanel-p3">
+            <div class="auditNote"><div class="al">What an experienced reviewer checks for — INC-0243</div><p>This is the only package where the underlying cause was never confirmed at all — not "likely known," but genuinely still open. A careful reviewer treats confident-sounding language here as the single biggest red flag, more than in either of the other two packages.</p></div>
+            <div class="auditItem" data-item="0"><span class="auditText">Did you check that the documentation is explicit the root cause was never confirmed?</span><div class="auditBtns"><button class="abtn" data-v="caught">I caught this</button><button class="abtn" data-v="missed">I missed this</button></div></div>
+            <div class="auditItem" data-item="1"><span class="auditText">Did you check for any SOP step framed as a fix (e.g., "restore permissions") rather than a check?</span><div class="auditBtns"><button class="abtn" data-v="caught">I caught this</button><button class="abtn" data-v="missed">I missed this</button></div></div>
+            <div class="auditItem" data-item="2"><span class="auditText">If you rated Accuracy "Good," did you confirm it explicitly reflects the unresolved status — not just clean writing?</span><div class="auditBtns"><button class="abtn" data-v="caught">I caught this</button><button class="abtn" data-v="missed">I missed this</button></div></div>
+            <div class="auditItem" data-item="3"><span class="auditText">Did you check the knowledge base entry doesn't say "resolved" when it only "stabilized"?</span><div class="auditBtns"><button class="abtn" data-v="caught">I caught this</button><button class="abtn" data-v="missed">I missed this</button></div></div>
+            <div class="auditItem" data-item="4"><span class="auditText">If you chose Approve, did you reconsider whether an unqualified Approve fits a genuinely unresolved incident?</span><div class="auditBtns"><button class="abtn" data-v="caught">I caught this</button><button class="abtn" data-v="missed">I missed this</button></div></div>
+            <div class="auditScore" id="auditScore-p3">0 / 5 self-checked</div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Reflection -->
   <section class="reveal">
     <div class="eyebrow"><span class="num">3</span><span class="lab">Think deeper</span></div>
     <h2>The weight of documentation decisions</h2>
@@ -379,9 +468,10 @@
       <div class="tq t4"><div class="tc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 1 5 5v3M7 7v3a5 5 0 0 0 10 0V7M12 20v-6M8 20h8"/></svg></div><div><div class="ttext">Why is human approval still necessary even when AI has already reviewed the documentation?</div><div class="tsub">What can a human reviewer catch that AI cannot — especially for incidents where the cause wasn't confirmed?</div></div></div>
     </div>
     <textarea id="reflection" placeholder="The risk I hadn't thought about before was... A wrong SOP could lead to... The most important thing a human reviewer catches that AI misses is..."></textarea>
+    <div class="compareRow"><button class="cmpBtn" data-target="mReflection">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+    <div class="modelBox" id="mReflection"><div class="ml">Model answer</div><p>The biggest risk in approving a mistake is that another team acts on it as settled fact — escalating unnecessarily on Package 2, or applying a "fix" on Package 3 that doesn't actually address the real, unknown cause. A human reviewer catches context AI doesn't have — knowing a hospital setting warrants careful language, or that "stabilized" and "resolved" aren't the same thing. AI can check internal consistency, but only a human knows what's actually still uncertain in the real world.</p></div>
   </section>
 
-  <!-- Final deliverable -->
   <section class="reveal">
     <div class="eyebrow"><span class="num">4</span><span class="lab">Official record</span></div>
     <h2>Sentinel Knowledge Approval Report</h2>
@@ -394,16 +484,33 @@
       <div class="as-row i3c"><span class="as-num">3</span><span class="as-title">Unexpected System Behavior (INC-0243)</span><span class="as-badge nd" id="ab3">Not decided</span></div>
     </div>
 
+    <div class="scoreCard">
+      <div class="scoreHead">
+        <div>
+          <div style="font-weight:700;font-size:1.1rem;margin-bottom:2px">Reviewer calibration score</div>
+          <div style="font-size:.9rem;color:var(--muted)">How thoroughly you audited your own reasoning against a model reviewer, across all three packages.</div>
+        </div>
+        <button class="checkBtn" id="tallyBtn">Tally My Score</button>
+      </div>
+      <div class="scoreRows" id="scoreRows" style="display:none"></div>
+      <div class="scoreTotal" id="scoreTotal" style="display:none;margin-top:16px">0<span> / 30 points</span></div>
+      <div class="scoreNote">This score reflects completion and self-audit thoroughness, not whether your Approve/Revise/Reject calls were "correct" — since that depends on the actual wording of your own AI-generated documents. Your instructor reviews your reasoning and revision notes directly.</div>
+    </div>
+
     <div class="deliv" style="margin-top:20px">
       <div class="dh"><span class="dn">→</span><h3>Finalized knowledge summary</h3></div>
       <div class="dsub">Write the final version of what will officially be shared with Sentinel teams. This is the actual content going into the knowledge system — accurate, honest, and ready to use.</div>
       <textarea id="final-summary" style="min-height:110px" placeholder="The following documentation has been approved for organization-wide use at Sentinel...&#10;&#10;For the System Performance Slowdown: ...&#10;For Login & Access Issues: ...&#10;For Unexpected System Behavior: ..."></textarea>
+      <div class="compareRow"><button class="cmpBtn" data-target="mFinalSummary">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+      <div class="modelBox" id="mFinalSummary"><div class="ml">Model answer</div><p>Example structure: "The following documentation has been approved for organization-wide use, pending the noted revisions. System Performance Slowdown (INC-0241): approved, cause noted as likely and unconfirmed. Login & Access Issues (INC-0242): approved pending revision — remove language suggesting a confirmed security breach. Unexpected System Behavior (INC-0243): approved as monitoring guidance only — the cause remains unconfirmed and the SOP is framed as verification steps, not a fix."</p></div>
     </div>
 
     <div class="deliv">
       <div class="dh"><span class="dn">→</span><h3>Improvement recommendations</h3></div>
       <div class="dsub">Based on what you reviewed — what would make Sentinel's documentation process better? And how could AI be used more responsibly in Phase B?</div>
       <textarea id="recommendations" placeholder="One thing that would improve documentation quality across Sentinel is... For Phase B, AI should be prompted to clearly label anything uncertain... In the future, the approval step should also include..."></textarea>
+      <div class="compareRow"><button class="cmpBtn" data-target="mRecommend">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+      <div class="modelBox" id="mRecommend"><div class="ml">Model answer</div><p>One improvement: require every AI-generated draft to explicitly separate "confirmed facts" from "likely explanations" in its own section, so reviewers aren't hunting for buried certainty language. For Phase B, prompts to AI should explicitly instruct it to preserve uncertainty markers from the original notes rather than smoothing them into confident-sounding statements.</p></div>
     </div>
 
     <div class="exportbar">
@@ -413,7 +520,6 @@
     <div class="saved" id="saved"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Approval report saved.</div>
   </section>
 
-  <!-- Module 3 Complete -->
   <section class="reveal">
     <div class="closing">
       <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg><div><div class="bt">Module 3 Complete</div><div class="bs">Sentinel Knowledge Operations · Documentation Governance</div></div></div>
@@ -430,6 +536,7 @@
 <script>
   const critState = {};
   const decState = {p1:'', p2:'', p3:''};
+  const auditState = {p1:[null,null,null,null,null], p2:[null,null,null,null,null], p3:[null,null,null,null,null]};
 
   const statusMap = {
     approve:{chip:'ap-done', label:'Approved', badge:'ap', badgeLabel:'Approved', pkgClass:'decided-approve'},
@@ -457,22 +564,117 @@
       b.closest('.dec-row').querySelectorAll('.decbtn').forEach(x=>x.classList.remove('on'));
       b.classList.add('on');
       const m=statusMap[d];
-      // header chip
       const chip=document.getElementById(psIds[pkg]);
       chip.className='pkg-status '+m.chip; chip.textContent=m.label;
-      // package border
       const pkgEl=document.getElementById(pkgIds[pkg]);
       pkgEl.className=pkgEl.className.replace(/decided-\S+/g,'').trim()+' '+m.pkgClass;
-      // summary badge
       const ab=document.getElementById(abIds[pkg]);
       ab.className='as-badge '+m.badge; ab.textContent=m.badgeLabel;
-      // show/hide revision field
       const revField=document.getElementById(pkg+'-rev');
       if(revField) revField.classList.toggle('show', d==='revise');
+      updateAuditLock(pkg);
+    });
+  });
+
+  /* Auditor's checklist: locked until a decision is made AND reasoning is written */
+  function updateAuditLock(pkg){
+    const reasonTa = document.getElementById(pkg+'-reason');
+    const ready = !!decState[pkg] && reasonTa && reasonTa.value.trim().length >= 15;
+    const toggleBtn = document.querySelector('.auditToggle[data-pkg="'+pkg+'"]');
+    const lockNote = document.getElementById('auditLock-'+pkg);
+    if(toggleBtn){ toggleBtn.disabled = !ready; }
+    if(lockNote){ lockNote.style.display = ready ? 'none' : 'block'; }
+    if(!ready){
+      const panel=document.getElementById('auditPanel-'+pkg);
+      if(panel) panel.classList.remove('show');
+    }
+  }
+  ['p1','p2','p3'].forEach(pkg=>{
+    const reasonTa = document.getElementById(pkg+'-reason');
+    if(reasonTa){ reasonTa.addEventListener('input', ()=>updateAuditLock(pkg)); }
+  });
+
+  document.querySelectorAll('.auditToggle').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      if(btn.disabled) return;
+      const panel=document.getElementById('auditPanel-'+btn.dataset.pkg);
+      panel.classList.toggle('show');
+    });
+  });
+
+  document.querySelectorAll('.auditItem').forEach(item=>{
+    const panel=item.closest('.auditPanel');
+    const pkg=panel.id.replace('auditPanel-','');
+    const idx=parseInt(item.dataset.item,10);
+    item.querySelectorAll('.abtn').forEach(b=>{
+      b.addEventListener('click',()=>{
+        auditState[pkg][idx]=b.dataset.v;
+        item.querySelectorAll('.abtn').forEach(x=>x.classList.remove('on'));
+        b.classList.add('on');
+        const caught=auditState[pkg].filter(v=>v==='caught').length;
+        document.getElementById('auditScore-'+pkg).textContent=caught+' / 5 self-checked';
+      });
     });
   });
 
   function val(id){ const el=document.getElementById(id); return el?el.value.trim():''; }
+
+  /* model-answer compare buttons */
+  document.querySelectorAll('.cmpBtn').forEach(btn=>{
+    const box=document.getElementById(btn.dataset.target);
+    let ta=null, c=btn.parentElement.previousElementSibling;
+    while(c){ if(c.tagName==='TEXTAREA'){ ta=c; break; } c=c.previousElementSibling; }
+    function refresh(){
+      if(ta && ta.value.trim().length>=15){ btn.classList.add('ready'); }
+      else { btn.classList.remove('ready'); box.classList.remove('show'); }
+    }
+    if(ta){ ta.addEventListener('input',refresh); refresh(); }
+    btn.addEventListener('click',()=>{
+      if(!btn.classList.contains('ready')) return;
+      box.classList.toggle('show');
+    });
+  });
+
+  /* Reviewer calibration scorecard:
+     - decision completion: 1 pt each x 3 = 3
+     - criteria completion: 1 pt each of 4 criteria x 3 packages = 12
+     - audit self-checks: 1 pt each of 5 items x 3 packages = 15
+     total = 30 */
+  function computeScore(){
+    const rows=[];
+    let total=0;
+    const pkgNames={p1:'Package 1 — Performance Slowdown',p2:'Package 2 — Login & Access',p3:'Package 3 — Unexpected Behavior'};
+    ['p1','p2','p3'].forEach(pkg=>{
+      const decided = decState[pkg] ? 1 : 0;
+      const crits=['clarity','accuracy','usefulness','simplicity'];
+      const critDone = crits.filter(c=>critState[pkg+'_'+c]).length;
+      const auditDone = auditState[pkg].filter(v=>v!==null).length;
+      const pts = decided + critDone + auditDone;
+      total += pts;
+      rows.push({
+        t: pkgNames[pkg],
+        n: 'Decision: '+(decided?'made':'not made')+' · Criteria rated: '+critDone+'/4 · Self-audit completed: '+auditDone+'/5',
+        p: pts+' / 10'
+      });
+    });
+    return {rows, total};
+  }
+
+  document.getElementById('tallyBtn').addEventListener('click',()=>{
+    const {rows,total}=computeScore();
+    const rowsEl=document.getElementById('scoreRows');
+    rowsEl.innerHTML='';
+    rows.forEach(r=>{
+      const div=document.createElement('div');
+      div.className='srow';
+      div.innerHTML='<div style="flex:1"><div class="stitle">'+r.t+'</div><div class="snote">'+r.n+'</div></div><div class="spts">'+r.p+'</div>';
+      rowsEl.appendChild(div);
+    });
+    rowsEl.style.display='flex';
+    const totalEl=document.getElementById('scoreTotal');
+    totalEl.style.display='block';
+    totalEl.innerHTML=total+'<span> / 30 points</span>';
+  });
 
   function critSummary(pkg){
     const crits=['clarity','accuracy','usefulness','simplicity'];
@@ -482,6 +684,12 @@
     }).join(' | ');
   }
 
+  function auditSummary(pkg){
+    const caught=auditState[pkg].filter(v=>v==='caught').length;
+    const done=auditState[pkg].filter(v=>v!==null).length;
+    return caught+' caught / '+done+' checked / 5 total';
+  }
+
   const packages=[
     {id:'p1',num:'1',label:'System Performance Slowdown (INC-0241)',reason:'p1-reason',rev:'p1-revnotes'},
     {id:'p2',num:'2',label:'Login & Access Issues (INC-0242)',reason:'p2-reason',rev:'p2-revnotes'},
@@ -489,10 +697,12 @@
   ];
 
   function buildReport(){
+    const {total}=computeScore();
     let out='SENTINEL KNOWLEDGE GOVERNANCE\n';
     out+='Knowledge Approval Report — Phase C\n';
     out+='Knowledge Operations Review Analyst\n';
     out+='Generated: '+new Date().toLocaleString()+'\n';
+    out+='\nReviewer calibration score: '+total+' / 30\n';
     packages.forEach(pkg=>{
       const d=decState[pkg.id];
       out+='\n========================================\n';
@@ -500,6 +710,7 @@
       out+='========================================\n';
       out+='Decision: '+(d?d.toUpperCase():'(not decided)')+'\n';
       out+='Criteria: '+critSummary(pkg.id)+'\n';
+      out+='Self-audit: '+auditSummary(pkg.id)+'\n';
       out+='\nReasoning:\n'+(val(pkg.reason)||'(not answered)')+'\n';
       if(d==='revise'){
         out+='\nRevision notes:\n'+(val(pkg.rev)||'(not answered)')+'\n';
