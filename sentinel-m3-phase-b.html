@@ -59,7 +59,6 @@
   .principle .qm{font-family:'Fraunces',serif;font-size:2.4rem;line-height:.5;color:#C9A8EC;display:block;margin-bottom:6px}
   .principle p{font-family:'Fraunces',serif;font-weight:500;font-size:1.26rem;line-height:1.35;color:#fff;margin:0;position:relative}
 
-  /* Input bay */
   .bay{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 1px 2px rgba(31,26,38,.04);margin-top:6px}
   .bay .bh{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 20px;background:#1F1830;flex-wrap:wrap;gap:8px}
   .bay .bn{display:flex;align-items:center;gap:9px;font-weight:700;font-size:.92rem;color:#fff}
@@ -73,7 +72,6 @@
   .copybay:hover{background:var(--purple-soft);border-color:var(--purple-line)}
   .copybay svg{width:14px;height:14px}
 
-  /* Phase A recap pills */
   .recaprow{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:14px}
   .rpill{flex:1 1 200px;display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:11px;padding:10px 13px;background:#FAF8FC;font-size:.92rem;color:var(--slate)}
   .rpill .ri{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;flex:0 0 auto}
@@ -83,8 +81,25 @@
   .rpill.r3 .ri{background:var(--purple-soft);color:var(--purple-deep)}
   .rpill b{color:var(--ink)}
 
-  /* Steps */
-  .flow{display:flex;flex-direction:column;gap:0;margin-top:8px}
+  /* AI tool launcher */
+  .toolrow{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+  .toolcard{flex:1 1 220px;display:flex;align-items:center;gap:13px;border-radius:15px;padding:16px 18px;text-decoration:none;border:1.5px solid var(--line);background:var(--card);transition:transform .16s,box-shadow .16s,border-color .16s;box-shadow:0 1px 2px rgba(31,26,38,.04)}
+  .toolcard:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(31,26,38,.09)}
+  .toolcard .tic{flex:0 0 auto;width:42px;height:42px;border-radius:11px;display:grid;place-items:center;color:#fff;font-family:'Fraunces',serif;font-weight:600;font-size:1.1rem}
+  .toolcard.gpt{border-color:#D7E3E8}
+  .toolcard.gpt .tic{background:linear-gradient(150deg,#10A37F,#0C7C61)}
+  .toolcard.claude{border-color:var(--purple-line)}
+  .toolcard.claude .tic{background:linear-gradient(150deg,var(--purple),var(--purple-deep))}
+  .toolcard.copilot{border-color:#CFE0F5}
+  .toolcard.copilot .tic{background:linear-gradient(150deg,#2E7BCE,#1E5A9E)}
+  .toolcard .tt{flex:1 1 auto}
+  .toolcard .tname{font-weight:700;color:var(--ink);font-size:.98rem;margin-bottom:1px}
+  .toolcard .tsub{font-size:.82rem;color:var(--muted)}
+  .toolcard .tgo{flex:0 0 auto;color:var(--muted)}
+  .toolcard .tgo svg{width:16px;height:16px}
+  .toolnote{font-size:.88rem;color:var(--muted);margin-top:10px}
+
+  .flow{display:flex;flex-direction:column;gap:0;margin-top:24px}
   .step{display:flex;gap:18px;position:relative;padding-bottom:20px}
   .step:last-child{padding-bottom:0}
   .step .rail{flex:0 0 auto;display:flex;flex-direction:column;align-items:center}
@@ -95,7 +110,6 @@
   .step h3{font-size:1.06rem;font-weight:700;color:var(--ink);margin-bottom:3px}
   .step p{font-size:1rem;margin:0}
 
-  /* Prompt box */
   .promptbox{background:#FAF6FD;border:1px solid var(--purple-line);border-radius:14px;padding:18px 20px;margin-top:14px}
   .promptbox .pl{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap;gap:8px}
   .promptbox .pl .tag{font-size:.7rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--purple-deep)}
@@ -103,7 +117,6 @@
   .promptbox .pcopy svg{width:13px;height:13px}
   .promptbox .ptext{font-family:'DM Mono',monospace;font-size:.88rem;line-height:1.65;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:10px;padding:15px}
 
-  /* Expected output cards */
   .outref{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
   .orc{flex:1 1 210px;border-radius:14px;padding:18px;border:1px solid var(--line);background:var(--card);position:relative;overflow:hidden}
   .orc::before{content:"";position:absolute;top:0;left:0;right:0;height:4px}
@@ -113,7 +126,6 @@
   .orc .os{font-size:.8rem;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
   .orc p{font-size:.91rem;margin:0;line-height:1.5}
 
-  /* AI panels */
   .duo{display:flex;flex-wrap:wrap;gap:16px;margin-top:8px}
   .panel{flex:1 1 300px;border-radius:16px;padding:22px;background:var(--card);border:1px solid var(--line);box-shadow:0 1px 2px rgba(31,26,38,.04)}
   .panel .ph{display:flex;align-items:center;gap:10px;margin-bottom:14px}
@@ -127,7 +139,6 @@
   .panel .item .mk{flex:0 0 auto;margin-top:1px;font-weight:700;color:var(--green)}
   .panel.no .item .mk{color:var(--amber)}
 
-  /* AI output paste areas */
   .outblock{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:16px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
   .outblock .oh{padding:13px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
   .outblock .oh .onum{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;font-weight:700;font-size:.88rem;color:#fff;flex:0 0 auto}
@@ -144,7 +155,16 @@
   textarea::placeholder{color:#B5AFC0}
   textarea.tall{min-height:130px}
 
-  /* Final deliverable */
+  .compareRow{display:flex;justify-content:flex-end;margin-top:6px}
+  .cmpBtn{background:none;border:none;color:var(--purple-deep);font-family:'DM Sans',sans-serif;font-weight:700;font-size:.83rem;cursor:pointer;padding:5px 3px;display:inline-flex;align-items:center;gap:5px;opacity:.4;pointer-events:none;transition:opacity .15s}
+  .cmpBtn.ready{opacity:1;pointer-events:auto}
+  .cmpBtn:hover.ready{text-decoration:underline}
+  .cmpBtn svg{width:12px;height:12px}
+  .modelBox{display:none;margin-top:8px;background:var(--purple-soft);border:1px solid var(--purple-line);border-radius:12px;padding:13px 15px}
+  .modelBox.show{display:block}
+  .modelBox .ml{font-size:.68rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--purple-deep);margin-bottom:5px}
+  .modelBox p{font-size:.93rem;color:var(--ink);margin:0}
+
   .delivblock{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:16px;box-shadow:0 1px 2px rgba(31,26,38,.04)}
   .delivblock .dh{padding:14px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
   .delivblock .dh .dn{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;flex:0 0 auto}
@@ -182,7 +202,7 @@
   .reveal.in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.dot{animation:none}}
   @media(max-width:600px){body{padding:0 16px 70px}.closing{padding:34px 26px}.chips{width:100%;margin-left:0}}
-  @media print{.opsbar,.exportbar,.closing,.cbtn,.copybay,.pcopy{display:none!important}body{background:#fff}.reveal{opacity:1;transform:none}}
+  @media print{.opsbar,.exportbar,.closing,.cbtn,.copybay,.pcopy,.toolrow,.cmpBtn{display:none!important}body{background:#fff}.reveal{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -207,7 +227,6 @@
     <p class="lede">Your Phase A documentation goes in. AI generates a report, an SOP, and a knowledge base entry. Then you decide what's accurate, what's wrong, and what the final version should say.</p>
   </header>
 
-  <!-- Intro -->
   <section class="reveal">
     <div class="eyebrow"><span class="num">B</span><span class="lab">What changes now</span></div>
     <h2>AI becomes your first draft writer</h2>
@@ -219,7 +238,6 @@
     </div>
   </section>
 
-  <!-- Step 1: Load Phase A documentation -->
   <section class="reveal">
     <div class="eyebrow"><span class="num">1</span><span class="lab">Your input</span></div>
     <h2>Start with your Phase A documentation</h2>
@@ -239,13 +257,32 @@
     </div>
   </section>
 
-  <!-- Step 2: Run through AI -->
   <section class="reveal">
     <div class="eyebrow"><span class="num">2</span><span class="lab">The workflow</span></div>
     <h2>Send it to an AI tool</h2>
-    <p class="lead-line">Open ChatGPT, Claude, or Microsoft Copilot and follow these steps. Use the prompt below exactly — it asks AI for all three document types in one request.</p>
+    <p class="lead-line">Pick a tool below to open it in a new tab, then follow the steps. Use the prompt below exactly — it asks AI for all three document types in one request.</p>
+
+    <div class="toolrow">
+      <a class="toolcard gpt" href="https://chatgpt.com" target="_blank" rel="noopener">
+        <span class="tic">G</span>
+        <span class="tt"><span class="tname">ChatGPT</span><span class="tsub">chatgpt.com</span></span>
+        <span class="tgo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg></span>
+      </a>
+      <a class="toolcard claude" href="https://claude.ai" target="_blank" rel="noopener">
+        <span class="tic">C</span>
+        <span class="tt"><span class="tname">Claude</span><span class="tsub">claude.ai</span></span>
+        <span class="tgo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg></span>
+      </a>
+      <a class="toolcard copilot" href="https://copilot.microsoft.com" target="_blank" rel="noopener">
+        <span class="tic">M</span>
+        <span class="tt"><span class="tname">Microsoft Copilot</span><span class="tsub">copilot.microsoft.com</span></span>
+        <span class="tgo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg></span>
+      </a>
+    </div>
+    <div class="toolnote">Each opens in a new tab — your progress on this page won't be lost.</div>
+
     <div class="flow">
-      <div class="step"><div class="rail"><span class="bub">1</span><span class="line"></span></div><div class="body"><h3>Open your AI tool</h3><p>ChatGPT, Claude, or Microsoft Copilot — any of these will work.</p></div></div>
+      <div class="step"><div class="rail"><span class="bub">1</span><span class="line"></span></div><div class="body"><h3>Open your AI tool</h3><p>Use one of the buttons above, or any AI tool you prefer.</p></div></div>
       <div class="step"><div class="rail"><span class="bub">2</span><span class="line"></span></div><div class="body"><h3>Paste your Phase A notes</h3><p>Use the copy button above. Paste everything into the AI's message box.</p></div></div>
       <div class="step"><div class="rail"><span class="bub">3</span><span class="line"></span></div><div class="body"><h3>Send the prompt below</h3><p>Add the documentation prompt after your notes. Send it all in one message.</p></div></div>
       <div class="step"><div class="rail"><span class="bub">4</span></div><div class="body"><h3>Read everything carefully</h3><p>AI will generate three documents. Read each one before pasting it below.</p></div></div>
@@ -266,7 +303,6 @@
     </div>
   </section>
 
-  <!-- Step 3: What AI may do -->
   <section class="reveal">
     <div class="eyebrow"><span class="num">3</span><span class="lab">Before you read the output</span></div>
     <h2>What AI does with documentation — well, and not</h2>
@@ -293,49 +329,56 @@
     </div>
   </section>
 
-  <!-- Step 4: Review AI output -->
   <section class="reveal">
     <div class="eyebrow"><span class="num">4</span><span class="lab">Paste and review</span></div>
     <h2>Review each AI output</h2>
-    <p class="lead-line">Paste each document from the AI's response into the matching area below. Then answer the validation questions for each one.</p>
+    <p class="lead-line">Paste each document from the AI's response into the matching area below. Then answer the validation questions for each one — once you've written a real answer, you can compare it to a model response.</p>
 
-    <!-- Incident Report -->
     <div class="outblock ob-rpt">
       <div class="oh"><span class="onum">1</span><span class="ot">Incident Report</span><span class="os">— AI's formal summary of all three incidents</span></div>
       <div class="ob">
         <label class="fl">Paste the AI's incident report here</label>
         <textarea id="ai-rpt" class="tall" placeholder="Paste the full incident report the AI generated..."></textarea>
+
         <label class="fl mt">What did AI do well in this report?</label>
         <textarea id="ai-rpt-good" placeholder="The AI improved the structure by... It made the summary clearer by..."></textarea>
+        <div class="compareRow"><button class="cmpBtn" data-target="mGood">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+        <div class="modelBox" id="mGood"><div class="ml">Model answer</div><p>A strong response notes that the AI organized the notes into clear headed sections, added consistent formatting across all three incidents, and made the report easier to scan than the original raw notes.</p></div>
+
         <label class="fl mt">What did AI add, change, or get wrong — compared to your original Phase A notes?</label>
         <textarea id="ai-rpt-bad" placeholder="The AI stated that the cause was confirmed — but in my notes I said it was unclear... It added a detail about [X] that was never in the original documentation..."></textarea>
+        <div class="compareRow"><button class="cmpBtn" data-target="mBad">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+        <div class="modelBox" id="mBad"><div class="ml">Model answer</div><p>A strong response catches specific overreach — for example, if the AI states a cause as confirmed when the original notes said "likely but unconfirmed," or if it adds a detail (a number, a name, a location) that wasn't in the original documentation at all. Naming the exact sentence that oversteps is more useful than a general complaint.</p></div>
       </div>
     </div>
 
-    <!-- SOP -->
     <div class="outblock ob-sop">
       <div class="oh"><span class="onum">2</span><span class="ot">Standard Operating Procedure</span><span class="os">— AI's step-by-step handling guide</span></div>
       <div class="ob">
         <label class="fl">Paste the AI's SOP here</label>
         <textarea id="ai-sop" class="tall" placeholder="Paste the SOP the AI generated..."></textarea>
+
         <label class="fl mt">Are the steps in the SOP accurate — based on what you actually know happened?</label>
         <textarea id="ai-sop-check" placeholder="The steps for Case 1 look reasonable... But the SOP for Case 3 includes a step I'd never be able to do without more information... Step X assumes the cause was confirmed when it wasn't..."></textarea>
+        <div class="compareRow"><button class="cmpBtn" data-target="mSop">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+        <div class="modelBox" id="mSop"><div class="ml">Model answer</div><p>A strong response checks each step against what's actually known — flagging any step that assumes a confirmed cause, references a team or tool that was never mentioned, or gives an analyst instructions they couldn't realistically follow with the information on hand.</p></div>
       </div>
     </div>
 
-    <!-- Knowledge Base Entry -->
     <div class="outblock ob-kb">
       <div class="oh"><span class="onum">3</span><span class="ot">Knowledge Base Entry</span><span class="os">— AI's quick-reference summaries</span></div>
       <div class="ob">
         <label class="fl">Paste the AI's knowledge base entry here</label>
         <textarea id="ai-kb" class="tall" placeholder="Paste the knowledge base entry the AI generated..."></textarea>
+
         <label class="fl mt">Would these summaries be safe to publish to the whole Sentinel team — or do they need corrections first?</label>
         <textarea id="ai-kb-check" placeholder="The summary for Incident 2 could mislead a new analyst because it says the cause was a security issue — but we don't actually know that... Incident 1's summary is accurate and could be published as-is..."></textarea>
+        <div class="compareRow"><button class="cmpBtn" data-target="mKb">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+        <div class="modelBox" id="mKb"><div class="ml">Model answer</div><p>A strong response is specific about which entries are safe to publish as-is and which aren't — for example, flagging a knowledge base entry that states a security concern as fact when the original notes only considered it a possibility. Overconfident language in a KB entry misleads more people than the same overreach in an internal report.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- Final deliverable -->
   <section class="reveal">
     <div class="eyebrow"><span class="num">5</span><span class="lab">Final package</span></div>
     <h2>Sentinel AI-Enhanced Documentation Package</h2>
@@ -344,19 +387,28 @@
     <div class="delivblock db-rpt">
       <div class="dh"><span class="dn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></svg></span><div><div class="dt">Final Incident Report</div><div class="ds">Corrected + human-verified formal record</div></div></div>
       <div class="db"><div class="dsub">Rewrite or edit the AI's incident report so every statement is accurate, every uncertainty is honest, and no unsupported details remain.</div>
-      <textarea id="final-rpt" class="tall" placeholder="Final corrected incident report — covering all three incidents, accurate to your original Phase A notes..."></textarea></div>
+      <textarea id="final-rpt" class="tall" placeholder="Final corrected incident report — covering all three incidents, accurate to your original Phase A notes..."></textarea>
+      <div class="compareRow"><button class="cmpBtn" data-target="mFinalRpt">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+      <div class="modelBox" id="mFinalRpt"><div class="ml">Model answer</div><p>A strong final report keeps the AI's improved structure and formatting but restores every uncertainty the AI smoothed over — using language like "likely" or "not confirmed" wherever that matches the original Phase A notes, and removing any specific detail that wasn't in those notes.</p></div>
+      </div>
     </div>
 
     <div class="delivblock db-sop">
       <div class="dh"><span class="dn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span><div><div class="dt">Final SOP Document</div><div class="ds">Corrected step-by-step operational guide</div></div></div>
       <div class="db"><div class="dsub">Edit the AI's SOP so the steps reflect what an analyst could actually do — based on what you know, not what the AI assumed. Remove any steps that require information that isn't confirmed.</div>
-      <textarea id="final-sop" class="tall" placeholder="Final corrected SOP — step-by-step guidance for each incident type, with only confirmed information..."></textarea></div>
+      <textarea id="final-sop" class="tall" placeholder="Final corrected SOP — step-by-step guidance for each incident type, with only confirmed information..."></textarea>
+      <div class="compareRow"><button class="cmpBtn" data-target="mFinalSop">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+      <div class="modelBox" id="mFinalSop"><div class="ml">Model answer</div><p>A strong final SOP keeps only steps an analyst could actually execute with confirmed information — removing steps that assume an unconfirmed cause or reference resources that were never part of the original incident.</p></div>
+      </div>
     </div>
 
     <div class="delivblock db-kb">
       <div class="dh"><span class="dn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><div><div class="dt">Final Knowledge Base Entry</div><div class="ds">Corrected quick-reference summaries for all teams</div></div></div>
       <div class="db"><div class="dsub">Write the final version of each knowledge base summary — 2–3 sentences per incident, accurate, honest about uncertainty, and ready for any Sentinel team member to read.</div>
-      <textarea id="final-kb" placeholder="Final knowledge base entries — one per incident, safe to publish to the whole organization..."></textarea></div>
+      <textarea id="final-kb" placeholder="Final knowledge base entries — one per incident, safe to publish to the whole organization..."></textarea>
+      <div class="compareRow"><button class="cmpBtn" data-target="mFinalKb">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+      <div class="modelBox" id="mFinalKb"><div class="ml">Model answer</div><p>A strong final knowledge base entry is 2–3 honest sentences per incident that state what's known, name what's still uncertain, and avoid alarming language the original notes don't support.</p></div>
+      </div>
     </div>
 
     <div class="delivblock db-rev">
@@ -364,10 +416,19 @@
       <div class="db"><div class="dsub">Summarize what the AI got right, what it got wrong, what you had to remove, and what you had to add back in. This is your editorial record of the review process.</div>
       <label class="fl">What AI did well across all three documents</label>
       <textarea id="rev-good" placeholder="Overall, AI helped with... The formatting was much better after AI restructured it... The SOP for Case 1 was largely accurate..."></textarea>
+      <div class="compareRow"><button class="cmpBtn" data-target="mRevGood">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+      <div class="modelBox" id="mRevGood"><div class="ml">Model answer</div><p>A strong response credits AI for concrete wins — restructuring notes into readable sections, generating a first-draft SOP skeleton, and writing shorter KB language than the original notes — without overselling AI's contribution.</p></div>
+
       <label class="fl mt">What had to be corrected — and why</label>
       <textarea id="rev-fix" placeholder="The AI stated that the cause of the slowdown was 'system overload' as if it were confirmed — I changed this to 'likely related to high user volume' to match the original uncertainty... AI removed the detail about the password policy change not being communicated — I added it back because it's essential context..."></textarea>
+      <div class="compareRow"><button class="cmpBtn" data-target="mRevFix">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+      <div class="modelBox" id="mRevFix"><div class="ml">Model answer</div><p>A strong response lists specific fixes with before/after language — e.g., "AI wrote the slowdown cause as confirmed; I changed it to likely but unconfirmed to match Phase A" — rather than a vague "I fixed some things."</p></div>
+
       <label class="fl mt">What was removed entirely</label>
-      <textarea id="rev-removed" placeholder="I removed the escalation step in the SOP for Case 3 because it referred to a specific team that was never mentioned in the original notes..."></textarea></div>
+      <textarea id="rev-removed" placeholder="I removed the escalation step in the SOP for Case 3 because it referred to a specific team that was never mentioned in the original notes..."></textarea>
+      <div class="compareRow"><button class="cmpBtn" data-target="mRevRemoved">Compare to a model answer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+      <div class="modelBox" id="mRevRemoved"><div class="ml">Model answer</div><p>A strong response names exactly what was cut and why — for example, removing an escalation step that named a team never mentioned in the original notes, because acting on it could route the incident to the wrong place.</p></div>
+      </div>
     </div>
 
     <div class="exportbar">
@@ -377,7 +438,6 @@
     <div class="saved" id="saved"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Documentation package saved.</div>
   </section>
 
-  <!-- Transition -->
   <section class="reveal">
     <div class="closing">
       <div class="eyebrow"><span class="num">→</span><span class="lab">Next: Phase C</span></div>
@@ -407,11 +467,23 @@
     copyText(txt,e.currentTarget,'Copied — paste into your AI tool');
   });
   document.getElementById('copyPrompt').addEventListener('click',(e)=>{
-    copyText(val('promptText')||document.getElementById('promptText').textContent,e.currentTarget,'Prompt copied');
-  });
-  // fix: promptText is a div, not textarea
-  document.getElementById('copyPrompt').addEventListener('click',(e)=>{
     copyText(document.getElementById('promptText').innerText,e.currentTarget,'Prompt copied');
+  });
+
+  /* model-answer compare buttons */
+  document.querySelectorAll('.cmpBtn').forEach(btn=>{
+    const box=document.getElementById(btn.dataset.target);
+    let ta=null, c=btn.parentElement.previousElementSibling;
+    while(c){ if(c.tagName==='TEXTAREA'){ ta=c; break; } c=c.previousElementSibling; }
+    function refresh(){
+      if(ta && ta.value.trim().length>=15){ btn.classList.add('ready'); }
+      else { btn.classList.remove('ready'); box.classList.remove('show'); }
+    }
+    if(ta){ ta.addEventListener('input',refresh); refresh(); }
+    btn.addEventListener('click',()=>{
+      if(!btn.classList.contains('ready')) return;
+      box.classList.toggle('show');
+    });
   });
 
   function buildReport(){
